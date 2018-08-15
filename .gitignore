@@ -1,0 +1,7 @@
+# This is the exclusion file for git
+
+# Patterns for task juggler
+organisation/css
+organisation/icons
+organisation/scripts
+organisation/*.html

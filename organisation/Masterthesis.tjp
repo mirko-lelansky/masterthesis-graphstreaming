@@ -1,0 +1,275 @@
+project gsp "Evaluation aktueller Bibliotheken für Graph Stream Processing" 2018-07-30 -2019-01-30 {
+    currency "EUR"
+    timeformat "%d-%m-%Y"
+    timezone "Europe/Berlin"
+    workinghours mon - fri 9:00 - 12:00, 13:00 - 17:00
+    workinghours sat, sun off
+}
+
+resource ml "Mirko Lelansky" {
+    email "mlelansky@mail.de"
+    limits { dailymax 8h }
+}
+
+task ps "Projekt setup" {
+    depends !mls.st
+    allocate ml
+
+    task vcs "VCS-Repository erstellen" {
+        length 1d
+    }
+
+    task tmp "Projekttemplates anlegen" {
+        depends !vcs
+        length 1d
+    }
+}
+
+task str "Struktur der Thesis erstellen" {
+    depends !ps, !pv
+    length 3d
+}
+
+task li "Literatur" {
+    depends !ps.vcs
+    allocate ml
+
+    task lia "Literatur aufbereiten" {
+        length 3w
+    }
+
+    task lid "LaTeX Bibliotheksdatenbank anlegen" {
+        depends !lia
+        length 1d
+    }
+}
+
+task pv "Projektaufgabe verstehen" {
+    allocate ml
+    depends !ps.vcs
+
+    task ce "Kriterienkatalog erstellen" {
+        depends !!fb
+        length 3d
+    }
+
+    task exw "Expose schreiben" {
+        depends !ce
+        length 1w
+    }
+}
+
+task che "Kapitel schreiben: Einführung" {
+    allocate ml
+    depends !mls.fp
+    length 1w
+}
+
+task cht "Kapitel schreiben: Theorie" {
+    allocate ml
+    depends !mls.fp
+    length 3w
+}
+
+task chd "Kapitel schreiben: Design" {
+    allocate ml
+    depends !mls.ft, !pcd
+    length 4w
+}
+
+task chi "Kapitel schreiben: Implementierung" {
+    allocate ml
+    depends !mls.fd, !pie
+    length 3w
+}
+
+task chf "Kapitel schreiben: Ausblick" {
+    allocate ml
+    depends !chi
+    length 2d
+}
+
+task chs "Kapitel schreiben: Zusammenfassung" {
+    allocate ml
+    depends !chf
+    length 3d
+}
+
+task tch "Thesis korrigieren" {
+    allocate ml
+    depends !mls.ff
+
+    task tne "Kapitel lesen und Fehler notieren" {
+        length 3w
+    }
+
+    task te "Änderungen umsetzen" {
+        depends !tne
+        length 1w
+    }
+}
+
+task tr "Thesis ausliefern" {
+    allocate ml
+    depends !pre, !mls.fr
+
+    task tp "Thesis im Copy-Shop erstellen" {
+        length 3w
+    }
+
+    task cde "CDs erstellen" {
+        length 1w
+    }
+
+    task cdc "CD Cover erstellen" {
+        length 1w
+    }
+
+    task tw "Selbständigkeitserklärung unterschreiben" {
+        depends !tp
+        length 1d
+    }
+}
+
+task pp "Presentationsmaterial zusammenstellen" {
+    allocate ml
+    depends !mls.fd
+
+    task pfm "Material von den verschiedenen Quellen aufbereiten" {
+        length 3d
+    }
+
+    task pfe "Presentationsumgebung herausfinden" {
+        length 2d
+    }
+}
+
+task pc "Presentationsfolien erstellen" {
+    allocate ml
+    depends !pp
+    length 3w
+}
+
+task pch "Presentation korriegieren" {
+    allocate ml
+    depends !mls.ff
+
+    task pne "Folien durchführen und Fehler notieren" {
+        length 3w
+    }
+
+    task pe "Änderungen umsetzen" {
+        depends !pne
+        length 1w
+    }
+
+}
+
+task fb "Stream Graph Bibliotheken aufbereiten" {
+    allocate ml
+    depends !ps.vcs
+    length 2d
+}
+
+task pde "Beispiele definieren" {
+    allocate ml
+    depends !pv
+    length 1w
+}
+
+task pcd "Design für Beispiele entwickeln" {
+    allocate ml
+    depends !mls.fp
+    length 4w
+}
+
+task pie "Beispiele implementieren" {
+    allocate ml
+    depends !mls.ft
+    length 3w
+}
+
+task pre "Beispiele vorführen" {
+    allocate ml
+    depends !pie
+    length 1w
+}
+
+task usm "Update soziale Netzwerkzugänge" {
+    allocate ml
+
+    task uf "Facebook-Zugang aktuallisieren" {
+        length 2w
+    }
+
+    task ux "Xing-Zugang aktuallisieren" {
+        length 2w
+    }
+}
+
+task js "Jobsuche" {
+    allocate ml
+    depends !usm
+
+    task jsc "Anforderungen aufschreiben" {
+        length 2d
+    }
+
+    task jss "Job nach Anforderungen suchen" {
+        length 2w
+    }
+}
+
+task jh "Jobbewerbung" {
+    allocate ml
+    depends !js
+
+    task jhc "Bewerbungsunterlagen erstellen" {
+        length 2w
+    }
+
+    task jhch "Bewerbungen weiterverfolgen" {
+        depends !jhc
+        length 1d
+    }
+}
+
+task mls "Milestones" {
+
+    task st "Projekt start" {
+        start ${projectstart}
+    }
+
+    task fp "Plan und Expose vorstellen" {
+        depends !!pde, !!pv, !!str
+    }
+
+    task ft "Theorie fertig" {
+        depends !!che, !!cht, !!pcd
+    }
+
+    task fd "Design fertig" {
+        depends !!chd, !!pre
+    }
+
+    task ff "Finaleversion fertig" {
+        depends !!chs, !!pc
+    }
+
+    task fr "Druckversion fertig" {
+        depends !!tch
+    }
+
+    task end "Abgabe der Arbeit" {
+        maxend ${projectend}
+        depends !!tr
+    }
+
+}
+
+taskreport il "tasks" {
+    formats html
+    caption "Project tasks"
+    columns name, start, end, duration, chart
+    timeformat "%d-%m-%Y"
+}
