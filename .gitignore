@@ -5,3 +5,19 @@ organisation/css
 organisation/icons
 organisation/scripts
 organisation/*.html
+
+# Patterns for LaTeX
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+presentation/*.pdf
+thesis/*.pdf
+*.nav
+*.out
+*.run.xml
+*.snm
+*.toc

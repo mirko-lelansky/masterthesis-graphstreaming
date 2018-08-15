@@ -1,0 +1,29 @@
+\documentclass[a4paper, fontsize=11pt]{scrreprt}
+\usepackage{scrlayer-scrpage}
+\usepackage{mathtools}
+\usepackage{fontspec}
+\defaultfontfeatures{Ligatures=TeX, Scale=MatchLowercase}
+\newcommand{\euro}{€}
+\usepackage[usenames, dvipsnames]{xcolor}
+\usepackage{polyglossia}
+\setdefaultlanguage[spelling=new]{german}
+\setotherlanguage[variant=british]{english}
+\usepackage{csquotes}
+\renewcommand{\mkblockquote}[4]{\openautoquote#1\closeautoquote#2#4#3}
+\usepackage[backend=biber, style=iso-authoryear]{biblatex}
+\usepackage[section]{placeins}
+\usepackage{minted}
+\renewcommand{\listoflistingscaption}{Quellcodeverzeichnis}
+\usepackage{longtable, booktabs}
+\usepackage{graphicx, grffile}
+\usepackage[unicode=true]{hyperref}
+\usepackage[acronym, toc]{glossaries}
+\setlength{\parskip}{\medskipamount}
+\begin{document}
+\author{Mirko Lelansky}
+\title{Evaluation aktueller Bibliotheken für Stream Graph Processing}
+\date{30.07.2018}
+\maketitle
+\tableofcontents
+\clearpage
+\end{document}

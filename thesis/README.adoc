@@ -1,0 +1,29 @@
+= Masterthesis: Evaluation aktueller Bibliotheken für Stream Graph Processing
+
+What means graph stream processing. A stream is like an assembly line.
+A the start someone put the packages, at the end someone take the packages and
+in the middle someone make some operations on the package. A graph means in this
+context a dependency graph or a social-network graph. There a lots of algorithm
+that can be used with graphs but they work all on the hole graph. This is only
+practical for small or medium size graphs. Stream Graph Processing combines
+both worlds streaming and grpah processing. That means you get at realtime a
+sub graph or an change event for the processing. The goal is to answer questions
+of the sub graph and make with that information a backtracking of the hole graph.
+
+== Implementation
+
+=== Dependencies
+
+If you want to build the project you need a running LaTeX environment with
+LuaLaTeX and latexmk.
+
+=== Installation
+
+If you want to build the thesis run `latexmk main.tex`.
+
+== Contributing
+
+== License
+
+The project is licensed under the Apache 2 License -
+see the LICENSE.adoc file for details.
