@@ -132,5 +132,5 @@ verwendeten Compiler solange dieser die Sprache in Version x.y.z übersetzen kan
 
 [source,java]
 ----
-include::./code/WordcountApplication.java[]
+include::../material/code/WordcountApplication.java[]
 ----

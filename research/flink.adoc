@@ -13,7 +13,7 @@ wrapper of the Java API. The current version is 1.5.0.
 
 [#img-flink-components]
 .Flink Components
-image::./images/flink-stack-graphic.png[]
+image::../material/images/flink-stack-graphic.png[]
 
 The base concepts of Flink are streams and transformation operations on streams.
 A stream is an un bounded list of data records. A transformation operation takes
@@ -31,7 +31,7 @@ work.
 
 [#img-flink-overview]
 .Flink Overview
-image::./images/flink-home-graphic.png[]
+image::../material/images/flink-home-graphic.png[]
 
 == Application Development
 

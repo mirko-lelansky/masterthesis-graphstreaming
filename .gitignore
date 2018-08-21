@@ -21,3 +21,6 @@ thesis/*.pdf
 *.run.xml
 *.snm
 *.toc
+
+# Patterns for asciidoctor
+research/*.html
