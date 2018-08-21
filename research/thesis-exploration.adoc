@@ -1,0 +1,136 @@
+= Zusammenfassung der ersten Untersuchungsergebnisse
+:source-highlighter: coderay
+
+Ziel ist es die Masterthesis "Streaming Graph Analytics
+Framework Design" von János Dániel Bali zu analysieren und zu ermitteln, welche
+Veränderungen es in der Bibliothek "gelly-streaming" nach der Masterthesis
+gegeben hat.
+
+== Beschreibung der Situation
+
+In den letzten Jahren gab es zwei wichtige Strömungen BigData und Graphen. Bei
+BigData geht es darum große Datenmengen effizient zu verarbeiten. Im Allgemeinen
+sind dabei Datenmengen gemeint, welche sich nicht mehr auf einem einzelnen Rechner
+speicher lassen. Graphen sind eine Datenstruktur, welche aus Knoten und Kanten
+besteht und eine Kante jeweils zwei Knoten miteinander verbindet. Dadurch
+entstehen verschiedene Graphentypen. In relative kurzer Zeit wurde klar,
+dass viele Anwendungen eine große graphbasierte Datenstruktur aufweisen. Daraus
+folgte, dass man die entwickelten Methoden von BigData auch auf Graphen anwenden
+wollte.
+
+Nach einer kurzen Analysephase wurde entschieden die Streaming-Platform Apache
+Flink zu benutzen. Für diese wurde eine neue Bibliothek "gelly-streaming"
+entwickelt. Diese Bibliothek stellte die streaming Variante der Batch-Variante
+"gelly" dar, welche Graphen verarbeiten kann.
+
+== Situation der Bibliothek "gelly-streaming"
+
+Die initiale Variante der Bibliothek wurde für Apache Flink 1.0.x
+entwickelt. Dabei wurden die folgenden Algorithmen umgesetzt:
+
+* Connected Components
+* Bipartiteness Check
+* Window Triangle Count
+* Triangle Count Estimation
+* Weighted Matching
+* Continuous Degree Aggregate
+
+=== Änderungen seit der Masterthesis
+
+Seit der Masterthesis wurden drei wesentliche Veränderungen vorgenommen. Zuerst
+wurde der k-Spanner Algorithmus implementiert. Des Weiteren wurde in mehreren
+Stufen die Version von Flink auf die Version 1.2.0 erhöht. Abschließend wurde
+die Code-Qualität der Bibliothek durch mehrere Refactorings erhöht.
+
+=== Problem der Bibliothek
+
+Die Bibliothek ist noch im experimentellen Status, welches so auch in der
+Bibliotheksbeschreibung nachzulesen ist. Die letzte stabile Version von Flink
+ist 1.5.1. Da Flink nur die derzeit aktuelle und die vorherige Version Minor-Version
+mit Update zu versorgen, hat dies zur Folge, das die benutze Version 1.2.0 nicht
+mehr unterstützt wird: 
+
+[quote]
+____
+As of March 2017, the Flink community decided to support
+the current and previous minor release with bugfixes. If 1.2.x is the current
+release, 1.1.y is the previous minor supported release. Both versions will
+receive bugfixes for critical issues.
+____
+
+Des Weiteren scheint die gesamte Bibliothek inaktiv zu sein,
+siehe https://github.com/vasia/gelly-streaming/graphs/contributors[gelly-streaming Github Aktivität].
+Daraus geht hervor, dass die letzte größere Veränderung aus dem Jahre 2016 stammt.
+
+Auch ist die Struktur und die Dokumentation der Bibliothek nicht besonders gut,
+die Beispiele sind im Produktionscode enthalten und nicht in einem separaten
+Modul. Außerdem ist die Dokumentation der Beispiele schlecht. Im Grunde existieren
+zwei Beispielgruppen. Die erste Gruppe benutzt einen Beispieldatensatz. Das Problem
+dabei ist, dass der dazugehörige Link auf eine Liste mit CSV-Dateien zeigt. Diese
+werden jedoch nicht benutzt, sondern eine Text-Datei, welche aus einer oder
+mehreren CSV-Dateien erzeugt wird, welches jedoch nicht aus der Beschreibung
+hervorgeht. Die zweite Gruppe liest den Dateinahmen von der Konsole ein. Jedoch
+fehlt auch dort jegliche Beschreibung, wie die einzulesende Datei auszusehen hat.
+n der Bibliothek gibt es eine Klasse, welche einen Default-Graphen bereitgestellt.
+Diese Klasse benutzt jedoch schon die Datenstrukturen der Bibliothek und ist
+damit eigentlich unbrauchbar. Denn gerade am Anfang möchte man ja mit einem
+kleinen bekannten statischen Graphen beginnen, um zu kontrollieren, ob die
+Algorithmen auch die erwarteten Ergebnisse liefern, welches man manuell aus
+dem Anfangsgraphen ermittelt hat. In den Beispielen werden jedoch gleich beide
+Welten als gegeben vorausgesetzt. Anhand einer Liste von Kanten, welche den
+Stream repräsentieren ist es jedoch nicht ersichtlich ob:
+
+1. dies der vollständige Graph ist
+2. die Kanten nur für den Algorithmus so gewählt wurden 
+
+== Fragen und Probleme
+
+Ein Graph ist ja eine Datenstruktur aus Knoten und Kanten, allerdings stellt sich
+irgendwann die Frage, wie wird ein Graph physisch auf der Festplatte gespeichert?
+Die großen Firmen wie Facebook, Twitter und LinkedIn benutzen dabei jeweils eine
+eigene Implementierung, die auf einen relationalen Datenbankcluster und einem
+Cache-System beruht. Diese Frage ist wichtig, da die Algorithmen nur einen Teil
+der Verarbeitung darstellen. Die andere Seite ist die Benutzung von Connectoren,
+welche die Daten lesen und schreiben. Apache Flink liefert die folgenden
+Connectoren für folgende Programme aus:
+
+* Cassandra
+* Elasticsearch
+* Dateisystem
+* Kafka
+* RabbitMQ
+* Twitter
+
+Die Connectoren in Verbindung mit der physischen Speicherbarkeit, könnte zu einem
+Problem werden. Da jede Kante aus mindestens zwei Informationen besteht nämlich
+den Identifikatoren für die Knoten. Kafka, RabbitMQ, Dateisystem-Connectoren, ...
+produzieren jedoch einen Stream von Text. Dies hat zur Folge, dass jedes Programm
+einen Parser benötigt.
+
+Ein kleineres Problem ist, dass Flink das Konzept von generischen Typen nicht
+verstanden hat oder will. Das Ziel von generischen Typen ist es ja gerade, das
+man verschiedene Klassen, welche jedoch zu einer gemeinsamen Oberklasse gehören
+auch wie eine solche benutzen möchte. Dies ist bei Flink jedoch nur beschränkt
+möglich. Denn der normale Java-Compiler, ob vom JDK oder vom OpenJDK entfernt
+beim compilieren jegliche Informationen über die generischen Typen. Dies stört
+den Flink Ablauf, welcher diese Informationen warum auch immer benötigt.
+Dies hat zur Folge, dass man sein Programm entweder mit dem Eclipse-Compiler
+übersetzten muss oder auf dem Stream eine "return"-Methode mit
+einer Typ-Information aufrufen muss, welche nach dem compilieren noch vorhanden
+ist.
+
+Dieses Verhalten widerspricht meiner Meinung nach fundamentalen Paradigmen.
+In der heutigen Java-Programmierung sollte die Unterstützung von "Generics" zum
+Standard gehören, da diese mit Java 5(2004) eingeführt wurden und in Java derzeit
+das neue Module-System der neuste Hype ist. Selbst wenn man Java 8(2014) als
+LTS-Version benutzt sollte die Unterstützung von "Generics" selbst verständlich
+sein, eigentlich genauso wie Lambda-Ausdrücke. Ein Framework welches eine
+bestimmte Sprache benutzt, sollte unabhängig vom verwendeten Compiler funktionieren.
+Als Beispiel, wenn man ein Framework benutzt, welches eine Sprache in Version x.y.z
+benötigt sollte eigentlich jedes erzeugte Programm lauffähig sein unabhängig vom
+verwendeten Compiler solange dieser die Sprache in Version x.y.z übersetzen kann.
+
+[source,java]
+----
+include::./code/WordcountApplication.java[]
+----

@@ -1,0 +1,55 @@
+= https://flink.apache.org[Apache Flink]
+
+== Introduction
+
+Apache Flink is a distributed platform for batch and streaming processing.
+The core of Flink is the streaming engine which makes the processing. All APIs
+and libraries are build on top of the engine. The image <<#img-flink-components>>
+shows the architecture of Flink. Flink was developed by the TU Berlin in 2004
+and is now an Apache Project. Flink itself is developed in Java. That means a
+developer can write a flink application in Java, but on can
+write an application in Scala, because Flink has a Scala API, too, which is a
+wrapper of the Java API. The current version is 1.5.0.
+
+[#img-flink-components]
+.Flink Components
+image::./images/flink-stack-graphic.png[]
+
+The base concepts of Flink are streams and transformation operations on streams.
+A stream is an un bounded list of data records. A transformation operation takes
+one or more input streams, make some operations on them and write the results
+back to on ore more output streams. The image <<#img-flink-overview>> shows the
+flow of Flink. Because the processing engine is for streams all batch data are
+handled internally as streams. This transformation works because a batch data is
+a bounded stream. But it is important that on know the two different views,
+because operations are works different. Let see an example
+for that. The use of aggregating functions makes in streaming no sense, because
+you never know how much elemens was in the stream. If you want so solve this
+problem you need the help of windows that means you store all the incomming data
+between a time frame and then for this time frame the aggregating functions will
+work.
+
+[#img-flink-overview]
+.Flink Overview
+image::./images/flink-home-graphic.png[]
+
+== Application Development
+
+Apache Flink contains two data abstractions one for every programming model.
+The DataSet are for batch-programming and the DataStream are for
+stream-programming. These are for low level programming. The API which are built
+on top of these abstractions are for high level programming. Flink provides the
+following high level API:
+
+* Batch-Processing
+[horizontal]
+Flink-ML:: Machine-Learning
+Gelly:: Graph-Processing
+Table-API & SQL:: Database-Processing
+* Stream-Processing
+[horizontal]
+CEP:: Event-Processing
+Gelly-Streams:: Graph-Processing(experimental)
+Table-API & SQL:: Database-Processing
+
+== https://github.com/vasia/gelly-streaming[Gelly Streaming]

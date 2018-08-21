@@ -1,0 +1,29 @@
+= https://neo4j.org/developer/get-started[Neo4j - Documentation]
+
+== Introduction
+
+A graph database is a database to query, store the relationsships between data
+in the model. A normal database use a lot of JOIN operations at query time which
+consumes more and more time if the dataset increase. A graph database helps to
+save time, because relationsships are first class objects of the graph database.
+That means you can query a big group of relationsships on a huge dataset.
+Neo4j is the well known graph database.
+
+=== Structure of a graph database
+
+Every graph database contains a model the property graph model. A model contains
+two components a list of nodes which are the entities and a list of relationsships
+between the nodes. Nodes can have a list of attributes which are
+key-value-pairs and they are called properties. A node can have one ore more labels.
+A label is signals the role of the node. A relationship is a direct named
+connector between two nodes and can have a list of properties, too. That means if
+you delete one node all the relationsships where this node is the start or end
+node will be deleted, too.
+
+=== Neo4j
+
+Neo4j is the most important graph database which supports ACID like transactions.
+It is written in java and scala. The development started in 2003 and the first
+release was in 2007. Neo4j is a native graph database that means that the
+property model are used in the storage component. Non native systems or libraries
+use for example a normal relational database and build the graph in memory.
