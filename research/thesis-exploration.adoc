@@ -46,8 +46,8 @@ die Code-Qualität der Bibliothek durch mehrere Refactorings erhöht.
 
 Die Bibliothek ist noch im experimentellen Status, welches so auch in der
 Bibliotheksbeschreibung nachzulesen ist. Die letzte stabile Version von Flink
-ist 1.5.1. Da Flink nur die derzeit aktuelle und die vorherige Version Minor-Version
-mit Update zu versorgen, hat dies zur Folge, das die benutze Version 1.2.0 nicht
+ist 1.5.1. Da Flink nur die aktuelle und die vorherige Version Minor-Version
+mit Update versorgt, hat dies zur Folge, das die benutze Version 1.2.0 nicht
 mehr unterstützt wird: 
 
 [quote]
@@ -69,9 +69,9 @@ zwei Beispielgruppen. Die erste Gruppe benutzt einen Beispieldatensatz. Das Prob
 dabei ist, dass der dazugehörige Link auf eine Liste mit CSV-Dateien zeigt. Diese
 werden jedoch nicht benutzt, sondern eine Text-Datei, welche aus einer oder
 mehreren CSV-Dateien erzeugt wird, welches jedoch nicht aus der Beschreibung
-hervorgeht. Die zweite Gruppe liest den Dateinahmen von der Konsole ein. Jedoch
+hervorgeht. Die zweite Gruppe liest den Dateinamen von der Konsole ein. Jedoch
 fehlt auch dort jegliche Beschreibung, wie die einzulesende Datei auszusehen hat.
-n der Bibliothek gibt es eine Klasse, welche einen Default-Graphen bereitgestellt.
+In der Bibliothek gibt es eine Klasse, welche einen Default-Graphen bereitgestellt.
 Diese Klasse benutzt jedoch schon die Datenstrukturen der Bibliothek und ist
 damit eigentlich unbrauchbar. Denn gerade am Anfang möchte man ja mit einem
 kleinen bekannten statischen Graphen beginnen, um zu kontrollieren, ob die
