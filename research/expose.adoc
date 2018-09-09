@@ -1,0 +1,82 @@
+= Exposé (Evaluation aktueller Bibliotheken für Stream Graph Processing)
+
+In der Arbeit geht es darum die verschiedenen Bibliotheken hinsichtlich ihrer
+Funktionalität und Benutzbarkeit hin zu analysieren. Dabei werden zuerst die
+zwei Welten BigData und Graphen beschrieben. Anschließend wird auf die Verknüpfung
+von beiden Welten eingegangen. Dabei stellt man fest, dass der Batch-Bereich
+höher entwickelt ist als der Streaming-Bereich. Im Batch-Bereich gibt es je
+nach Umgebung verschiedene Bibliotheken, wie Gelly, GraphX, ... . Im Stream-Bereich
+gibt es hauptsächlich experimentelle Bibliotheken.  
+
+Dabei stellen sich folgende Fragen:
+
+* Welche aktuellen Bibliotheken gibt es? (gelly-streaming, graphstreaming-project, Gephi)
+* Worin unterscheiden sich diese Bibliotheken?
+* Welche aktuellen Probleme existieren? (Single-Pass, Multi-Pass)
+* Warum wird derzeit noch nicht viel in diese Richtung entwickelt/geforscht?
+
+
+Ziel der Arbeit ist dabei zuerst einen Kriterienkatalog zu erstellen mit dem die
+Bibliotheken dann verglichen werden. Anschließend wird die Funktionalität der
+einzelnen Bibliotheken exemplarisch durch Beispiele gezeigt. Dies hängt natürlich
+stark vom verwendeten Modell bzw. der API ab. Dies bedeuted, dass einfache 
+Algorithmen vermutlich mit allen Bibliotheken umzusetzen sind, bei komplexeren
+Problemen wird dies aber nicht mehr der Fall sein.
+
+In dieser werden die folgenden Informationen als Grundlage benutzt:
+
+* Informationen über Graph-Algorithmen
+* Streaming-Modelle
+* API Dokumentationen
+
+Die Beispiele werden dabei mit den Methoden der Softwareentwicklung erstellt.
+
+== Gliederung
+
+* Einleitung
+** Motivation
+** Ziel der Arbeit
+** Aufbau der Arbeit
+* Theorie
+** Vorstellung der Bibliotheken
+** Vorstellung der Streaming - Modelle
+** Vergleich der Bibliotheken anhand des Kriterienkataloges
+* Design
+* Implementierung
+* Zusammenfassung
+** Zusammenfassung der Ergebnisse
+** Ausblick auf die nächsten Schritte
+
+== Kriterienkatalog
+
+* unterstützende Algorithmen
+* existieren Generatoren für Graphen
+* Streaming-Modell
+* Verteilung auf verschiedene Knoten
+* (Performance)
+
+[bibliography]
+== Literatur
+
+- Janos Daniel Bali: Streaming Graph Analytics Framework Design
+- Marc Kaepke: Graphen im Big Data Umfeld
+- Gelly-Streaming API
+- Graphstreaming-Project API
+- Gephi API
+- Andrew McGregor: Graph Stream Algorithms
+- Andrea Ribichini: Streaming Algorithms for Graph Problems
+- Vasiliki Kalavri, ... : Streaming Graph Partitioning
+- (Vasiliki Kalavri: Performance Optimization Techniques and Tools for Distributed Graph Processing)
+
+== Meilensteine
+
+* 21.9 - Theorie fertig
+* 19.10 - Design fertig
+* 16.11 - finale Version fertig
+* 14.12 - Druckversion fertig
+* 30.1 - Abgabe der Arbeit
+
+== Probleme
+
+* als dritte Bibliothek wurde Gephi gewählt
+* mögliche Idee für ein Problem für den Prototypen
