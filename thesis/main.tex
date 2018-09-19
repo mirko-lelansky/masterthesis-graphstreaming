@@ -1,5 +1,7 @@
-\documentclass[a4paper, fontsize=11pt]{scrreprt}
+\documentclass[a4paper, fontsize=11pt, headsepline]{scrreprt}
 \usepackage{scrlayer-scrpage}
+\automark[chapter]{chapter}
+\pagestyle{plain}
 \usepackage{mathtools}
 \usepackage{fontspec}
 \defaultfontfeatures{Ligatures=TeX, Scale=MatchLowercase}
@@ -9,21 +11,47 @@
 \setdefaultlanguage[spelling=new]{german}
 \setotherlanguage[variant=british]{english}
 \usepackage{csquotes}
-\renewcommand{\mkblockquote}[4]{\openautoquote#1\closeautoquote#2#4#3}
 \usepackage[backend=biber, style=iso-authoryear]{biblatex}
 \usepackage[section]{placeins}
 \usepackage{minted}
 \renewcommand{\listoflistingscaption}{Quellcodeverzeichnis}
 \usepackage{longtable, booktabs}
 \usepackage{graphicx, grffile}
-\usepackage[unicode=true]{hyperref}
+\usepackage[pdftitle={Evaluation aktueller Bibliotheken für Stream Graph Processing},
+pdfauthor={Mirko Lelansky}, pdfkeywords={{Graph}, {Stream Processing}, {Integration}, {Apache Flink}},
+unicode=true, colorlinks=true, linkcolor=black, urlcolor=black]{hyperref}
 \usepackage[acronym, toc]{glossaries}
 \setlength{\parskip}{\medskipamount}
+%% Deutsche Kurzfassung und englisches Abstract auf eine Seite
+\renewenvironment{abstract}{
+    \begin{center}
+    \normalfont\sectfont\nobreak\abstractname
+    \end{center}
+}{
+    \par
+}
 \begin{document}
-\author{Mirko Lelansky}
-\title{Evaluation aktueller Bibliotheken für Stream Graph Processing}
-\date{30.07.2018}
-\maketitle
+\pagenumbering{roman}
+\include{pages/title}
+\include{pages/declaration}
+\include{pages/greeting}
+\include{pages/abstract}
 \tableofcontents
 \clearpage
+\pagenumbering{arabic}
+\pagestyle{scrheadings}
+\clearpairofpagestyles
+\ihead{\includegraphics[scale=0.25]{images/THB_Logo.pdf}}
+\ohead{\headmark}
+\cfoot[\pagemark]{\pagemark}
+%%\printglossary[type=acronym, title=Abkürzungsverzeichnis, toctitle=Abkürzungsverzeichnis]
+\include{pages/introduction}
+\include{pages/theorie}
+\include{pages/design}
+\include{pages/implementation}
+\include{pages/conclusion}
+%%\printglossary
+\listoffigures
+\listoflistings
+%%\printbibliography
 \end{document}

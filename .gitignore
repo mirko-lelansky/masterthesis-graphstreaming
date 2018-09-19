@@ -13,7 +13,9 @@ organisation/*.html
 *.blg
 *.fdb_latexmk
 *.fls
+*.lof
 *.log
+*.lol
 presentation/*.pdf
 thesis/*.pdf
 *.nav
