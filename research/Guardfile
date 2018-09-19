@@ -18,7 +18,11 @@ require 'asciidoctor'
 # and, you'll have to watch "config/Guardfile" instead of "Guardfile"
 
 # Example 1: Run a single command whenever a file is added
-run_asciidoctor = proc { |_, _, files| Asciidoctor.convert_file files, safe: 'unsafe' }
+run_asciidoctor = proc { |_, _, files| 
+    files.each { |f|
+        Asciidoctor.convert_file f, safe: 'unsafe' 
+    }
+}
 
 guard :yield, run_on_modifications: run_asciidoctor do
     watch(/.*.adoc/)
