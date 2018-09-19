@@ -1,3 +1,5 @@
+require 'asciidoctor'
+
 # A sample Guardfile
 # More info at https://github.com/guard/guard#readme
 
@@ -15,6 +17,9 @@
 #
 # and, you'll have to watch "config/Guardfile" instead of "Guardfile"
 
-guard 'rake', :task => 'build' do
-  watch(%r{.*.adoc})
+# Example 1: Run a single command whenever a file is added
+run_asciidoctor = proc { |_, _, files| Asciidoctor.convert_file files, safe: 'unsafe' }
+
+guard :yield, run_on_modifications: run_asciidoctor do
+    watch(/.*.adoc/)
 end

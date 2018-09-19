@@ -3,6 +3,6 @@
 source "https://rubygems.org"
 
 gem 'guard'
-gem 'guard-rake'
+gem 'guard-yield'
 gem 'asciidoctor'
 gem 'pygments.rb'
