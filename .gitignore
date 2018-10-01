@@ -7,6 +7,9 @@ organisation/scripts
 organisation/*.html
 
 # Patterns for LaTeX
+*.acn
+*.acr
+*.alg
 *.aux
 *.bak
 *.bbl
@@ -14,6 +17,10 @@ organisation/*.html
 *.blg
 *.fdb_latexmk
 *.fls
+*.glg
+*.glo
+*.gls
+*.ist
 *.lof
 *.log
 *.lol

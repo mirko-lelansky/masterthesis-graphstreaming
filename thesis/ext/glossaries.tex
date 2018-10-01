@@ -1,30 +1,41 @@
+\newglossaryentry{ACID}{name={Atomicity, Consistency, Isolation and Durability},
+description={ACID steht für Atomarität, Konsistenz, Isolation und
+Dauerhaftigkeit. Atomarität meint in diesem Zusammenhang, das eine Liste
+von Operationen entweder vollständig oder gar nicht durchgeführt wird. Konsistenz
+meint die Eigenschaft, dass die Datenbank sich nach einer Liste von Operationen
+wieder in einem konsistenten Zustand befindet, wenn sie voher sich in einem
+konsistenten Zustand befand. Isolation meint die Fähigkeit, das es keine
+unkontrollierten Operationen auf den Daten gibt durch zwei parallele Prozesse.
+Die Dauerhaftigkeit sagt aus, dass geschriebene Daten auch nach einem Ausfall
+des Systems noch dauerhaft vorhanden sind.}}
 \newacronym{API}{API}{Application Programming Interface}
+\newglossaryentry{BASE}{name={Basically Available, Soft State,
+Eventually Consistent}, description={BASE ist der Gegenpart zu \gls{ACID} für
+NoSql-Systeme. Bei BASE geht es darum die Konsistenz der Verfügbarkeit
+unterzuordnen, da es in verteilten Datenbanken nicht möglicht ist mit ACID die
+geforderte Verfügbarkeit zu gewährleisten. Ein System, das nach BASE arbeitet
+muss dabei immer die Verfügbarkeit vom \gls{CAP}-Theorem sicherstellen.
+Soft States bedeutet, dass sich verschiedene Versionen eines Datenbestandes auf
+dem einzelnen Knoten eines Clusters befinden können und nach einer gewissen Zeit
+auf allen Knoten die letzte Version vorhanden ist und das System sich dann
+wieder im Hard State befindet. Eventually Consistent meint, dass das System
+nach einer gewissen Zeit sich wieder in einem konsistenten Zustand befindet.}}
+\newglossaryentry{BigData}{name={Massendaten}, description={Der Begriff BigData
+bezeichnet eine Datenmenge, die mit herkormlichen Mitteln nicht verarbeitet
+werden kann, weil sie zu groß, zu unstrukturiert, zu komplex sind oder in
+Echtzeit verarbeitet werden müssen. Dies hängt mit den \gls{5V's} zusammen.}}
+\newglossaryentry{CAP}{name={Consistency, Availability, Partition Tolerance},
+description={CAP steht für Konsistenz, Verfügbarkeit und Ausfalltoleranz und ist
+ein Theorem für verteielte Systeme von Eric Brewer. Das Theorem sagt aus, dass
+man lediglich zwei der drei Eigenschaften gleichzeitig einhalten kann, die
+dritte wird man nie einhalten können. Verfügbarkeit ist dabei die Antwortzeit
+eines Systems auf eine Anfrage. Konsistenz meint hierbei, dass nach einer
+Änderung der Daten auf einem Knoten, diese an die anderen Knoten weitergereicht
+wird. Ausfalltoleranz meint, dass das System auch bei Verlust von Nachrichten
+noch weiterarbeit. \cite{Brewer2000}}}
 \newacronym{CRUD}{CRUD}{Create, Read, Update and Delete}
-\newacronym{CRAP}{C.R.A.P.}{Change Risk Anti-Patterns}
-\newacronym{DNS}{DNS}{Domain Name Services}
-\newacronym{DRY}{DRY}{Don't Repeat Yourself}
-\newacronym{EAR}{EAR}{Enterprise Archive}
-\newacronym{EJB}{EJB}{Enterprise Java Bean}
-\newacronym{HATEOAS}{HATEOAS}{Hypermedia as the Engine of Application State}
-\newacronym{IDE}{IDE}{Integrated Development Environment}
-\newacronym{IP}{IP}{Internet Protocol}
-\newacronym{JMX}{JMX}{Java Management Extensions}
-\newacronym{JPA}{JPA}{Java Persistence \acrshort{API}}
-\newacronym{JSON}{JSON}{JavaScript Object Notation}
-\newacronym{JVM}{JVM}{Java Virtual Machine}
-\newacronym{LOC}{LOC}{Lines of Code}
-\newacronym{ORM}{ORM}{Object Relational Mapping}
-\newacronym{POJO}{POJO}{Plain Old Java Object}
-\newacronym{PSA}{PSA}{Production Support Application}
-\newacronym{REST}{REST}{Representational State Transfer}
-\newacronym{RPC}{RPC}{Remote Procedure Call}
-\newacronym{SOA}{SOA}{Service-Oriented Architecture}
-\newacronym{SOAP}{SOAP}{Simple Object Access Protocol}
-\newacronym{SOC}{SOC}{Separation of Concerns}
-\newacronym[longplural=Uniquie Resources Identifiers]{URI}{URI}{Unique Resource Identifier}
-\newglossaryentry{reflection}{name=Reflection, description={Reflection erlaubt
-es Klassen und Objekte zur Laufzeit zu untersuchen und im begrenzten Umfang zu
-modifiziern.}}
-\newglossaryentry{stack}{name=Stack, description={Datenstruktur, bei der die
-zuletzt eingefügten Elemente zuerst herausgenommen werden. Dieses Prinzip wird
-auch als LIFO(\enquote{Last In, First Out}) bezichnet.}}
+\newglossaryentry{5V's}{name={5V's}, description={Die 5V's stehen für Volume,
+Velocity, Variaty, Value und Validaty. Dabei steht Volume für die Datenmenge,
+Velocity für Zeit mit der die Daten verarbeitet werden müssen, Variaty steht
+für die Struktur der Daten, Value steht für den zu erzeugenden Mehrwert und
+Validaty steht für die Datenqualität.}}

@@ -22,6 +22,8 @@
 pdfauthor={Mirko Lelansky}, pdfkeywords={{Graph}, {Stream Processing}, {Integration}, {Apache Flink}},
 citecolor=black, colorlinks=true, linkcolor=black, unicode=true, urlcolor=black]{hyperref}
 \usepackage[acronym, toc]{glossaries}
+\input{ext/glossaries}
+\makeglossaries
 \setlength{\parskip}{\medskipamount}
 %% Deutsche Kurzfassung und englisches Abstract auf eine Seite
 \renewenvironment{abstract}{
@@ -45,13 +47,13 @@ citecolor=black, colorlinks=true, linkcolor=black, unicode=true, urlcolor=black]
 \ihead{\includegraphics[scale=0.5]{../material/images/THB_Logo.pdf}}
 \ohead{\headmark}
 \cfoot[\pagemark]{\pagemark}
-%%\printglossary[type=acronym, title=Abkürzungsverzeichnis, toctitle=Abkürzungsverzeichnis]
+\printglossary[type=acronym, title=Abkürzungsverzeichnis, toctitle=Abkürzungsverzeichnis]
 \include{pages/introduction}
 \include{pages/theorie}
 \include{pages/design}
 \include{pages/implementation}
 \include{pages/conclusion}
-%%\printglossary
+\printglossary
 \listoffigures
 \listoflistings
 \printbibliography
