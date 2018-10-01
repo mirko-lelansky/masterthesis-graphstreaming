@@ -8,6 +8,7 @@ organisation/*.html
 
 # Patterns for LaTeX
 *.aux
+*.bak
 *.bbl
 *.bcf
 *.blg

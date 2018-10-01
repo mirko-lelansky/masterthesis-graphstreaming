@@ -12,6 +12,7 @@
 \setotherlanguage[variant=british]{english}
 \usepackage{csquotes}
 \usepackage[backend=biber, style=iso-authoryear]{biblatex}
+\addbibresource{bib/main.bib}
 \usepackage[section]{placeins}
 \usepackage{minted}
 \renewcommand{\listoflistingscaption}{Quellcodeverzeichnis}
@@ -19,7 +20,7 @@
 \usepackage{graphicx, grffile}
 \usepackage[pdftitle={Evaluation aktueller Bibliotheken für Stream Graph Processing},
 pdfauthor={Mirko Lelansky}, pdfkeywords={{Graph}, {Stream Processing}, {Integration}, {Apache Flink}},
-colorlinks=true, linkcolor=black, unicode=true, urlcolor=black]{hyperref}
+citecolor=black, colorlinks=true, linkcolor=black, unicode=true, urlcolor=black]{hyperref}
 \usepackage[acronym, toc]{glossaries}
 \setlength{\parskip}{\medskipamount}
 %% Deutsche Kurzfassung und englisches Abstract auf eine Seite
@@ -53,5 +54,5 @@ colorlinks=true, linkcolor=black, unicode=true, urlcolor=black]{hyperref}
 %%\printglossary
 \listoffigures
 \listoflistings
-%%\printbibliography
+\printbibliography
 \end{document}
