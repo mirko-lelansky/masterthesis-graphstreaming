@@ -4,7 +4,7 @@ In diesem Kapitel werden die theoretischen Grundlagen für die Arbeit beschriebe
 Dabei werden zuerst die verschiedenen Modelle beschrieben, welche beim Streaming
 zum Einsatz kommen.
 
-Anschlieend werden die Graph-Streaming Bibliotheken beschrieben und welche
+Dann werden die Graph-Streaming Bibliotheken beschrieben und welche
 Streaming-Modelle dort zum Einsatz kommen.
 
 Abschließend folgt ein Vergleich der verschiedenen Systeme anhand des
@@ -23,11 +23,25 @@ hinzu kommen. In dieser Arbeit werden die Bibliotheken \enquote{gelly-streaming}
 
 \subsection{gelly-streaming}
 \enquote{gelly-streaming} ist eine Graph-Streaming Bibliothek für Apache Flink,
+welche von Vasiliki Kalavri am KTH in Schweden entwickelt wurde. Apache Flink
 eine verteielte Platform für Batch- und Stream-Processing. Der Kern von
 Apache Flink ist die Streaming-Engine, welche die eigentliche Verarbeitung der
 Daten vornimmt. Alle \glspl{API} und Bibliotheken bauen auf der Engine auf.
+Apache Flink wurde an der TU Berlin entwickelt und ist jetzt ein Apache Projekt.
+Apache Flink ist in der Programmiersprache Java geschrieben. Es existiert jedoch
+auch eine \gls{API} für Scala, welche nur ein Wrapper für Java darstellt. Dadurch
+können Entwickler ihre Programme in Java oder Scala schreiben. Für alle anderen
+Java-Alternativen müssen die benötigten Laufzeitbibliotheken mitgeliefert
+werden. Die aktuelle Version von Flink ist 1.6.0 .
 
-%% flink.adoc
-%% gelly Entwicklung
+Bei der Bibliothek \enquote{gelly-streaming} kommt ein semi-streaming Verfahren
+zum Einsatz, da die Bibliothek für Apache Flink entwickelt wurde. Dabei wird
+jeweils immer eine Kante mit den beiden Knoten gespeichert. Jedoch keine
+Zusatzinformationen, wie zum Beispiel ob die Kante hinzugefügt oder entfernt
+wurde. Dies muss vom Anwender sichergestellt werden. \enquote{gelly-streaming}
+ist ebenfalls in Java geschrieben und wird vorrangig von Studenten von
+Vasiliki Kalavri weiterentwickelt. Allerdings ist anzumerken, dass die Bibliothek
+zum Zeitpunkt der Arbeit noch im experimentellen Stadium ist.
+
 \subsection{graphstream-project}
 \subsection{Gephi}
