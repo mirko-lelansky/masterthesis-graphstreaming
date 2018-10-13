@@ -22,7 +22,7 @@ möglich.
 \label{fig:data-grow}
 \end{figure}
 
-Die Daten haben dabei je nach Anwendungsfall unterschiedlich strukturiert sein.
+Die Daten können dabei je nach Anwendungsfall unterschiedlich strukturiert sein.
 Es wird dabei unterscherschieden zwischen unstrukturierten, semi-strukturieren
 und strukturierten Daten. Strukturierte Daten haben eine feste Struktur. Bei
 semi-strukturieren Daten sind lediglich einzelen Bausteine definiert,
@@ -41,39 +41,22 @@ bzw. deren Freunde kombiniert. Existiert nun eine Person, welche zum Beispiel
 in die selbe Schule gegangen ist und nur Freund eines Freundes ist, wird diese
 Person der Liste der Personen hinzugefügt, welche der Benutzer eventuell kennt.
 
-Was sind nun eigentliche Graphen? Ein Graph ist eine Datenstruktur, welche aus
-einer Menge von Knoten und einer Menge von Kanten besteht. Knoten sind die
-Datencontainer. Zwei Knoten können dabei durch eine oder mehrere Kanten miteinander
-verbunden sein. Jede Kante kann dabei gerichtet oder ungerichtet sein und
-optionale Informationen enthalten sogenannte Gewichte. Diese spielen zum Beispiel
-in der Routenplannung eine Rolle. Dort sind die Gewichte, die Entfernung in
-Kilometern zwischen zwei Orten bzw. der Treibstoffverbrauch. Je nach dem welche
-Arten von Kanten zulässig sind, werden die Graphen definiert. Bei einfachen
-Graphen sind Schleifen und mehrfache Kanten verboten im Gegensatz zu komplexeren
-Graphen.
-
 \section{Motivation}
 Wenn beide Welten \gls{BigData} und Graphen mit einander kombiniert werden,
-ergeben sich die verschiedene Problem. Zwei Probleme, die eng miteinander in
-Verbindung stehen sind die Darstellung von Graphen und die Algorithmen.
-
-Wie oben erwähnt sind Graphen eine Datenstruktur aus zwei Mengen. Einserseits
-die Menge der Knoten und die Menge der Kanten. Des Weiteren gibt es eine Menge
-Algorithmen, welche sehr gut funktionieren, wenn der vollständige Graph bzw. ein
-Teilgraph vorliegt und dieser analysiert werden soll. Eine anderer Situation
-ergibt sich, jedoch, wenn wir in den Streaming-Bereich wechseln. Dann kommen
-Fragen auf, wie wird der Graph representiert. Sind die bekannten Algorithmen
-auf Graphen immer noch so anwendbar oder gibt es Einschränkungen.
+ergeben sich die verschiedene Problemsituationen. Dies kommt daher, dass Graphen
+komplexe Datenstrukturen sind und sich die bestehenden Konzepte und Algorithmen
+vom Batch-Processing nicht so ohne weiteres aufs Stream-Processing übertragen
+lassen.
 
 %% Einsatzgebiete Graph Streaming
 
 \section{Ziel der Arbeit}
-Ziel der Arbeit ist es die gewählten Bibliotheken zu hinsichtlich geeigneter
+Ziel der Arbeit ist es die gewählten Bibliotheken hinsichtlich geeigneter
 Kriterien zu vergleichen und diese mit Hilfe von Beispielen praktisch zu
 demonstrieren.
 
-Dabei sollen die auftretenden Probleme erläutert und mögliche Lösungen
-vorgestellt werden.
+Dabei sollen die auftretenden Probleme bzw. Grenzen erläutert und mögliche
+Lösungen bzw. Erweiterungspunkte vorgestellt werden.
 
 \section{Aufbau der Arbeit}
 Im nächsten Kapitel werden die verwendeten Technologien und Softwaresysteme
