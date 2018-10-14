@@ -7,7 +7,45 @@ Stream-Prozess beschrieben, mit den verschiedenen Modellen.
 Danach folgt eine Vorstellung der verschiedenen Bibliotheken und welche
 zugrundeliegende Streaming-Modelle dort zum Einsatz kommen. 
 
-\section{Streaming-Modelle}
+\section{Graphen}
+Ein Graph G ist eine Datenstruktur mit der folgenden Definition: $G = (V,E)$.
+Dabei ist V die Menge von Knoten und E die Menge von Kanten. Jede Kante besteht
+dabei aus einen Paar von V. Bei einem ungerichteten Graphen ist das Paar, welches
+die Kante representiert, ein ungeordnetes Paar oder andersgesagt eine
+zweielementige Menge von V. Im Gegensatz dazu ist es bei einem gerichteten
+Graphen ein geordnetes Paar.
+
+\blockquote[\cite{Aigner2015}]{
+[\dots]Ein Graph $G = (V,E)$ besteht aus einer endlichen Menge V von Ecken,
+einer endlichen Menge E von Kanten, und einer Vorschrift, welche jeder Kante e
+genau zwei (verschiedene oder gleiche) Ecken a und b zuordnet, die wir die
+Endecken von e nennen. Normalerweise sind die Endecken a und b verschieden;
+ist a = b, so nennen wir e eine Schlinge bei a. Hat e die Endecken a und b, so
+sagen wir, e verbindet a und b.[\dots]}
+
+Wenn die beide Elemente der Kante identisch sind spricht man auch von einer
+Schlinge. Gibt es mehrere identische Kanten spricht man von Merhfachkanten.
+Diese lassen sich zusammenfassen in dem nur eine Kante dargestellt mit einer
+zusätzlichen Zahl, welche die Mehrfachkanten representiert.
+
+Es werden zwei Klassen von Graphen unterschieden. Grpahen, welche nur keine
+Schlingen und Mehrfachkanten zulassen, werden als einfache Graphen bezeichnet,
+sonst als Multigraphen.
+
+\blockquote[\cite{Gurski2010}]{
+[\dots]Kanten, die mit mehr als zwei Knoten inzident sind, werden Hyperkanten
+genannt. Graphen mit Hyperkanten heißen Hypergraphen. Wir betrachten in diesem
+Buch jedoch vorwiegend einfache Graphen, also Graphen ohne multiple Kanten und
+ohne Schleifen, und auch keine Hypergraphen.}
+
+\section{Stream-Processing}
+Stream-Processing beschreibt einen Prozess, bei dem die kontinuierlich
+ankommenden Daten verarbeitet bzw. transformiert werden. Ein Stream ist eine
+unendliche Menge von Elementen. Die Daten werden dabei von mindestens einer
+Quelle gelesen. Anschliend werden diese von mindestens einer Verarbeitungseinheit
+transformiert und abschließend in mindestens ein Ziel geschrieben. Quelle und
+Ziel sind dabei externe Systeme, wie Datenbanken, Messaging-Platformen,~\dots.
+
 Streaming-Modelle sind die zugrundeliegenden Modelle, der
 jeweiligen Verarbeitungseinheit. Diese Modelle haben mehrere Aufgaben. Zunächst
 definieren diese Modelle, wie ein Graph bzw. Teilgraph dargestellt wird.
@@ -51,9 +89,10 @@ keine Alpha/Beta/Finale-Versionen zur Verfügung stehen.
 
 \subsection{graphstream-project}
 \enquote{graphstream-project} ist eine Java-Bibliothek für Graph-Streaming. Die
-Bibiliothek wurde 2009 von der Gruppe RI_{2}C-Gruppe am LITIS ein Zusammenschluss
-von mehreren Universitäten und Firmen entwickelt. Derzeit wird die Bibliothek von
-der Universität Le Havre weiterentwickelt. Die aktuelleste Version ist 1.3 .
+Bibiliothek wurde 2009 von der Gruppe RI\textsubscript{2}C-Gruppe am LITIS ein
+Zusammenschluss von mehreren Universitäten und Firmen entwickelt. Derzeit wird
+die Bibliothek von der Universität Le Havre weiterentwickelt. Die aktuelleste
+Version ist 1.3 .
 
 
 %% Streaming-Modell
