@@ -41,16 +41,107 @@ ohne Schleifen, und auch keine Hypergraphen.}
 \section{Stream-Processing}
 Stream-Processing beschreibt einen Prozess, bei dem die kontinuierlich
 ankommenden Daten verarbeitet bzw. transformiert werden. Ein Stream ist eine
-unendliche Menge von Elementen. Die Daten werden dabei von mindestens einer
+unendliche Liste von Elementen. Die Daten werden dabei von mindestens einer
 Quelle gelesen. Anschliend werden diese von mindestens einer Verarbeitungseinheit
 transformiert und abschließend in mindestens ein Ziel geschrieben. Quelle und
-Ziel sind dabei externe Systeme, wie Datenbanken, Messaging-Platformen,~\dots.
+Ziel sind dabei externe Systeme, wie Datenbanken, Messaging-Platformen,~\dots,
+welche in der Regel verschieden sind.
 
-Streaming-Modelle sind die zugrundeliegenden Modelle, der
-jeweiligen Verarbeitungseinheit. Diese Modelle haben mehrere Aufgaben. Zunächst
-definieren diese Modelle, wie ein Graph bzw. Teilgraph dargestellt wird.
+Die Idee des Stream-Processing ist schon sehr alt und im Laufe der Zeit sind
+mehrere Modelle entstanden. Jedes Modell hat dabei gewisse Vorraussetzungen
+und Einschränkungen, welche direkten Einfluss auf die konkreten Umsetzungen
+haben. Es gibt die Modelle \enquote{Classical Streaming}, \enquote{semi-Streaming},
+\enquote{W-Stream} und \enquote{StreamSort}.
 
-%% Graph-Typen
+\subsection{Classical Streaming}
+Das erste Modell ist das \enquote{Classical Streaming}. Dieses wurde in den
+1980 von Munro und Paterson definiert. Das Modell beschreibt die Verarbeitung
+eines Streams durch eine RAM-Maschine. Der Stream ist dabei eine Folge von
+Zeichen aus einem definierten Alphabet, welche sequenziell verarbeitet werden
+können.
+
+Die Prameter dieses Modells sind der Speicher der RAM-Maschine in Bits und
+die Anzahl der Verarbeitungsdurchläufe des Streams. Beide Parameter sind dabei
+Abhängig von der Länge des Streams und sollen möglichst klein im Verhältnis zur
+Länge des Streams sein.
+
+\foreignblockquote{english}[\cite{Ribichini2007}]{
+In classical streaming, input data can be accessed sequentially in the form
+of a data stream, and need to be processed using a working memory that
+is small compared to the length of the stream. The main parameters of the
+model are the number p of sequential passes over the data and the size s of the
+working memory (in bits). [\dots]
+}
+
+Das Modell macht dabei keine Aussagen über die Laufzeit des Algorithmus. Diese
+spielt für viele Probleme jedoch eine Rolle, deshalb wurde das
+\enquote{semi-Streaming} Modell entwickelt.
+
+\foreignblockquote{english}[\cite{Ribichini2007}]{
+Notice that our definition imposes no restrictions on the amount
+of computation performed by the RAM machine, as it is often the case when
+dealing with external memory models, where it is assumed that I/O operations
+take orders of magnitude longer than internal memory operations. There
+are, however, applications in which the per-item processing time (average,
+maximum) is a significant parameter that should be taken into account.
+}
+
+\subsection{semi-Streaming}
+Das \enquote{semi-Streaming} Modell ist ein vereinfachtes Modell des
+\enquote{Classical Streaming} Modells. Im Gegensatz zum \enquote{Classical Streaming}
+wird hier festgelegt, das die Anzahl der Durchläufe beschränkt wird auf eins bzw.
+einige wenige. Des Weiteren wird die Speichergröße der RAM-Maschine ebenfalls
+auf beschränkt auf die logarithmische-Komplexitätsklasse.
+
+\foreignblockquote{english}[\cite{Ribichini2007}]{
+In particular, some recent papers show that several graph problems can be
+solved with one or few passes in the Semi-streaming model [53] where the
+working memory size is $O(n · \log n)$ for an input graph with n vertices
+(or even $O(n^{1 + \epsilon})$, with $\epsilon < 1$, for applications like
+spanners, for which linear memory in the number of vertices is provably not
+sufficient): [\dots].
+}
+
+Diese Beschränkungen sorgen dafür, dass die Laufzeit des Algorithmus verbessert
+wird. Jedoch haben diese Beschränkungen auch den Nachteil, dass sie nur
+näherungsweise Ergebnisse liefern.
+
+\foreignblockquote{english}[\cite{Ribichini2007}]{
+Despite the heavy restrictions of the classical streaming model, major
+success has been achieved for several data sketching and statistics problems,
+e.g., approximate frequency moments [7], histogram maintenance [58],
+L\textsuperscript{1} difference [55], where $O(1)$ passes and polylogarithmic
+working space have proven enough to find approximate solutions (see also the
+bibliographies in [14, 88]).
+}
+
+\subsection{W-Stream}
+Das \enquote{W-Stream} Modell oder \enquote{Write-Stream} Modell ist eine
+Erweiterung des \enquote{Classical Streaming}. Dabei wird jedes gelesene Element
+des Streams nach der Verarbeitung in einen Ausgabe-Stream geschrieben. Die
+Elemente können dabei bevor sie in den Ausgabe-Stream landen, verändert werden.
+Wenn die Elemente nicht verändert werden, handelt es sich um einen speziellen
+\enquote{W-Strem} nämlich den \enquote{Classical Stream}.
+
+\foreignblockquote{english}[\cite{Ribichini2007}]{
+In the W-Stream model [97], a streaming pass, while reading data from
+the input stream and processing them in the working memory, produces items
+that are sequentially appended to an output stream. [\dots]
+Clearly, $\text{Stream}(p, s) \subseteq \text{W-Stream}(p, s)$ since at every
+s/w-pass the output stream may simply consist of a copy of the input stream.
+}
+
+\subsection{StreamSort}
+Das \enquote{StreamSort} Modell ist eine Erweiterung zum \enquote{W-Stream}.
+Dabei schließt sich nach dem Schreibprozess noch ein Sortierungsprozess an. Dabei
+werden die Elemente noch einer vorgegebenen globalen Sortierungsreihenfolge
+sortiert.
+
+\foreignblockquote{english}[\cite{Ribichini2007}]{
+[\dots] This model extends classical streaming in two ways the ability to write
+intermediate temporary streams and the ability to reorder them at each pass for
+free. [\dots]
+}
 
 \section{Graph-Streaming Bibliotheken}
 Graph-Streaming Bibliotheken sind Bibliotheken, welche die beiden Welten \gls{BigData}
