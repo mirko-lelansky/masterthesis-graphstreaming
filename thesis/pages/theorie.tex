@@ -144,14 +144,58 @@ free. [\dots]
 }
 
 \section{Graph-Streaming Bibliotheken}
-Graph-Streaming Bibliotheken sind Bibliotheken, welche die beiden Welten \gls{BigData}
-und Graphen miteinander kombinieren wollen. Dabei geht es darum große Graphen
-effizient und möglichst in Echtzeit mit Hilfe von Streams zu verarbeiten. Die
-bedeutet, dass die Daten, welche von einem Stream verarbeitet werden, keine
-einfachen Zeichenketten mehr sind, sondern zum Beispiel eine Kante des Graphens.
-Je nach dem welches Streaming-Modell zum Einsatz kommt, können auch andere Daten
-hinzu kommen. In dieser Arbeit werden die Bibliotheken \enquote{gelly-streaming},
-\enquote{graphstream-project} und \enquote{Gephi} verglichen.
+Graph-Streaming Bibliotheken sind Bibliotheken, welche die beiden Welten
+\gls{BigData} und Graphen miteinander kombinieren wollen. Dabei geht es darum
+große Graphen bzw. Teilgraphen effizient und möglichst in Echtzeit mit Hilfe von
+Streams zu verarbeiten.
+
+Bevor eine Verarbeitung der Daten stattfinden kann, muss die Representation
+definiert sein. In unserem Fall sollen Streams Verarbeitet werden, deren Daten
+unseren Graphen representieren. Um den Graphen darzustellen gibt es nun mehrere
+Möglichkeiten.
+
+Die erste Möglichkeit ist es zwei seperate Streams zu verwenden einen für die
+Knoten und eine für die Kanten. Um eine Verarbeitung durchzuführen ist es bei
+diesem Modell notwendig, die beiden Streams zu kombinieren.
+
+\foreignblockquote{english}[\cite{Bali2015}]{
+Combining edge and vertex streams The first approach was to have separate
+edge and vertex streams. When we need to know the vertex values corresponding
+to the end points of an edge, the two streams can be joined.
+}
+
+Eine andere Möglichkeit ist es die Werte der beiden Knoten und die dazugehörige
+Kante mit abzuspeichern. Das Problem bei dieser Darstellung ist allerdings, 
+falls nicht alle Daten der Knoten vorhanden sind, entstehen Fehler.
+
+\foreignblockquote{english}[\cite{Bali2015}]{
+Triplet stream Another way to stream graphs would be the use of triplets.
+Triplets are pairs of vertices around an edge. Both the edge and the two vertices
+can have their own value.
+}
+
+Die einfachste Möglichkeit besteht darin einfach ein Stream aus Knotenpaaren zu
+nehmen, welche genau eine Kante representieren.
+
+\foreignblockquote{english}[\cite{Bali2015}]{
+Edge-only stream The final model we considered is the simplest. The graph
+consists of a single stream of edges.
+}
+
+Allerdings gibt es bei allen Darstellungsformen einige Probleme. Zunächst einmal
+gibt es keine Information, ob es sich um einen ungerichtete oder gerichtete
+Kante handelt. Des Weiteren existiert auch keine Statusinformation über die
+Änderung der Kante bzw. über den Grund was zum erzeugen der Kante geführt hat.
+Wurde die Kante oder ein Knoten hinzugefügt, gelöscht, geändert,~\dots . Ein
+anderes Problem tritt auf, wenn nur ein Knoten hinzugefügt wird, wie wird dieser
+dann dargestellt bzw. verarbeitet. Außerdem stellt sich die Frage, wie gewichtete
+Graphen dargestellt werden, welche bei der Routenplanung zum Einsatz kommen.
+
+
+Die Funktionalität der Bibliotheken richtet sich auch nach dem zugrundeliegende
+Streaming-Modell bzw. der Laufzeitumgebung. In dieser Arbeit werden die
+Bibliotheken \enquote{gelly-streaming}, \enquote{graphstream-project} und
+\enquote{Gephi} verglichen.
 
 \subsection{gelly-streaming}
 \enquote{gelly-streaming} ist eine Graph-Streaming Bibliothek für Apache Flink,
