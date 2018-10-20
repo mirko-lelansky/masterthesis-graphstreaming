@@ -56,11 +56,11 @@ haben. Es gibt die Modelle \enquote{Classical Streaming}, \enquote{semi-Streamin
 \subsection{Classical Streaming}
 Das erste Modell ist das \enquote{Classical Streaming}. Dieses wurde in den
 1980 von Munro und Paterson definiert. Das Modell beschreibt die Verarbeitung
-eines Streams durch eine RAM-Maschine. Der Stream ist dabei eine Folge von
+eines Streams durch eine \gls{RAM}-Maschine. Der Stream ist dabei eine Folge von
 Zeichen aus einem definierten Alphabet, welche sequenziell verarbeitet werden
 können.
 
-Die Prameter dieses Modells sind der Speicher der RAM-Maschine in Bits und
+Die Prameter dieses Modells sind der Speicher der \gls{RAM}-Maschine in Bits und
 die Anzahl der Verarbeitungsdurchläufe des Streams. Beide Parameter sind dabei
 Abhängig von der Länge des Streams und sollen möglichst klein im Verhältnis zur
 Länge des Streams sein.
@@ -96,9 +96,9 @@ auf beschränkt auf die logarithmische-Komplexitätsklasse.
 \foreignblockquote{english}[\cite{Ribichini2007}]{
 In particular, some recent papers show that several graph problems can be
 solved with one or few passes in the Semi-streaming model [53] where the
-working memory size is $O(n · \log n)$ for an input graph with n vertices
-(or even $O(n^{1 + \epsilon})$, with $\epsilon < 1$, for applications like
-spanners, for which linear memory in the number of vertices is provably not
+working memory size is $O(n · \text{polylog} n)$ for an input graph with n
+vertices (or even $O(n^{1 + \epsilon})$, with $\epsilon < 1$, for applications
+like spanners, for which linear memory in the number of vertices is provably not
 sufficient): [\dots].
 }
 
