@@ -15,13 +15,14 @@ die Kante representiert, ein ungeordnetes Paar oder andersgesagt eine
 zweielementige Menge von V. Im Gegensatz dazu ist es bei einem gerichteten
 Graphen ein geordnetes Paar.
 
-\blockquote[\cite{Aigner2015}]{
-[\dots]Ein Graph $G = (V,E)$ besteht aus einer endlichen Menge V von Ecken,
+\textquote[\cite{Aigner2015}]{
+[\dots] Ein Graph $G = (V,E)$ besteht aus einer endlichen Menge V von Ecken,
 einer endlichen Menge E von Kanten, und einer Vorschrift, welche jeder Kante e
 genau zwei (verschiedene oder gleiche) Ecken a und b zuordnet, die wir die
 Endecken von e nennen. Normalerweise sind die Endecken a und b verschieden;
 ist a = b, so nennen wir e eine Schlinge bei a. Hat e die Endecken a und b, so
-sagen wir, e verbindet a und b.[\dots]}
+sagen wir, e verbindet a und b. [\dots]
+}
 
 Wenn die beide Elemente der Kante identisch sind spricht man auch von einer
 Schlinge. Gibt es mehrere identische Kanten spricht man von Merhfachkanten.
@@ -32,11 +33,12 @@ Es werden zwei Klassen von Graphen unterschieden. Grpahen, welche nur keine
 Schlingen und Mehrfachkanten zulassen, werden als einfache Graphen bezeichnet,
 sonst als Multigraphen.
 
-\blockquote[\cite{Gurski2010}]{
-[\dots]Kanten, die mit mehr als zwei Knoten inzident sind, werden Hyperkanten
+\textquote[\cite{Gurski2010}]{
+[\dots] Kanten, die mit mehr als zwei Knoten inzident sind, werden Hyperkanten
 genannt. Graphen mit Hyperkanten heißen Hypergraphen. Wir betrachten in diesem
 Buch jedoch vorwiegend einfache Graphen, also Graphen ohne multiple Kanten und
-ohne Schleifen, und auch keine Hypergraphen.}
+ohne Schleifen, und auch keine Hypergraphen.
+}
 
 \section{Stream-Processing}
 Stream-Processing beschreibt einen Prozess, bei dem die kontinuierlich
@@ -65,7 +67,7 @@ die Anzahl der Verarbeitungsdurchläufe des Streams. Beide Parameter sind dabei
 Abhängig von der Länge des Streams und sollen möglichst klein im Verhältnis zur
 Länge des Streams sein.
 
-\foreignblockquote{english}[\cite{Ribichini2007}]{
+\foreigntextquote{english}[\cite{Ribichini2007}]{
 In classical streaming, input data can be accessed sequentially in the form
 of a data stream, and need to be processed using a working memory that
 is small compared to the length of the stream. The main parameters of the
@@ -77,7 +79,7 @@ Das Modell macht dabei keine Aussagen über die Laufzeit des Algorithmus. Diese
 spielt für viele Probleme jedoch eine Rolle, deshalb wurde das
 \enquote{semi-Streaming} Modell entwickelt.
 
-\foreignblockquote{english}[\cite{Ribichini2007}]{
+\foreigntextquote{english}[\cite{Ribichini2007}]{
 Notice that our definition imposes no restrictions on the amount
 of computation performed by the RAM machine, as it is often the case when
 dealing with external memory models, where it is assumed that I/O operations
@@ -93,7 +95,7 @@ wird hier festgelegt, das die Anzahl der Durchläufe beschränkt wird auf eins b
 einige wenige. Des Weiteren wird die Speichergröße der RAM-Maschine ebenfalls
 auf beschränkt auf die logarithmische-Komplexitätsklasse.
 
-\foreignblockquote{english}[\cite{Ribichini2007}]{
+\foreigntextquote{english}[\cite{Ribichini2007}]{
 In particular, some recent papers show that several graph problems can be
 solved with one or few passes in the Semi-streaming model [53] where the
 working memory size is $O(n · \text{polylog} n)$ for an input graph with n
@@ -106,7 +108,7 @@ Diese Beschränkungen sorgen dafür, dass die Laufzeit des Algorithmus verbesser
 wird. Jedoch haben diese Beschränkungen auch den Nachteil, dass sie nur
 näherungsweise Ergebnisse liefern.
 
-\foreignblockquote{english}[\cite{Ribichini2007}]{
+\foreigntextquote{english}[\cite{Ribichini2007}]{
 Despite the heavy restrictions of the classical streaming model, major
 success has been achieved for several data sketching and statistics problems,
 e.g., approximate frequency moments [7], histogram maintenance [58],
@@ -123,7 +125,7 @@ Elemente können dabei bevor sie in den Ausgabe-Stream landen, verändert werden
 Wenn die Elemente nicht verändert werden, handelt es sich um einen speziellen
 \enquote{W-Strem} nämlich den \enquote{Classical Stream}.
 
-\foreignblockquote{english}[\cite{Ribichini2007}]{
+\foreigntextquote{english}[\cite{Ribichini2007}]{
 In the W-Stream model [97], a streaming pass, while reading data from
 the input stream and processing them in the working memory, produces items
 that are sequentially appended to an output stream. [\dots]
@@ -137,7 +139,7 @@ Dabei schließt sich nach dem Schreibprozess noch ein Sortierungsprozess an. Dab
 werden die Elemente noch einer vorgegebenen globalen Sortierungsreihenfolge
 sortiert.
 
-\foreignblockquote{english}[\cite{Ribichini2007}]{
+\foreigntextquote{english}[\cite{Ribichini2007}]{
 [\dots] This model extends classical streaming in two ways the ability to write
 intermediate temporary streams and the ability to reorder them at each pass for
 free. [\dots]
@@ -158,7 +160,7 @@ Die erste Möglichkeit ist es zwei seperate Streams zu verwenden einen für die
 Knoten und eine für die Kanten. Um eine Verarbeitung durchzuführen ist es bei
 diesem Modell notwendig, die beiden Streams zu kombinieren.
 
-\foreignblockquote{english}[\cite{Bali2015}]{
+\foreigntextquote{english}[\cite{Bali2015}]{
 Combining edge and vertex streams The first approach was to have separate
 edge and vertex streams. When we need to know the vertex values corresponding
 to the end points of an edge, the two streams can be joined.
@@ -168,7 +170,7 @@ Eine andere Möglichkeit ist es die Werte der beiden Knoten und die dazugehörig
 Kante mit abzuspeichern. Das Problem bei dieser Darstellung ist allerdings, 
 falls nicht alle Daten der Knoten vorhanden sind, entstehen Fehler.
 
-\foreignblockquote{english}[\cite{Bali2015}]{
+\foreigntextquote{english}[\cite{Bali2015}]{
 Triplet stream Another way to stream graphs would be the use of triplets.
 Triplets are pairs of vertices around an edge. Both the edge and the two vertices
 can have their own value.
@@ -177,7 +179,7 @@ can have their own value.
 Die einfachste Möglichkeit besteht darin einfach ein Stream aus Knotenpaaren zu
 nehmen, welche genau eine Kante representieren.
 
-\foreignblockquote{english}[\cite{Bali2015}]{
+\foreigntextquote{english}[\cite{Bali2015}]{
 Edge-only stream The final model we considered is the simplest. The graph
 consists of a single stream of edges.
 }
