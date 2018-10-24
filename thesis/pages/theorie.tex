@@ -5,7 +5,9 @@ Dabei werden zuerst die verschiedenen Graphen erläutert. Anschließend wird der
 Stream-Prozess mit den verschiedenen Modellen beschrieben.
 
 Danach folgt eine Vorstellung der verschiedenen Bibliotheken und welche
-zugrundeliegende Streaming-Modelle dort zum Einsatz kommen. 
+zugrundeliegende Streaming-Modelle dort zum Einsatz kommen.
+
+Abschließend folgt ein Vergleich der verschiedenen Bibliotheken.
 
 \section{Graphen}
 Ein Graph G ist eine Datenstruktur mit der folgenden Definition: $G = (V,E)$.
@@ -319,3 +321,133 @@ responsible for the HTTP REST Server, and the interface modules.
 Da \enquote{Gephi} wie auch \enquote{graphstream-project} Events für
 Knotenerzeugung und extra Angaben wie Gewichte,~\dots erlaubt, ist hier
 ebenfalls von einem \enquote{Classical Streaming} Modell auszugehen.
+
+\section{Vergleich der Bibliotheken}
+Nach dem die Bibliotheken vorgestellt wurden soll nun ein Vergleich erfolgen.
+Dabei soll das Augenmerk auf folgenden Punkten liegen:
+
+\begin{itemize}
+\item Generatoren
+\item Algorithmen
+\item Verteilung
+\end{itemize}
+
+\subsection{Generatoren}
+Die Verwendung von Generatoren ist gerade bei der Entwicklung von Programmen
+wichtig. Wenn noch kein sehr großes Verständnis oder Datenbasis des angestrebten
+Zieles vorhanden ist, der Entwickler jedoch schon die Funktionalität seines
+Algorithmus testen möchte. Generatoren im Allgemeinen bieten sich zu verwenden
+an, wenn die eigentliche Zielerzeugung zu aufwändig ist oder aus anderen Gründen
+z.B. weil ein externes System beteiligt nicht möglich ist. Generatoren bieten den
+Vorteil, dass die Struktur vorgeben werden kann und die konkrete Ausprägung jedoch
+immer zufällig ist. Auf die Bibliotheken bezogen bedeutet dies, die Struktur ist
+z.B. ein einfacher Graph mit Sieben Knoten und die konkrete Ausprägung sind dann
+die Kanten, welche zufällig verteilt sein können.
+
+\enquote{gelly-streaming} hat als einzige Bibliothek keinen Generatoren.
+Die \enquote{Gelly} die Batch-Processing Bibliothek von Apache Flink hat mehrere
+Generatoren.
+
+\foreigntextquote{english}[\cite{Foundation2018}]{
+Gelly provides a collection of scalable graph generators. Each generator is
+
+\begin{itemize}
+\item parallelizable, in order to create large datasets
+\item scale-free, generating the same graph regardless of parallelism
+\item thrifty, using as few operators as possible
+\end{itemize}
+
+Graph generators are configured using the builder pattern. The parallelism of
+generator operators can be set explicitly by calling setParallelism(parallelism).
+Lowering the parallelism will reduce the allocation of memory and network buffers.
+
+Graph-specific configuration must be called first, then configuration common to
+all generators, and lastly the call to generate(). The following example
+configures a grid graph with two dimensions, configures the parallelism, and
+generates the graph.
+}
+
+\enquote{graphstream-project} hat die folgenden Generatoren:
+
+\begin{itemize}
+\item Flower Snark generator
+\item Full connected graph generator
+\item (Incomplete) grid generator
+\item Lobster generator
+\item etc.
+\end{itemize}
+
+Bei \enquote{Gephi} können die Generatoren je nach Anforderung selbst
+programmiert werden. Aufgrund der zugrundeliegende Plugin-Architektur.
+
+\foreigntextquote{english}[\cite{Bastian2009}]{
+Generator API/SPI provides the way to create and execute graph generators.
+
+Generators are tasks that create a graph structure from various properties.
+New generators can be easily created, they will be automatically integrated.
+}
+
+\subsection{Algorithmen}
+Die Algorithmen stellen die eigentliche Funktionalität der Bibliotheken dar.
+Dabei wird unterschieden zwischen Basisfunktionen und Komplexfunktionen.
+Zu den Basisfunktionen gehören:
+
+\begin{itemize}
+\item Abfragen von Eigenschaften
+\item Transformation eines Streams
+\item Berechnung von statistischen Werten
+\item etc.
+\end{itemize}
+
+Komplexfunktionen kombinieren mehrere Basisfunktionen um eine komplexe Funktion
+zu berechnen. Die Algorithmen sind dabei abhängig, vom der Darstellung
+des Graphen Streams, des Streaming-Modells, der Umgebung,~\dots .
+
+\enquote{gelly-streaming} stellt verschiedene Basisfunktionen bereit und die
+folgenden Algorithmen bereit: \cite{Kalavri2018}
+
+\begin{itemize}
+\item Connected Components
+\item k-Spanner
+\item Bipartiteness Check
+\item Window Triangle Count
+\item Triangle Count Estimation
+\item Weighted Matching
+\item Continuous Degree Aggregate
+\end{itemize}
+
+\enquote{gelly-streaming} ist jedoch in ihrere Auswahl an Algorithmen eingeschränkt,
+da ein abgeschwächtes \enquote{semi-Streaming} Modell zum Einsatz kommt. Bei dem
+im Gegensatz zum theoretischen Modell keine mehrfachen Durchläufe gestattet sind.
+
+\enquote{graphstream-project} stellt ebenfalls mehrere Algorithmen bereit.
+\enquote{Gephi} stellt die folgenden Algorithmen bereit:
+
+\begin{itemize}
+\item Betweenness Centrality
+\item Closeness
+\item Diameter
+\item Clustering Coefficient
+\item PageRank
+\item Community detection (Modularity)
+\end{itemize}
+
+\subsection{Verteilung}
+Verteilung kann für verschiedene Bereiche angewendet werden z.B. lassen sich
+größere Datenpakete teilen, Algorithmen auf mehrere Prozess verteilen, Programme
+auf mehrere Rechner verteilen,~\dots . In unserem Fall ist die Verteilung der
+Streaming-Programme auf mehrere Rechner gemeint.
+
+\enquote{gelly-streaming} ist die einzige Bibliothek, welche verteilt auf mehrere
+Knoten lauft, weil die Laufzeitumgebung Apache Flink dies unterstützt.
+Der Cluster kann dabei in den verschiedensten Umgebungen laufen wie: \cite{Foundation2018}
+
+\begin{itemize}
+\item AWS
+\item Docker
+\item Kubernetes
+\item etc.
+\end{itemize}
+
+Sowohl \enquote{graphstream-project} als auch \enquote{Gephi} unterstützen dies
+nicht, da diese jeweils eine graphische Oberfläche mitbringen.
