@@ -2,7 +2,7 @@
 In diesem Kapitel werden die theoretischen Grundlagen für die Arbeit beschrieben.
 
 Dabei werden zuerst die verschiedenen Graphen erläutert. Anschließend wird der
-Stream-Prozess beschrieben, mit den verschiedenen Modellen.
+Stream-Prozess mit den verschiedenen Modellen beschrieben.
 
 Danach folgt eine Vorstellung der verschiedenen Bibliotheken und welche
 zugrundeliegende Streaming-Modelle dort zum Einsatz kommen. 
@@ -187,12 +187,12 @@ consists of a single stream of edges.
 Allerdings gibt es bei allen Darstellungsformen einige Probleme. Zunächst einmal
 gibt es keine Information, ob es sich um einen ungerichtete oder gerichtete
 Kante handelt. Des Weiteren existiert auch keine Statusinformation über die
-Änderung der Kante bzw. über den Grund was zum erzeugen der Kante geführt hat.
-Wurde die Kante oder ein Knoten hinzugefügt, gelöscht, geändert,~\dots . Ein
-anderes Problem tritt auf, wenn nur ein Knoten hinzugefügt wird, wie wird dieser
-dann dargestellt bzw. verarbeitet. Außerdem stellt sich die Frage, wie gewichtete
-Graphen dargestellt werden, welche bei der Routenplanung zum Einsatz kommen.
-
+Änderung der Kante bzw. über den Grund was zum erzeugen der Kante geführt hat
+z.B. wurde die Kante oder ein Knoten hinzugefügt, gelöscht, geändert,~\dots .
+Ein anderes Problem tritt auf, wenn nur ein Knoten hinzugefügt wird, wie wird
+dieser dann dargestellt bzw. verarbeitet. Außerdem stellt sich die Frage, wie
+gewichtete Graphen dargestellt werden, welche bei der Routenplanung zum Einsatz
+kommen.
 
 Die Funktionalität der Bibliotheken richtet sich auch nach dem zugrundeliegende
 Streaming-Modell bzw. der Laufzeitumgebung. In dieser Arbeit werden die
@@ -200,29 +200,58 @@ Bibliotheken \enquote{gelly-streaming}, \enquote{graphstream-project} und
 \enquote{Gephi} verglichen.
 
 \subsection{gelly-streaming}
-\enquote{gelly-streaming} ist eine Graph-Streaming Bibliothek für Apache Flink,
-welche von Vasiliki Kalavri am KTH in Schweden im Jahr 2015 entwickelt wurde.
+\enquote{gelly-streaming} ist eine Graph-Streaming Bibliothek für Apache Flink\footnote{\url{https://flink.apache.org}}.
+Diese wurde von Vasiliki Kalavri am KTH in Schweden im Jahr 2015 entwickelt.
+Sie ist in der Programmiersprache Java geschrieben und besitzt auch kein andere
+Schnittstelle. Derzeit ist die Bibliothek noch in einem experimentellen Stadium,
+deshalb gibt es noch keine Alpha/Beta/Finale-Versionen. Die Bibliothek verwendet,
+dass semi-Streaming Modell. Bei dem nur der Stream aus Kanten abgespeichert wird.
+Die Kante wird dabei durch zwei Knoten representiert. Die Bibliothek ist dabei
+in ihrer Funktionalität gebunden, an ihre Laufzeitumgebung
+Apache-Flink, deren \gls{API} sie benutzt. Derzeit wird Apache 1.2.0 benutzt.
+
+\foreigntextquote{english}[\cite{Bali2015}]{
+The semi-streaming model allows for the storage of O(polylog n) elements for n
+edges, and also O(polylog n) passes. Since we cannot have multiple passes in our
+model, we use a modified semi-streaming model. Not every algorithm of the
+semi-streaming model will be possible to implement in our model.
+}
+
 Apache Flink eine verteielte Platform für Batch- und Stream-Processing. Der Kern
 von Apache Flink ist die Streaming-Engine, welche die eigentliche Verarbeitung
-der Daten vornimmt. Alle \glspl{API} und Bibliotheken bauen auf der Engine auf.
-Apache Flink wurde an der TU Berlin entwickelt und ist jetzt ein Apache Projekt.
-Apache Flink ist in der Programmiersprache Java geschrieben. Es existiert jedoch
-auch eine \gls{API} für Scala, welche nur ein Wrapper für Java darstellt. Dadurch
-können Entwickler ihre Programme in Java oder Scala schreiben. Für alle anderen
-Java-Alternativen müssen die benötigten Laufzeitbibliotheken mitgeliefert
-werden. Die aktuelle Version von Flink ist 1.6.0 .
+der Daten vornimmt. Apache Flink wurde in der Programmiersprache Java an der TU
+Berlin entwickelt und ist jetzt ein Apache Projekt. Zusätzlich zur Java-\gls{API}
+existiert noch eine Scala-\gls{API}, welche als Wrapper dient. Die aktuelleste
+Version ist 1.6.0. 
 
-Bei der Bibliothek \enquote{gelly-streaming} kommt ein semi-streaming Verfahren
-zum Einsatz, da die Bibliothek für Apache Flink entwickelt wurde. Dabei wird
-jeweils immer eine Kante mit den beiden Knoten gespeichert. Jedoch keine
-Zusatzinformationen, wie zum Beispiel ob die Kante hinzugefügt oder entfernt
-wurde. Dies muss vom Anwender sichergestellt werden. \enquote{gelly-streaming}
-ist ebenfalls in Java geschrieben und wird vorrangig von Studenten von
-Vasiliki Kalavri weiterentwickelt. Allerdings ist anzumerken, dass die Bibliothek
-zum Zeitpunkt der Arbeit noch im experimentellen Stadium ist und deshalb noch
-keine Alpha/Beta/Finale-Versionen zur Verfügung stehen.
+Apache Flink ist modular aufgebaut. Die Architektur ist im Bild \ref{fig:flink-architecture}
+dargestellt. Auf die Streaming-Engine bauen die beiden \gls{API} auf.
+Die \enquote{DataStream-API} definiert die verschiedenen Schnittstellen und Klassen
+für Streams. Die \enquote{DataSet-API} definiert die verschiedenen Schnittstellen
+und Klassen für Datenfelder bzw. Listen. Diese werden dabei von der Engine in
+endliche Streams umgewandelt.
 
-%% Bild mit gelly-streaming
+\begin{figure}
+\centering
+\includegraphics[height=10cm, width=15cm]{../material/images/flink-stack-graphic.png}
+\caption{Architektur von Apache Flink \cite{Foundation2018}}
+\label{fig:flink-architecture}
+\end{figure}
+
+\foreigntextquote{english}[\cite{Foundation2018}]{
+The basic building blocks of Flink programs are streams and transformations.
+(Note that the DataSets used in Flink’s DataSet API are also streams internally
+– more about that later.) Conceptually a stream is a (potentially never-ending)
+flow of data records, and a transformation is an operation that takes one or
+more streams as input, and produces one or more output streams as a result.
+
+When executed, Flink programs are mapped to streaming dataflows, consisting of
+streams and transformation operators. Each dataflow starts with one or more
+sources and ends in one or more sinks. The dataflows resemble arbitrary
+directed acyclic graphs (DAGs). Although special forms of cycles are permitted
+via iteration constructs, for the most part we will gloss over this for
+simplicity.
+}
 
 \subsection{graphstream-project}
 \enquote{graphstream-project} ist eine Java-Bibliothek für Graph-Streaming. Die
@@ -231,9 +260,43 @@ Zusammenschluss von mehreren Universitäten und Firmen entwickelt. Derzeit wird
 die Bibliothek von der Universität Le Havre weiterentwickelt. Die aktuelleste
 Version ist 1.3 .
 
+Die Bibliothek besteht aus drei verschiedenen Modulen core, algo und ui. Das core
+Modul enthält alle Basisklassen zum lesen und anzeigen von Graphen. Das algo
+Modul enthält zusätzliche Algorithmen für Graphen. Das ui Modul enthält ein
+alternatives Framework zur Darstellung der Graphen.
 
-%% Streaming-Modell
-%% Architektur
+\foreigntextquote{english}[\cite{Team2018}]{
+gs-core is the base of GraphStream which is all you need to read a graph and
+display it easily. gs-algo contains extra algorithms which can be run on a graph.
+gs-ui provides other graphic viewers and will contain sources for graphical tools.
+}
+
+Das Bild zeigt einen beispielhaften Ablauf einer Verarbeitungsprozesses. Der
+Graph wird aus einer Datei gelesen und die erzeugten Events stellen das Ziel dar.
+Diese Events sind gleichzeitig die Quelle der Verarbeitungseinheit, welche
+wiederum neue Events erzeugt. Diese neuen Events stellen die Quelle für die
+Ausgabe dar. Das verwendete Streaming-Modell wird dabei nicht erwähnt. Aufgrund
+der Tatsache, dass die Bibliothek sowohl Einfache- als auch Multigraphen abdecken
+kann, ist es aber warhscheinlich, dass \enquote{Classical Streaming} zum Einsatz
+kommt.
+
+\foreigntextquote{english}[\cite{Team2018}]{
+GraphStream is a graph handling Java library that focuses on the dynamics aspects
+of graphs. Its main focus is on the modeling of dynamic interaction networks of
+various sizes.
+
+The goal of the library is to provide a way to represent graphs and work on it.
+To this end, GraphStream proposes several graph classes that allow to model
+directed and undirected graphs, 1-graphs or p-graphs (a.k.a. multigraphs, that
+are graphs that can have several edges between two nodes).
+
+GraphStream allows to store any kind of data attribute on the graph elements:
+numbers, strings, or any object.
+
+Moreover, in addition, GraphStream provides a way to handle the graph evolution
+in time. This means handling the way nodes and edges are added and removed, and
+the way data attributes may appear, disappear and evolve.
+}
 
 \subsection{Gephi}
 \enquote{Gephi} ist eine Visualisierungsplatform für Graphen, welche in Java
@@ -241,5 +304,18 @@ geschrieben ist. Diese wurde 2009 an der Universität of Technologie of Compièg
 in Frankreich entwickelt. Derzeit wir die Platform vom Gehpi Consortium betreut.
 Die aktuelleste Version ist 0.9.2 .
 
-%% Streaming-Modell
-%% Architektur
+Die Bibliothek baut auf der Netbeans Platform auf. Die Program bietet dabei nur
+die Basisfunktionalität an. Zusätzliche Funktionen werden durch Plug-Ins
+realisiert. Die Streaming-Funktionalität besteht aus zwei Teilen, dem Client und
+dem Server. Die Kommunikation erfolgt dabei über \gls{JSON}.
+
+\foreigntextquote{english}[\cite{Bastian2009}]{
+Gephi Graph Streaming is divided in different modules: The core modules, that
+defines the Graph Streaming API and its implementation, the Server modules,
+responsible for the HTTP REST Server, and the interface modules. 
+}
+
+\enquote{Gephi} macht über das Streaming-Modell ebenfalls keine genauen Angaben.
+Da \enquote{Gephi} wie auch \enquote{graphstream-project} Events für
+Knotenerzeugung und extra Angaben wie Gewichte,~\dots erlaubt, ist hier
+ebenfalls von einem \enquote{Classical Streaming} Modell auszugehen.
