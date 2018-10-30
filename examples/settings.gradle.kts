@@ -1,1 +1,1 @@
-include("bipartite-gelly", "bipartite-graphstreamproject")
+include("bipartite-gelly", "bipartite-graphstreamproject", "flink-gelly-streaming")

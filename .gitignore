@@ -44,3 +44,6 @@ research/*.html
 # Patterns for java
 *.class
 *.jar
+
+# Patterns for idea
+.idea
