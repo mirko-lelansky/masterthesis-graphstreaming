@@ -1,0 +1,28 @@
+= {Projectname}
+
+{Projectdescription}
+
+== Implementation
+
+=== Dependencies
+
+{Projectdependencies}
+
+=== Installation
+
+{Projectinstallation}
+
+=== Usage
+
+{Projectusage}
+
+=== Api
+
+{Projectdocumentation}
+
+== Contributing
+
+== License
+
+The project is licensed under the Apache 2 License -
+see the LICENSE.adoc file for details.
