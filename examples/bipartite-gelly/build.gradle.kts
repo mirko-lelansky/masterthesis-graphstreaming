@@ -31,6 +31,7 @@ val functTest by sourceSets.creating {
 }
 
 dependencies {
+    implementation(project(":flink-gelly-streaming"))
     implementation("org.slf4j:slf4j-api:$slf4jVersion")
     runtimeOnly("ch.qos.logback:logback-core:$logbackVersion")
     runtimeOnly("ch.qos.logback:logback-classic:$logbackVersion")
