@@ -7,6 +7,7 @@ plugins {
     pmd
 }
 
+val graphstreamVersion = "1.3"
 val junitVersion = "5.3.+"
 val logbackVersion = "1.2.+"
 val powerMockVersion = "1.7.+"
@@ -31,6 +32,9 @@ val functTest by sourceSets.creating {
 }
 
 dependencies {
+    implementation("org.graphstream:gs-core:$graphstreamVersion")
+    implementation("org.graphstream:gs-algo:$graphstreamVersion")
+    implementation("org.graphstream:gs-ui:$graphstreamVersion")
     implementation("org.slf4j:slf4j-api:$slf4jVersion")
     runtimeOnly("ch.qos.logback:logback-core:$logbackVersion")
     runtimeOnly("ch.qos.logback:logback-classic:$logbackVersion")

@@ -37,3 +37,10 @@ research/*.html
 
 # Patterns for lazybones
 .lazybones
+
+# Patterns for gradle
+.gradle
+
+# Patterns for java
+*.class
+*.jar
