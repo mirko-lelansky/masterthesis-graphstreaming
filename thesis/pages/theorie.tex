@@ -273,14 +273,14 @@ display it easily. gs-algo contains extra algorithms which can be run on a graph
 gs-ui provides other graphic viewers and will contain sources for graphical tools.
 }
 
-Das Bild zeigt einen beispielhaften Ablauf einer Verarbeitungsprozesses. Der
-Graph wird aus einer Datei gelesen und die erzeugten Events stellen das Ziel dar.
-Diese Events sind gleichzeitig die Quelle der Verarbeitungseinheit, welche
-wiederum neue Events erzeugt. Diese neuen Events stellen die Quelle für die
-Ausgabe dar. Das verwendete Streaming-Modell wird dabei nicht erwähnt. Aufgrund
-der Tatsache, dass die Bibliothek sowohl Einfache- als auch Multigraphen abdecken
-kann, ist es aber warhscheinlich, dass \enquote{Classical Streaming} zum Einsatz
-kommt.
+Das Bild \ref{fig:graphstream-project-architecture} zeigt einen beispielhaften
+Ablauf eines Verarbeitungsprozesses. Der Graph wird aus einer Datei gelesen und
+die erzeugten Events stellen das Ziel dar. Diese Events sind gleichzeitig die
+Quelle der Verarbeitungseinheit, welche wiederum neue Events erzeugt. Diese neuen
+Events stellen die Quelle für die Ausgabe dar. Das verwendete Streaming-Modell
+wird dabei nicht erwähnt. Aufgrund der Tatsache, dass die Bibliothek sowohl
+Einfache- als auch Multigraphen abdecken kann, ist es aber warhscheinlich, dass
+\enquote{Classical Streaming} zum Einsatz kommt.
 
 \foreigntextquote{english}[\cite{Team2018}]{
 GraphStream is a graph handling Java library that focuses on the dynamics aspects
@@ -299,6 +299,13 @@ Moreover, in addition, GraphStream provides a way to handle the graph evolution
 in time. This means handling the way nodes and edges are added and removed, and
 the way data attributes may appear, disappear and evolve.
 }
+
+\begin{figure}
+\centering
+\includegraphics[width=15cm]{../material/images/graphpipeline-graphstream.png}
+\caption{Architektur von graphstream-project \cite{Team2018}}
+\label{fig:graphstream-project-architecture}
+\end{figure}
 
 \subsection{Gephi}
 \enquote{Gephi} ist eine Visualisierungsplatform für Graphen, welche in Java
