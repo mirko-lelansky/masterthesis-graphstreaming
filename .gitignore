@@ -34,3 +34,6 @@ thesis/*.pdf
 
 # Patterns for asciidoctor
 research/*.html
+
+# Patterns for lazybones
+.lazybones

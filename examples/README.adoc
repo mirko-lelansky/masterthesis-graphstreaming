@@ -1,0 +1,14 @@
+= {Projectname}
+
+{Projectdescription}
+
+== Modules
+
+{Moduledescription}
+
+== Contributing
+
+== License
+
+The project is licensed under the Apache 2 License -
+see the LICENSE.adoc file for details.
