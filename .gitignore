@@ -40,6 +40,7 @@ research/*.html
 
 # Patterns for gradle
 .gradle
+build
 
 # Patterns for java
 *.class
@@ -47,3 +48,4 @@ research/*.html
 
 # Patterns for idea
 .idea
+out
