@@ -32,6 +32,7 @@ val functTest by sourceSets.creating {
 }
 
 dependencies {
+    implementation("info.picocli:picocli:2.1.0")
     implementation("org.graphstream:gs-core:$graphstreamVersion")
     implementation("org.graphstream:gs-algo:$graphstreamVersion")
     implementation("org.graphstream:gs-ui:$graphstreamVersion")
