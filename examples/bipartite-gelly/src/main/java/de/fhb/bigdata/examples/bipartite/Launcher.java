@@ -20,10 +20,27 @@
 
 package de.fhb.bigdata.examples.bipartite;
 
+import picocli.CommandLine;
+
 /**
  * This is the main class of the bipartite tester.
  *
  * @author mlelansky
  */
-public class Launcher {
+public final class Launcher {
+
+    /**
+     * This is the default constructor.
+     */
+    private Launcher() {
+    }
+
+    /**
+     * This is the main entry point of the application.
+     *
+     * @param args the commandline arguments
+     */
+    public static void main(final String[] args) {
+        CommandLine.call(new MainCommand(), System.err, args);
+    }
 }
