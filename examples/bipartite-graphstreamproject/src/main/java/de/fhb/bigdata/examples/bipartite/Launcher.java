@@ -20,13 +20,18 @@
 
 package de.fhb.bigdata.examples.bipartite;
 
-
 /**
  * This is the main class of the bipartite tester.
  *
  * @author mlelansky
  */
 public final class Launcher {
+
+    /**
+     * This is the default constructor.
+     */
+    private Launcher() {
+    }
 
     /**
      * This is the main entry point of the application.
