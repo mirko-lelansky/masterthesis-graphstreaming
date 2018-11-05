@@ -32,6 +32,8 @@ val functTest by sourceSets.creating {
 
 dependencies {
     compileOnly("org.apache.flink:flink-gelly_2.11:1.2.0")
+    compileOnly("org.apache.flink:flink-java:1.2.0")
+    compileOnly("org.apache.flink:flink-streaming-java_2.11:1.2.0")
     compileOnly(project(":flink-gelly-streaming"))
     implementation("info.picocli:picocli:2.1.0")
     implementation("org.slf4j:slf4j-api:$slf4jVersion")
