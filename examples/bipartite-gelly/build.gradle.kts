@@ -31,9 +31,9 @@ val functTest by sourceSets.creating {
 }
 
 dependencies {
+    compileOnly("org.apache.flink:flink-gelly_2.11:1.2.0")
+    compileOnly(project(":flink-gelly-streaming"))
     implementation("info.picocli:picocli:2.1.0")
-    implementation("org.apache.flink:flink-gelly_2.10:1.2.0")
-    implementation(project(":flink-gelly-streaming"))
     implementation("org.slf4j:slf4j-api:$slf4jVersion")
     runtimeOnly("ch.qos.logback:logback-core:$logbackVersion")
     runtimeOnly("ch.qos.logback:logback-classic:$logbackVersion")
