@@ -18,7 +18,7 @@
  *
  */
 
-package de.fhb.bigdata.examples.bipartite;
+package de.thb.bigdata.examples.bipartite;
 
 /**
  * This is the main class of the bipartite tester.

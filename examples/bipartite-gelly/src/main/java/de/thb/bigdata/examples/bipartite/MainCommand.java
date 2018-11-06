@@ -18,7 +18,7 @@
  *
  */
 
-package de.fhb.bigdata.examples.bipartite;
+package de.thb.bigdata.examples.bipartite;
 
 import java.io.File;
 import java.io.Serializable;
