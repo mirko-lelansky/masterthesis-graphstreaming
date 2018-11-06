@@ -44,7 +44,7 @@ import picocli.CommandLine;
 +  "graph and writes the result back to the cmd or in a csv file.",
 version = "Version: 0.1.0")
 public class MainCommand implements Callable<Void>, Serializable {
-    
+
     /**
      * This is the default window time.
      */

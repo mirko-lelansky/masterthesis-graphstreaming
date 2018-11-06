@@ -52,7 +52,7 @@ dependencies {
 }
 
 application {
-    mainClassName = "de.fhb.bigdata.examples.bipartite.Launcher"
+    mainClassName = "de.thb.bigdata.examples.bipartite.Launcher"
 }
 
 java {

@@ -51,7 +51,7 @@ dependencies {
 }
 
 application {
-    mainClassName = ""
+    mainClassName = "de.thb.bigdata.examples.bipartite.Launcher"
 }
 
 java {
