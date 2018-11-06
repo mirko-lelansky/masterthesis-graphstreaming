@@ -1,24 +1,35 @@
-= {Projectname}
+= bipartite-gelly
 
-{Projectdescription}
+This is an example project which uses the experimental
+apache flink library "gelly-streaming". This program reads
+the edges from a text file and checks if the graph which
+created by the edges is bipartite.
 
 == Implementation
 
 === Dependencies
 
-{Projectdependencies}
+To run the project you need a java jre and a running
+Apache Flink Cluster with gelly-streaming and gelly.
+To build the project you need gradle build-system.
 
 === Installation
 
-{Projectinstallation}
+If you want to build the application, use the command
+*gradle shadowJar*. After that you found the archive
+in the build folder.
 
 === Usage
 
-{Projectusage}
+If you want use the application, you must submit them with
+the Flink Cli to the cluster with for example
+*./flink run -c de.thb.bigdata.examples.bipartite.Launcher [jarfile] [input] {options}*
 
 === Api
 
-{Projectdocumentation}
+If you want to get the api, use the
+command *gradle javadoc*. After that you find the html
+pages in the build folder.
 
 == Contributing
 
