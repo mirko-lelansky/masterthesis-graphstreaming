@@ -34,3 +34,18 @@ thesis/*.pdf
 
 # Patterns for asciidoctor
 research/*.html
+
+# Patterns for lazybones
+.lazybones
+
+# Patterns for gradle
+.gradle
+build
+
+# Patterns for java
+*.class
+*.jar
+
+# Patterns for idea
+.idea
+out

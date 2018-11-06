@@ -1,0 +1,3 @@
+[submodule "examples/flink-gelly-streaming"]
+	path = examples/flink-gelly-streaming
+	url = https://github.com/mirko-lelansky/gelly-streaming.git
