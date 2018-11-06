@@ -21,8 +21,10 @@
 package de.fhb.bigdata.examples.bipartite;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.concurrent.Callable;
 
+import org.apache.flink.api.common.typeinfo.TypeHint;
 import org.apache.flink.graph.Edge;
 import org.apache.flink.graph.streaming.GraphStream;
 import org.apache.flink.graph.streaming.SimpleEdgeStream;
@@ -41,7 +43,17 @@ import picocli.CommandLine;
 @CommandLine.Command(description = "This program checks the bipartite of a "
 +  "graph and writes the result back to the cmd or in a csv file.",
 version = "Version: 0.1.0")
-public class MainCommand implements Callable<Void> {
+public class MainCommand implements Callable<Void>, Serializable {
+    
+    /**
+     * This is the default window time.
+     */
+    private static final long MAX_WINDOW_TIME = 500L;
+
+    /**
+     * The serialisation id.
+     */
+    private static final long serialVersionUID = 7150263381930270834L;
 
     /**
      * This is the input graph parameter.
@@ -56,6 +68,18 @@ public class MainCommand implements Callable<Void> {
     @CommandLine.Option(names = {"-o", "--output"},
     description = "The output path.")
     private File outputFilePath;
+
+    /**
+     * This is the delimiter string.
+     */
+    @CommandLine.Option(names = {"-d", "--delimiter"}, description = "The nodes delimiter. Default is TAB.")
+    private String delimiter = "\\u0009";
+
+    /**
+     * This is the window time frame.
+     */
+    @CommandLine.Option(names = {"-t", "--time"}, description = "The window time.")
+    private long time = MAX_WINDOW_TIME;
 
     /**
      * This is the option for the version info.
@@ -77,9 +101,9 @@ public class MainCommand implements Callable<Void> {
     public Void call() throws Exception {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         GraphStream<Long, NullValue, NullValue> graph = new SimpleEdgeStream<>(parseGraph(env), env);
-        DataStream<Candidates> candidatesStream = graph.aggregate(new BipartitenessCheck<>(500L));
+        DataStream<Candidates> candidatesStream = graph.aggregate(new BipartitenessCheck<>(this.time));
         if (this.outputFilePath != null) {
-           candidatesStream.writeAsCsv(this.outputFilePath.getCanonicalPath());
+           candidatesStream.writeAsText(this.outputFilePath.getCanonicalPath());
         } else {
             candidatesStream.print();
         }
@@ -95,10 +119,11 @@ public class MainCommand implements Callable<Void> {
      */
     private DataStream<Edge<Long, NullValue>> parseGraph(final StreamExecutionEnvironment env) {
         return env.readTextFile(this.inputFilePath.getAbsolutePath()).map(value -> {
-            String[] fields = value.split("\\u0009");
+            String[] fields = value.split(this.delimiter);
             long src = Integer.parseInt(fields[0]);
             long target = Integer.parseInt(fields[1]);
             return new Edge<>(src, target, new NullValue());
+        }).returns(new TypeHint<>() {
         });
     }
 }

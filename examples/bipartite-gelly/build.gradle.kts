@@ -1,6 +1,7 @@
 plugins {
     java
     application
+    id("com.github.johnrengelman.shadow") version "4.0.2"
     checkstyle
     id("com.github.spotbugs") version "1.6.5"
     id("org.asciidoctor.convert") version "1.5.9"
