@@ -1,0 +1,17 @@
+DGS004
+bipartite 0
+an 1
+an 2
+an 3
+an 4
+an 5
+an 6
+ae 12 1 2
+ae 14 1 4
+ae 16 1 6
+ae 32 3 2
+ae 34 3 4
+ae 36 3 6
+ae 52 5 2
+ae 54 5 4
+ae 56 5 6

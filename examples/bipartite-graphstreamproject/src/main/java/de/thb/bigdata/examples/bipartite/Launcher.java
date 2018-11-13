@@ -20,6 +20,8 @@
 
 package de.thb.bigdata.examples.bipartite;
 
+import picocli.CommandLine;
+
 /**
  * This is the main class of the bipartite tester.
  *
@@ -39,6 +41,6 @@ public final class Launcher {
      * @param args the commandline arguments
      */
     public static void main(final String[] args) {
-
+        CommandLine.call(new MainCommand(), System.err, args);
     }
 }
