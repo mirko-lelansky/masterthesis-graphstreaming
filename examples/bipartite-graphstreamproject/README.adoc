@@ -6,19 +6,29 @@
 
 === Dependencies
 
-{Projectdependencies}
+To run the project you need a java jre.
+To build the project you need gradle build-system.
 
 === Installation
 
-{Projectinstallation}
+If you want to build the application, use the command
+*gradle jar* or *gradle build*. After that you found the archive
+in the build folder.
 
 === Usage
 
-{Projectusage}
+If you want to use the application, you can use different methods.
+First you can use the created archive from the installation step direct.
+Second you can use the command *gradle distTar* to build an Tar-achive
+which you then can extract on the target location.
+Third you can use the command *gradle run* to start the application from
+gradle direct.
 
 === Api
 
-{Projectdocumentation}
+If you want to get the api, use the
+command *gradle javadoc*. After that you find the html
+pages in the build folder.
 
 == Contributing
 

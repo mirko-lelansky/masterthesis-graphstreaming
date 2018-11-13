@@ -25,6 +25,9 @@ If you want use the application, you must submit them with
 the Flink Cli to the cluster with for example
 *./flink run -c de.thb.bigdata.examples.bipartite.Launcher [jarfile] [input] {options}*
 
+In the examples directory are some files for testing. The first and the second
+examples are bipartite the last one isn't bipartite.
+
 === Api
 
 If you want to get the api, use the
