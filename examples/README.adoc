@@ -1,10 +1,21 @@
-= {Projectname}
+= examples
 
-{Projectdescription}
+This are the different examples for the different libraries. For more information
+about the concrete example look at the specific README.
 
 == Modules
 
-{Moduledescription}
+The module "bipartite-gelly" contains the bipartite check for the gelly-streaming
+library. This example is already implemented in the library and in our reference
+for the other implementation.
+
+The module "bipartite-graphstreamproject" contains the bipartite check for the
+graphstreamproject library.
+
+The module "flink-gelly-streaming" contains the fork of the library
+"gelly-streaming". This fork adds only a gradle build file to work with the
+gradle infrastructure. This can be removed if the library is available over a
+public maven repository.
 
 == Contributing
 

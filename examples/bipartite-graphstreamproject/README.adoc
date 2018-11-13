@@ -1,6 +1,8 @@
-= {Projectname}
+= bipartite-graphstream-project
 
-{Projectdescription}
+This is an example project which uses the experimental
+library "graphstream-project". This program reads
+the graph from a text file and checks if the graph is bipartite.
 
 == Implementation
 
