@@ -337,6 +337,7 @@ Dabei soll das Augenmerk auf folgenden Punkten liegen:
 \item Generatoren
 \item Algorithmen
 \item Verteilung
+\item Connectoren
 \end{itemize}
 
 \subsection{Generatoren}
@@ -423,12 +424,14 @@ folgenden Algorithmen bereit: \cite{Kalavri2018}
 \item Continuous Degree Aggregate
 \end{itemize}
 
+Weitere Algorithmen lassen sich je nach Anwendungsfall umsetzen zum Beispiel um
+den Stream zu filtern oder eine besondere Aggretationsfunktion zu implementieren.
+
 \enquote{gelly-streaming} ist jedoch in ihrere Auswahl an Algorithmen eingeschränkt,
 da ein abgeschwächtes \enquote{semi-Streaming} Modell zum Einsatz kommt. Bei dem
 im Gegensatz zum theoretischen Modell keine mehrfachen Durchläufe gestattet sind.
 
-\enquote{graphstream-project} stellt ebenfalls mehrere Algorithmen bereit.
-\enquote{Gephi} stellt die folgenden Algorithmen bereit:
+\enquote{graphstream-project} stellt ebenfalls mehrere Algorithmen bereit wie:
 
 \begin{itemize}
 \item Betweenness Centrality
@@ -439,6 +442,16 @@ im Gegensatz zum theoretischen Modell keine mehrfachen Durchläufe gestattet sin
 \item Community detection (Modularity)
 \end{itemize}
 
+Weitere Algorithmen lassen sich durch Implementierungen eines Interfaces umsetzen.
+Die Implementierung bekommt eine Referenz auf den Graphen über eine
+Initialisierungs-Methode um eventuelle Vorbereitungen durchzuführen. Die
+eigentliche Verarbeitung erfolgt in einer anderen Methode.
+
+\enquote{Gephi} stellt verschiedene Methoden zur Abfrage des Graphen bereit.
+Dabei wird zwischen statischer und dynamischer Abfrage unterschieden. Eine
+dynamische Abfrage kann auch nur auf einem dynamischen Graphen durchgeführt
+werden. Weitere Algorithmen können über Plug-Ins realisiert werden.
+
 \subsection{Verteilung}
 Verteilung kann für verschiedene Bereiche angewendet werden z.B. lassen sich
 größere Datenpakete teilen, Algorithmen auf mehrere Prozess verteilen, Programme
@@ -446,7 +459,7 @@ auf mehrere Rechner verteilen,~\dots . In unserem Fall ist die Verteilung der
 Streaming-Programme auf mehrere Rechner gemeint.
 
 \enquote{gelly-streaming} ist die einzige Bibliothek, welche verteilt auf mehrere
-Knoten lauft, weil die Laufzeitumgebung Apache Flink dies unterstützt.
+Knoten läuft, weil die Laufzeitumgebung Apache Flink dies unterstützt.
 Der Cluster kann dabei in den verschiedensten Umgebungen laufen wie: \cite{Foundation2018}
 
 \begin{itemize}
@@ -456,5 +469,43 @@ Der Cluster kann dabei in den verschiedensten Umgebungen laufen wie: \cite{Found
 \item etc.
 \end{itemize}
 
-Sowohl \enquote{graphstream-project} als auch \enquote{Gephi} unterstützen dies
-nicht, da diese jeweils eine graphische Oberfläche mitbringen.
+Anwendungen von \enquote{graphstream-project} können nicht verteilt werden,
+obwohl sie von der Art und Weise ähnlich aufgebaut sind wie Apache Flink Anwendungen.
+Denn sie werden ebenfalls über die main-Methode aufgerufen.
+
+\enquote{Gephi} Anwendungen lassen sich ebenfalls nicht, verteilen, dies hängt
+damit zusammen, dass Gephi sich nur mit der graphische Oberfläche gestartet werden
+kann.
+
+\subsection{Connectoren}
+Connectoren sind der entscheidene Punkt, wenn es darum geht verschieden Systeme
+mit einander zu verbinden. Dies ist gerade beim Streaming entscheidend, da die
+Daten ja in Echtzeit von verschiedenen Systemen gelesen und wieder geschrieben
+werden sollen.
+
+Apache Flink unterstützt ebenfalls Connectoren. Dabei werden einige Connectoren
+für Dateien, Sockets,~\dots vom Kern bereitgestellt. Zusätzliche Connectoren
+werden über Bibliotheken bereitgestellt.
+
+In der \enquote{graphstream-project} Bibliothek ist dies einfach Umzusetzen, da
+die Connectoren, dort nur einfache Interface Implementierungen sind und diese
+mit dem Graphen verbunden werden. Die bedeutet, wenn für ein spezielles
+System eine Client-Bibliothek existiert, dann lässt sich ein Connector mit
+Hilfe der Client-Bibliothek programmieren.
+
+Bei \enquote{Gephi} sind alle Erweiterungen Plug-Ins. Die dann entweder von der
+Anwendung oder von anderen Plug-Ins benutzt werden können. Dies bedeutet es ist
+grundsätzlich möglich, ein Plug-In zu schreiben, welches eine Verbindung zum
+Beispiel zu Apache Kafka bereitstellt. Dies ist vom Streaming-Plug-In auch schon
+für HTTP-Dienst so umgesetzt. Dabei existieren zwei Möglichkeiten. Die erste
+Möglichkeit ist, dass \enquote{Gephi} als Client funktioniert und sich beim
+externen Dienst anmeldet und dieser dann die Daten periodisch sendet. Dies ist
+ähnlich wie bei WebSockets. Eine andere Möglichkeit ist, das \enquote{Gephi}
+selbst als Dienst bzw. Master auftritt und sich sowohl externe Dienste wie auch
+andere \enquote{Gephi}-Anwendungen dort anmelden können. Anschließend übernimmt
+der Master die Kommunikation der einzelnen Teilnehmer. Dabei werden alle gesendeten
+bzw. getätigten Änderungen an alle anderen Teilnehmer gesendet. Diese können
+auf die eingehenden Ereignisse reagieren. Der Standardfall ist, dass einfach der
+Graph aktuallisiert wird.
+
+%% Übergang ins nächste Kapitel 
