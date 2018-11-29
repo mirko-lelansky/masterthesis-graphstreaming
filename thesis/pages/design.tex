@@ -3,8 +3,10 @@ In diesem Kapitel geht es darum die Vor- und Nachteile der unterschiedlichen
 Bibliotheken anhand eines praktischen Beispieles zu zeigen. Dabei wird
 \enquote{gelly-streaming} als Referenz benutzt. Zunächst wird dabei allgemein
 der Ablauf des Beispiel beschrieben. Anschließend wir die Architektur der
-jeweiligen Umsetzungen beschrieben und schon auftretende Probleme beschrieben.
-Abschließend werden mögliche Lösungsstrategien für die Probleme erläutert.
+Referenz beschrieben. Anschließend wird der Entwurf für die anderen Bibliotheken
+beschrieben und welche Unterschiede existieren bzw. welche Probleme existieren
+und wie sich diese Lösen lassen. Dabei werden jeweils die Unterschiede bzw.
+Besonderheiten zur Referenz benannt.
 
 \section{Analyse des Beispieles}
 In dem Beispiel geht es darum zu überprüfen, ob ein Graph bipartite ist oder
@@ -54,3 +56,49 @@ Konsole. In einer Produktionsumgebung ist dies gerade für Apache Flink
 problematisch besonders, wenn es verteilt auf mehrere Rechnern betrieben wird.
 
 \subsection{Architektur}
+Die Anwendung besteht aus drei Teilen, welche wie eine Fileterkette aufgebaut
+sind Eingabe, Verarbeitung und Starten. Alle drei Teile definieren einen Apache
+Flink Job und in jede Anwendung sollte maximal nur einen Job umsetzen. Zunächst
+muss die Streaming-Engine initialisiert werden. Dabei ist es von Vorteil, zu
+wissen ob die spätere Anwendung nur lokal oder remote betrieben werden soll.
+Lokal bedeutet in diesem Zusammmenhang, dass die Anwendung einen Apache Flink
+Cluster in der selben JVM startet. Dies lässt sich bereits bei der Entwicklung
+fest einzuprogrammieren oder dynamisch von Apache Flink bestimmen lassen.
+
+\foreigntextquote{english}[\cite{Foundation2018}]{
+The LocalStreamEnvironment is a StreamExecutionEnvironment that runs the program
+locally, multi-threaded, in the JVM where the environment is instantiated. It
+spawns an embedded Flink cluster in the background and executes the program on
+that cluster.}
+
+Danach können die eigentlichen Daten eingelesen werden. Dazu kann ein von Apache
+vordefinierter Connector zum Beispiel für Dateien benutzt werden oder eine
+Bibliothek. In diesem Beispiel wird der File-Connector benutzt, welcher im Kern
+von Apache Flink enthalten ist. Die Umwandlung von Text zu Kanten muss für jede
+Anwendung neu definiert und programmiert werden. Im Beispiel liegen die Daten
+wie schon erwähnt in einer Datei vor. Dabei besteht jede Zeile aus genau einer
+Kante. Jede Kante besteht dabei aus zwei Identifikationsnummern für die Kanten,
+welche durch ein Tabulator getrennt sind. Alle Kanten sind in Apache Flink
+gerichtete Kanten. Eine ungerichtete Kante kann nur erzeugt werden, wenn es eine
+zweite Kante gibt, bei der die Anfangs- und End-Identifikationsnummern vertauscht
+sind.
+
+\foreigntextquote{english}[\cite{Foundation2018}]{
+In Gelly an Edge is always directed from the source vertex to the target vertex.
+A Graph may be undirected if for every Edge it contains a matching Edge from the
+target vertex to the source vertex.}
+
+Anschließend erfolgt die richtige Datenverarbeitung bei der das Filter-Pattern
+zur Anwendung kommt, wie es auch bei anderen Anwendungen, wie Map-Reduce zum
+Einsatz kommt. Dabei wird auch die Ausgabe mit definiert. Im Beispiel wird der
+Graph dann überprüft, ob dieser bipartite ist oder nicht. Dabei werden die Daten
+in einem temporären Stream mit Fenster zwischengespeichert. Die Überprüfung wird
+in eine Aggretationsfunktion eingebettet um die Zwischenergebnisse zu speichern.
+Als letztes wird der Job dann gestartet. Dabei wird in der lokalen Umgebung dann
+der Cluster gestartet.
+
+Bei der Ausführung des Beispiels fällt auf, dass für jede neue Kante ein
+Ergebnis produziert wird. Dies sollte eigentlich nicht passieren, da ja ein
+Fenster aktiv sein sollte und somit nur pro Fenster ein Ergebnis geliefert
+werden sollte. Es kann natürlich daran liegen, dass die Daten aus einer Datei
+eingelesen werden und nicht von einem Socket oder ähnliches.
