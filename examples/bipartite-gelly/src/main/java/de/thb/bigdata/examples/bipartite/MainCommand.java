@@ -78,7 +78,7 @@ public class MainCommand implements Callable<Void>, Serializable {
     /**
      * This is the window time frame.
      */
-    @CommandLine.Option(names = {"-t", "--time"}, description = "The window time.")
+    @CommandLine.Option(names = {"-t", "--time"}, description = "The window time in millisec.")
     private long time = MAX_WINDOW_TIME;
 
     /**
