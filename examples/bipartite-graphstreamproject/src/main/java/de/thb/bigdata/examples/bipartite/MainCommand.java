@@ -114,6 +114,7 @@ public class MainCommand implements Callable<Void> {
             System.err.println(e.getLocalizedMessage());
         } finally {
             fs.end();
+            fs.removeSink(graph);
         }
 
         return null;
