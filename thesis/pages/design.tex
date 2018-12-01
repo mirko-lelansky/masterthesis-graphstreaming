@@ -1,12 +1,12 @@
 \chapter{Design}
 In diesem Kapitel geht es darum die Vor- und Nachteile der unterschiedlichen
 Bibliotheken anhand eines praktischen Beispieles zu zeigen. Dabei wird
-\enquote{gelly-streaming} als Referenz benutzt. Zunächst wird dabei allgemein
-der Ablauf des Beispiel beschrieben. Anschließend wir die Architektur der
-Referenz beschrieben. Anschließend wird der Entwurf für die anderen Bibliotheken
-beschrieben und welche Unterschiede existieren bzw. welche Probleme existieren
-und wie sich diese Lösen lassen. Dabei werden jeweils die Unterschiede bzw.
-Besonderheiten zur Referenz benannt.
+\enquote{gelly-streaming} als Referenz-Implementierung benutzt. Zunächst wird
+allgemein der Ablauf des Beispiel beschrieben. Dann wird die Architektur
+der Referenz beschrieben. Anschließend werden die Entwürfe für die anderen
+Bibliotheken beschrieben und was die Besonderheiten in Bezug auf die Referenz
+sind. Abschließend werden die Probleme der Bibliotheken benannt und mögliche
+Lösungsmöglichkeiten benannt.
 
 \section{Analyse des Beispieles}
 In dem Beispiel geht es darum zu überprüfen, ob ein Graph bipartite ist oder
@@ -49,13 +49,11 @@ Wie läuft das Beispiel nun konkret ab. Zunächst werden die Daten eingelesen. D
 erfolgt zur Vereinfachung über eine Datei. Dies kann jedoch jederzeit auf eine
 alternative Eingabe umgestellt werden zum Beispiel um die Daten von einem
 Messaging-System wie Apache Kafka einlesen zu können. Dabei ist zu beachten,
-dass alle Bibliotheken, verschiedene Eingabeformate haben, welche in der
-Architekturbeschreibung konkret beschrieben werden. Anschließend werden die
-Daten an eine beliebige Ausgabe gesendet. Dies ist in unserem Fall einfach die
-Konsole. In einer Produktionsumgebung ist dies gerade für Apache Flink
-problematisch besonders, wenn es verteilt auf mehrere Rechnern betrieben wird.
+dass alle Bibliotheken, verschiedene Eingabeformate haben. Anschließend werden
+die Daten an eine beliebige Ausgabe gesendet. Dies ist in unserem Fall einfach
+die Konsole.
 
-\subsection{Architektur}
+\subsection{Architektur der Referenz-Implementierung}
 Die Anwendung besteht aus drei Teilen, welche wie eine Fileterkette aufgebaut
 sind Eingabe, Verarbeitung und Starten. Alle drei Teile definieren einen Apache
 Flink Job und in jede Anwendung sollte maximal nur einen Job umsetzen. Zunächst
@@ -97,8 +95,53 @@ in eine Aggretationsfunktion eingebettet um die Zwischenergebnisse zu speichern.
 Als letztes wird der Job dann gestartet. Dabei wird in der lokalen Umgebung dann
 der Cluster gestartet.
 
+\subsection{Entwurf von \enquote{graphstream-project}}
+Die Umsetzung des Beispiel ist ähnlich wie eine normale Java-Anwendung zu
+programmieren. Zunächst wird die Eingabe definiert. In \enquote{graphstream-project}
+sind werden Eingabe-Komponenten als \enquote{Sources} bezeichnet. Hier in diesem
+Beispiel werden die Graphendaten wieder von einer Datei bereitgestellt. Die
+Bibliothek stellt ein Protokoll zur Datenübertragung bereit. Dadurch ist eine
+einfache Kommunikation auch mit anderen Systemen möglich. Das Protokoll hat dabei
+Ähnlichkeiten zum \enquote{Portable Bitmap File} Format. Beide Protokolle haben
+am Anfang einen Kopf für die Meta-Informationen bevor die eigentlichen Daten
+folgen. Im Unterschied zu \enquote{gelly-streaming} lassen sich die Kanten
+genau spezifizieren.
+
+ae Allows to add an edge. This command must be followed by the unique identifier
+of the edge, and then the identifiers of two other nodes. As for nodes, you can
+specify a parameter list. It is possible to create directed edges by adding a
+“>” (greater-than) or “<” (smaller-than) character between the nodes identifiers.
+This indicates the direction of the edge. When no “<” or “>” is present, the
+edge is not directed.
+
+Die Quelle wird dann mit einer Graph-Instanz verbunden. Denn es ist möglich
+den Graphen durch den Aufruf von Methoden zu ändern.
+
+Die Implementierung von Algorithmen erfolgt bei \enquote{graphstream-project}
+über das Interface Algorithm. Dieses stellt zwei Methoden bereit init und compute.
+Die Methode init bekommt einen Graphen übergeben und initialisiert den
+Algorithmus. Die compute Methode führt die eigentliche Berechnung aus.
+Die Resultate des Algorithmus werden über selbst programmiert Getter
+bereitgestellt.
+
+Die Ausgabe erfolgt über einen Aufruf der Konsole.
+
+\subsection{Entwurf von \enquote{Gephi}}
+
+\section{Bewertung und Alternativen}
+
 Bei der Ausführung des Beispiels fällt auf, dass für jede neue Kante ein
 Ergebnis produziert wird. Dies sollte eigentlich nicht passieren, da ja ein
 Fenster aktiv sein sollte und somit nur pro Fenster ein Ergebnis geliefert
 werden sollte. Es kann natürlich daran liegen, dass die Daten aus einer Datei
 eingelesen werden und nicht von einem Socket oder ähnliches.
+
+Die Datenverarbeitung unterscheidet sich stark von der Referenz.
+Bei \enquote{gelly-streaming} wird die Verarbeitung als Filterkette definiert,
+welche dann von Apache Flink verwaltet wird. Der Aufruf der einelnen
+Berechnungsschritte erfolgt dabei durch Apache Flink. Bei
+\enquote{graphstream-project} müssen die einelnen Berechnungsschritte impliziet
+aufgerufen werden. 
+
+Interface Algorithm(Marker Interface) <-> Getter
+
