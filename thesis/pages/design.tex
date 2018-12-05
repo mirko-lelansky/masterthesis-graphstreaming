@@ -107,12 +107,13 @@ am Anfang einen Kopf für die Meta-Informationen bevor die eigentlichen Daten
 folgen. Im Unterschied zu \enquote{gelly-streaming} lassen sich die Kanten
 genau spezifizieren.
 
+\foreigntextquote{english}[\cite{Team2018}]{
 ae Allows to add an edge. This command must be followed by the unique identifier
 of the edge, and then the identifiers of two other nodes. As for nodes, you can
 specify a parameter list. It is possible to create directed edges by adding a
 “>” (greater-than) or “<” (smaller-than) character between the nodes identifiers.
 This indicates the direction of the edge. When no “<” or “>” is present, the
-edge is not directed.
+edge is not directed.}
 
 Die Quelle wird dann mit einer Graph-Instanz verbunden. Denn es ist möglich
 den Graphen durch den Aufruf von Methoden zu ändern.
@@ -127,6 +128,55 @@ bereitgestellt.
 Die Ausgabe erfolgt über einen Aufruf der Konsole.
 
 \subsection{Entwurf von \enquote{Gephi}}
+Die Umsetzung des Beispieles von Gephi ist anders, als die anderen. Dort
+existieren mehrere Möglichkeiten diese Problem zu lösen.
+
+Die erste Möglichkeit besteht darin ein neues Statistik-Plug-In zu entwickeln
+und das bestehende Streaming-Plug-In nur für die Datenübertragung zu verwenden.
+Dies hätte den Vorteil, dass sehr viel von \enquote{Gephi} übernommen werden
+kann und nicht in die Kommunikation eingegriffen werden muss. Die Dateineingabe
+muss bei diesem Szenarion über einen geeingeten HTTP-Service erfolgen, der
+die Kommunikation mit den exterenen Systemem wie zum Beispiel Apache Kafka
+übernimmt und die eingehenden Daten in das entsprechenden Format konvertiert.
+Die Berechnung würde dann im Programm erfolgen ebenso die Ausgabe.
+
+Die andere Möglichkeit ergibt sich durch die direkte Benutzung des
+Streaming-Plug-Ins. Das Streaming-Plugin von \enquote{Gephi} basiert wie schon
+beschrieben auf HTTP. Dabei kann \enquote{Gephi} beide Seiten der
+Client-Server-Verbindung representieren je nach Anwendungsfall. Die
+Datenübertragung erfolgt dabei standartmäßig im JSON-Format. Somit ergeben sich
+zwei mögliche Szenarien.
+
+Das erste Szenario benutzt die Möglichkeit \enquote{Gephi} als Server zu
+betreiben. Dabei wird eine \enquote{Gephi}-Instanz gestartet mit einem
+Arbeitsbereich als Master. Die Dateneingabe muss dabei von einem externen
+Tool bzw. Dienst übernommen werden. Wie schon bei der ersten Möglichkeit. Daraus
+ergibt sich auch die ähnlichkeit zur ersten Möglichkeit. Die Datenverarbeitung
+erfolgt jedoch über einen anderen Weg. Der erste Weg ist die Verarbeitung im
+Tool zu übernehmen und diese dort auch anzuzeigen. Das Problem bei dieser Variante
+ist, dass das Ergebnis nicht von der \gls{API} übertragen werden kann, diese
+ist nur für Manipulationen des Graphen geeignet. Der zweite Weg stellt kann
+dabei eine Lösung sein in dem die \gls{API} um eine geeignete Methode erweitert
+wird. Problem bei dieser Variante ist, wie die Darstellung erfolgen kann.
+
+Das zweite Szenario benutzt die Client-Möglichkeit von \enquote{Gephi}. Bei
+dieser Variante werden die Komponenten von \enquote{Gephi} benutzt, deshalb
+ist eine Plug-In Implementierung notwendig. Zunächst einmal wird die aktuelle
+Graph-Instanz benötigt. Diese Instanz stellt der GraphController bereit, dessen
+aktuelle Referenz zuerst abgefragt werden muss. Als nächstes wird eine Referenz
+des StreamingControllers benötigt, welche ebenfalls abgefragt werden muss.
+Anschließend kann der Endpoint konfiguriert werden. Der StreamingController
+bekommt danach den Endpoint und den Graphen übermittelt und liefert, die
+Verbindung zurück, welchen abschließend gestartet werden kann. Die Aktualisierung
+der Oberfläche erfolgt dabei automatisch. Optional existiert auch die Möglichkeit
+Ereignis-Handler zu registrieren um beim schließen der Verbindung spezielle
+Schritte zu tätigen. Wenn dies wie in unserem Fall nicht ausreicht und zusätzlich
+Schritte erfolgen sollen als nur den Graphen zu aktualisieren, dann wird die
+Hilfe eines GraphEventHandler benötigt. Dieser Handler kann dann alle gewünschten
+Operationen ausführen je nach Anwendungsfall. Diese Variante ist jedoch
+Abstraktionsebene tiefer als, wenn der StreamingController direkt verwendet wird.
+
+%% Listing
 
 \section{Bewertung und Alternativen}
 
@@ -135,6 +185,8 @@ Ergebnis produziert wird. Dies sollte eigentlich nicht passieren, da ja ein
 Fenster aktiv sein sollte und somit nur pro Fenster ein Ergebnis geliefert
 werden sollte. Es kann natürlich daran liegen, dass die Daten aus einer Datei
 eingelesen werden und nicht von einem Socket oder ähnliches.
+%% In der Umsetzung beschreiben
+
 
 Die Datenverarbeitung unterscheidet sich stark von der Referenz.
 Bei \enquote{gelly-streaming} wird die Verarbeitung als Filterkette definiert,
