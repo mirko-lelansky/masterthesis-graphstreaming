@@ -43,14 +43,9 @@ import org.graphstream.graph.implementations.SingleGraph;
 public class MainCommand implements Callable<Void> {
 
     /**
-     * This is the default window time.
-     */
-    private static final long MAX_WINDOW_TIME = 500L;
-
-    /**
      * The serialisation id.
      */
-    private static final long serialVersionUID = 7150263381930270834L;
+    private static final long serialVersionUID = -7588372038062730425L;
 
     /**
      * This is the input graph parameter.
@@ -58,25 +53,6 @@ public class MainCommand implements Callable<Void> {
     @CommandLine.Parameters(arity = "1", paramLabel = "INPUT",
             description = "The input graph file.")
     private File inputFilePath;
-
-    /**
-     * This is the output csv path.
-     */
-    @CommandLine.Option(names = {"-o", "--output"},
-            description = "The output path.")
-    private File outputFilePath;
-
-    /**
-     * This is the delimiter string.
-     */
-    @CommandLine.Option(names = {"-d", "--delimiter"}, description = "The nodes delimiter. Default is TAB.")
-    private String delimiter = "\\u0009";
-
-    /**
-     * This is the window time frame.
-     */
-    @CommandLine.Option(names = {"-t", "--time"}, description = "The window time.")
-    private long time = MAX_WINDOW_TIME;
 
     /**
      * This is the option for the version info.
