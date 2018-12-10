@@ -172,13 +172,106 @@ der Oberfläche erfolgt dabei automatisch. Optional existiert auch die Möglichk
 Ereignis-Handler zu registrieren um beim schließen der Verbindung spezielle
 Schritte zu tätigen. Wenn dies wie in unserem Fall nicht ausreicht und zusätzlich
 Schritte erfolgen sollen als nur den Graphen zu aktualisieren, dann wird die
-Hilfe eines GraphEventHandler benötigt. Dieser Handler kann dann alle gewünschten
-Operationen ausführen je nach Anwendungsfall. Diese Variante ist jedoch
-Abstraktionsebene tiefer als, wenn der StreamingController direkt verwendet wird.
+Hilfe eines GraphEventHandler benötigt. Das Listing \ref{code:GephiGraphHandler}
+zeigt den prototypischen Einsatz eines solchen Handlers. Dieser Handler kann dann
+alle gewünschten Operationen ausführen je nach Anwendungsfall. Diese Variante ist
+jedoch Abstraktionsebene tiefer als, wenn der StreamingController direkt
+verwendet wird.
 
-%% Listing
+\begin{listing}
+\inputminted[breaklines=true]{java}{../material/code/GephiGraphHandler.java}
+\caption{prototypischer Einsatz für einen GraphHandler}
+\label{code:GephiGraphHandler}
+\end{listing}
 
 \section{Bewertung und Alternativen}
+Beim Vergleich der Bibliotheken in der Analysephase fällt auf, dass alle
+Bibliotheken noch im experimentellen Stadium sind. Deshalb sind sie nicht nicht
+für den produktiven Einsatz geeignet, jedoch haben alle schon gute Ansätze bzw.
+ihre Vor- und Nachteile.
+
+Zunächst benutzen die Bibliotheken unterschiedliche Informationen und Darstellungen
+für die Graph-Daten. Die Referenz \enquote{gelly-streaming} stellt dabei die
+wenigsten Informationen bereit. Dort wird lediglich die IDs und ein Wert
+gespeichert jedoch keine zusätzlichen Meta-Informationen zum Beispiel ob die
+Kante hinzugefügt wurde, wie dies bei den anderen Bibliotheken der Fall ist.
+Es bringt einem Entwickler auch nichts diese Daten mit zu übertragen, da die
+Klasse Edge, welche eine Kante representiert, von Apache Flink nur zwei IDs und
+einen Wert speichern kann. Somit haben hier die beiden anderen Bibliotheken klar
+einen Vorteil was die Informationsmenge angeht. Ob diese Informationen letzlich
+immer benötigt werden hängt natürlich stark von den Anforderungen der jeweiligen
+Anwendung ab.
+
+Wie schon oben erwähnt, könnte ein Entwickler die zusätzlichen Daten mit
+übertragen und dann bei \enquote{gelly-streaming} die Konvertierung übernehmen.
+Allerdings wird dann das nicht vorhandene Protokoll von \enquote{gelly-streaming}
+zum Problem. Der Entwickler hat zwar die Freiheit beliebige Daten zu übertragen,
+allerdings muss bei jedem neuen Projekt genau definiert werden, wie die zu
+übertragenden Daten auszusehen haben. Dies kann gerade bei vielen Projekten zum
+Problem werden. Da im Standartfall einfach eine Zeichenkette zur Verfügung steht.
+Es existieren allerdings schon Ansätze diese Problemetik zu lösen. Apache Flink
+stellt Basisklassen für verschiedene Dateiformate bereit zum Beispiel
+BinaryInputFormat, CsvInputFormat,~\dots . Damit kann ein Entwickler konkrete
+Protokolle definieren bzw. gibt bei einer CSV-Datei nur die Trennzeichen an.
+
+Die Referenz \enquote{gelly-streaming} hat Vorteile, bei der Streaming-Umgebung
+und der Verteilung. Dies kommt natürlich daher, dass Apache Flink in diesen
+Punkten schon über einen guten Entwicklungsstand verfügt. Darum ist
+\enquote{gelly-streaming} auch die einzige Bibliothek, welche sich verteilt
+betreiben lässt. Beim Vergleich der gesammten Streaming-Umgebung ist
+\enquote{gelly-streaming} klar am vorschrittlichsten. Es gibt ein eigenes
+Konzept für Streams, welches je nach Anforderung konfiguriert werden kann. In
+unserem Beispiel soll ein einfacher Test nach Ablauf eines Zeitfensters
+durchgeführt werden. Bei \enquote{gelly-streaming} wird zur Lösung dieses
+Problems eine Window-Stream über den Test konfiguriert. Bei \enquote{graphstream-project}
+wird ein andere Event-System-Ansatz gewählt. Dort hat der Entwickler die
+Möglichkeit zu entscheiden ob alle Events auf einmal eingelesen werden sollen
+oder nicht. Die Möglichkeit konkrete Zeitfenster zu definieren gibt es bei
+\enquote{graphstream-project} nicht. Es kann lediglich abgefragt werden, ob noch
+neue Events vorhanden sind. Auf die eigentlichen Events kann nicht zugegriffen
+werden, sondern lediglich auf den vollständigen Graphen. Das Listing
+\ref{code:GraphStreamInput} zeigt den Ablauf zum Einlesen von Events. Bei \enquote{Gephi}
+kann über einen speziellen GraphEventHandler auf die Events zugegriffen werden.
+Allerdings ist auch dort kein Zeitfenster vorgesehen.
+
+\begin{listing}
+\inputminted[breaklines=true]{java}{../material/code/GraphStreamInput.java}
+\caption{prototypischer Ablauf zum Einlesen von Daten bei \enquote{graphstream-project}}
+\label{code:GraphStreamInput}
+\end{listing}
+
+Beim Vergleich der Unterstützung von Algorithmen haben alle Bibliotheken noch
+große Problem, obwohl bei \enquote{gelly-streaming} eigentlich mehr zu erwarten
+währe auf Grund der Verbindung zu Apache Flink und der Bibliothek \enquote{Gelly}.
+Denn dort werden schon einige Graph-Algorithmen definiert, welche jedoch nicht in
+\enquote{gelly-streaming} verwendet werden. Des Weiteren stellt \enquote{Gelly}
+ein Interface GraphAlgorithm bereit, womit ein Entwickler eigene Graph-Algorithmen
+entwickeln kann. Diese Möglichkeit gibt es bei \enquote{gelly-streaming} nicht.
+Dies hat dort auch zur Folge, dass alle selbst definierten Algorithmen eine
+Erweiterung vom SummaryAggregation sein müssen. Dies macht eine Entwicklung
+neuer Algorithmen schwerere. Denn die meisten Algorithmen für die
+Graph-Verabeitung lassen sich als Map-Reduce-Probleme beschreiben. Beim Interface
+GraphAlgorithm ist dies so vorgesehen, denn dieses Interface hat nur eine
+run-Methode in der die konkreten Methodenaufrufe gekapselt werden. Bei
+\enquote{graphstream-project} existiert ebenfals ein Interface Algorithm für die
+Implementierung von Graph-Algorithmen. Dies ist als sogenanntes Marker-Interface
+konzipiert. Das bedeutet, dass alle Klassen, welche dieses Interface
+implementieren einen Graph-Algorithmus darstellen. Jedoch wird dieses Interface
+nicht in anderen Klassen für zum Beispiel Polymorphismus,~\dots eingesetzt. Dies
+lässt sich auch ganz klar an der Interface-Struktur ablesen. Das Interface selbst
+besteht aus zwei Methoden einer init-Methode für die Initialisierung des
+Algorithmuses und einer compute-Methode für die Berechnung. Die Rückgabewerte
+müssen über selbst definierte Getter an den Aufrufer zurückgegeben werden. Dies
+ist aber im Interface nicht vorgesehen. Um diese Einschränkung aufzuheben muss
+das Interface angepasst werden entweder um eine Getter Methode oder die
+compute-Methode wird um einen Rückgabewerte erweitert. Allerdings ergibt sich
+dabei die Frage, was passiert, wenn mehr als ein Rückgabewerte benötigt wird.
+
+
+
+
+
+
 
 Bei der Ausführung des Beispiels fällt auf, dass für jede neue Kante ein
 Ergebnis produziert wird. Dies sollte eigentlich nicht passieren, da ja ein
@@ -186,14 +279,4 @@ Fenster aktiv sein sollte und somit nur pro Fenster ein Ergebnis geliefert
 werden sollte. Es kann natürlich daran liegen, dass die Daten aus einer Datei
 eingelesen werden und nicht von einem Socket oder ähnliches.
 %% In der Umsetzung beschreiben
-
-
-Die Datenverarbeitung unterscheidet sich stark von der Referenz.
-Bei \enquote{gelly-streaming} wird die Verarbeitung als Filterkette definiert,
-welche dann von Apache Flink verwaltet wird. Der Aufruf der einelnen
-Berechnungsschritte erfolgt dabei durch Apache Flink. Bei
-\enquote{graphstream-project} müssen die einelnen Berechnungsschritte impliziet
-aufgerufen werden. 
-
-Interface Algorithm(Marker Interface) <-> Getter
 

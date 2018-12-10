@@ -31,6 +31,7 @@ thesis/*.pdf
 *.run.xml
 *.snm
 *.toc
+_minted-main
 
 # Patterns for asciidoctor
 research/*.html
