@@ -1,8 +1,8 @@
 \chapter{Theorie}
 In diesem Kapitel werden die theoretischen Grundlagen für die Arbeit beschrieben.
 
-Dabei werden zuerst die verschiedenen Graphen erläutert. Anschließend wird der
-Stream-Prozess mit den verschiedenen Modellen beschrieben.
+Dabei werden zuerst die verschiedenen Graphenarten erläutert. Anschließend wird
+der Stream-Prozess mit den verschiedenen Modellen beschrieben.
 
 Danach folgt eine Vorstellung der verschiedenen Bibliotheken und welche
 zugrundeliegende Streaming-Modelle dort zum Einsatz kommen.
@@ -12,10 +12,10 @@ Abschließend folgt ein Vergleich der verschiedenen Bibliotheken.
 \section{Graphen}
 Ein Graph G ist eine Datenstruktur mit der folgenden Definition: $G = (V,E)$.
 Dabei ist V die Menge von Knoten und E die Menge von Kanten. Jede Kante besteht
-dabei aus einen Paar von V. Bei einem ungerichteten Graphen ist das Paar, welches
-die Kante representiert, ein ungeordnetes Paar oder andersgesagt eine
-zweielementige Menge von V. Im Gegensatz dazu ist es bei einem gerichteten
-Graphen ein geordnetes Paar.
+dabei aus einem Paar von V. Bei einem ungerichteten Graphen ist das Paar, welches
+die Kante repräsentiert, ein ungeordnetes Paar bzw. eine Menge von zwei
+Elementen von V. Im Gegensatz dazu ist es bei einem gerichteten Graphen ein
+geordnetes Paar.
 
 \textquote[\cite{Aigner2015}]{
 [\dots] Ein Graph $G = (V,E)$ besteht aus einer endlichen Menge V von Ecken,
@@ -26,14 +26,31 @@ ist a = b, so nennen wir e eine Schlinge bei a. Hat e die Endecken a und b, so
 sagen wir, e verbindet a und b. [\dots]
 }
 
-Wenn die beide Elemente der Kante identisch sind spricht man auch von einer
-Schlinge. Gibt es mehrere identische Kanten spricht man von Merhfachkanten.
-Diese lassen sich zusammenfassen in dem nur eine Kante dargestellt mit einer
-zusätzlichen Zahl, welche die Mehrfachkanten representiert.
+Ein Weg ist eine Menge von Knoten mit der Bedingung, dass für alle Knoten eine
+Kante gibt, welche zum nächsten Knoten führt. In der Regel sind Start- und
+End-Knoten verschieden. Wenn Start- und End-Knoten gleich sind, handelt es sich
+um einen Kreis. Zwei Sonderfälle von Kreisen spielen bei vielen Graph-Problemen
+eine Rolle Schlingen und Mehrfachkanten. Schlingen sind Kreise der Länge eins.
+Dies bedeutet, dass kein weiterer Knoten zwischen dem Start- und End-Knoten
+liegt. Mehrfachkanten sind Kreise der Länge zwei. Dabei liegt noch genau ein
+Knoten zwischen dem Start- und End-Knoten. Diese Kanten lassen sich zu einer
+einzigen Kante zusammenfassen. Dazu wird nur eine Kante dargestellt mit einer
+Zahl versehen, welche die Mehrfachkanten repräsentiert.
 
-Es werden zwei Klassen von Graphen unterschieden. Grpahen, welche nur keine
+\textquote[\cite{Aigner2015}]{
+Sind $v_{0}, v_{1}, v_{2}, \ldots, v_{t}$ Ecken mit $v_{i−1}v_{i} ∈ E$ für alle i,
+so heißt $W = (v_{0}, v_{1} , \ldots, v_{t} )$ ein Kantenzug von $v_{0}$ nach
+$v_{t}$ . Die Länge $l(W) = t$ des Kantenzuges ist die Anzahl der durchlaufenen
+Kanten. W heißt ein Weg, falls alle $v_{i}$ verschieden sind. Es ist klar, dass
+in jedem Kantenzug von a nach b ein a, b-Weg enthalten ist. Ein Kantenzug
+$W = v_{0}, v_{1}, ... , v_{t}$, in dem alle Kanten verschieden sind und ebenso
+alle Ecken mit Ausnahme $v_{0} = v_{t}$ , heißt ein Kreis, wobei t wiederum die
+Länge des Kreises ist.
+}
+
+Es werden zwei Klassen von Graphen unterschieden. Graphen, welche nur keine
 Schlingen und Mehrfachkanten zulassen, werden als einfache Graphen bezeichnet,
-sonst als Multigraphen.
+sonst als Multi-Graphen.
 
 \textquote[\cite{Gurski2010}]{
 [\dots] Kanten, die mit mehr als zwei Knoten inzident sind, werden Hyperkanten
@@ -46,13 +63,13 @@ ohne Schleifen, und auch keine Hypergraphen.
 Stream-Processing beschreibt einen Prozess, bei dem die kontinuierlich
 ankommenden Daten verarbeitet bzw. transformiert werden. Ein Stream ist eine
 unendliche Liste von Elementen. Die Daten werden dabei von mindestens einer
-Quelle gelesen. Anschliend werden diese von mindestens einer Verarbeitungseinheit
+Quelle gelesen. Anschließend werden diese von mindestens einer Verarbeitungseinheit
 transformiert und abschließend in mindestens ein Ziel geschrieben. Quelle und
 Ziel sind dabei externe Systeme, wie Datenbanken, Messaging-Platformen,~\dots,
 welche in der Regel verschieden sind.
 
 Die Idee des Stream-Processing ist schon sehr alt und im Laufe der Zeit sind
-mehrere Modelle entstanden. Jedes Modell hat dabei gewisse Vorraussetzungen
+mehrere Modelle entstanden. Jedes Modell hat dabei gewisse Voraussetzungen
 und Einschränkungen, welche direkten Einfluss auf die konkreten Umsetzungen
 haben. Es gibt die Modelle \enquote{Classical Streaming}, \enquote{semi-Streaming},
 \enquote{W-Stream} und \enquote{StreamSort}.
@@ -66,7 +83,7 @@ können.
 
 Die Prameter dieses Modells sind der Speicher der \gls{RAM}-Maschine in Bits und
 die Anzahl der Verarbeitungsdurchläufe des Streams. Beide Parameter sind dabei
-Abhängig von der Länge des Streams und sollen möglichst klein im Verhältnis zur
+abhängig von der Länge des Streams und sollen möglichst klein im Verhältnis zur
 Länge des Streams sein.
 
 \foreigntextquote{english}[\cite{Ribichini2007}]{
@@ -94,8 +111,8 @@ maximum) is a significant parameter that should be taken into account.
 Das \enquote{semi-Streaming} Modell ist ein vereinfachtes Modell des
 \enquote{Classical Streaming} Modells. Im Gegensatz zum \enquote{Classical Streaming}
 wird hier festgelegt, das die Anzahl der Durchläufe beschränkt wird auf eins bzw.
-einige wenige. Des Weiteren wird die Speichergröße der RAM-Maschine ebenfalls
-auf beschränkt auf die logarithmische-Komplexitätsklasse.
+einige wenige Durchläufe. Des Weiteren wird die Speichergröße der RAM-Maschine
+beschränkt auf die logarithmische-Komplexitätsklasse.
 
 \foreigntextquote{english}[\cite{Ribichini2007}]{
 In particular, some recent papers show that several graph problems can be
@@ -125,7 +142,7 @@ Erweiterung des \enquote{Classical Streaming}. Dabei wird jedes gelesene Element
 des Streams nach der Verarbeitung in einen Ausgabe-Stream geschrieben. Die
 Elemente können dabei bevor sie in den Ausgabe-Stream landen, verändert werden.
 Wenn die Elemente nicht verändert werden, handelt es sich um einen speziellen
-\enquote{W-Strem} nämlich den \enquote{Classical Stream}.
+\enquote{W-Strem}, nämlich den \enquote{Classical Stream}.
 
 \foreigntextquote{english}[\cite{Ribichini2007}]{
 In the W-Stream model [97], a streaming pass, while reading data from
@@ -150,15 +167,15 @@ free. [\dots]
 \section{Graph-Streaming Bibliotheken}
 Graph-Streaming Bibliotheken sind Bibliotheken, welche die beiden Welten
 \gls{BigData} und Graphen miteinander kombinieren wollen. Dabei geht es darum
-große Graphen bzw. Teilgraphen effizient und möglichst in Echtzeit mit Hilfe von
-Streams zu verarbeiten.
+große Graphen bzw. Teilgraphen effizient und möglichst in Echtzeit mit der Hilfe
+von Streams zu verarbeiten.
 
-Bevor eine Verarbeitung der Daten stattfinden kann, muss die Representation
-definiert sein. In unserem Fall sollen Streams Verarbeitet werden, deren Daten
-unseren Graphen representieren. Um den Graphen darzustellen gibt es nun mehrere
+Bevor eine Verarbeitung der Daten stattfinden kann, muss die Repräsentation
+definiert sein. In unserem Fall sollen Streams verarbeitet werden, deren Daten
+unseren Graphen repräsentieren. Um den Graphen darzustellen gibt es, mehrere
 Möglichkeiten.
 
-Die erste Möglichkeit ist es zwei seperate Streams zu verwenden einen für die
+Die erste Möglichkeit ist es zwei separate Streams zu verwenden einen für die
 Knoten und eine für die Kanten. Um eine Verarbeitung durchzuführen ist es bei
 diesem Modell notwendig, die beiden Streams zu kombinieren.
 
@@ -179,7 +196,7 @@ can have their own value.
 }
 
 Die einfachste Möglichkeit besteht darin einfach ein Stream aus Knotenpaaren zu
-nehmen, welche genau eine Kante representieren.
+nehmen, welche genau eine Kante repräsentieren.
 
 \foreigntextquote{english}[\cite{Bali2015}]{
 Edge-only stream The final model we considered is the simplest. The graph
@@ -189,8 +206,8 @@ consists of a single stream of edges.
 Allerdings gibt es bei allen Darstellungsformen einige Probleme. Zunächst einmal
 gibt es keine Information, ob es sich um einen ungerichtete oder gerichtete
 Kante handelt. Des Weiteren existiert auch keine Statusinformation über die
-Änderung der Kante bzw. über den Grund was zum erzeugen der Kante geführt hat
-z.B. wurde die Kante oder ein Knoten hinzugefügt, gelöscht, geändert,~\dots .
+Änderung der Kante bzw. über den Grund was zum Erzeugen der Kante geführt hat
+z. B. wurde die Kante oder ein Knoten hinzugefügt, gelöscht, geändert,~\dots .
 Ein anderes Problem tritt auf, wenn nur ein Knoten hinzugefügt wird, wie wird
 dieser dann dargestellt bzw. verarbeitet. Außerdem stellt sich die Frage, wie
 gewichtete Graphen dargestellt werden, welche bei der Routenplanung zum Einsatz
@@ -219,7 +236,7 @@ model, we use a modified semi-streaming model. Not every algorithm of the
 semi-streaming model will be possible to implement in our model.
 }
 
-Apache Flink eine verteielte Platform für Batch- und Stream-Processing. Der Kern
+Apache Flink eine verteilte Plattform für Batch- und Stream-Processing. Der Kern
 von Apache Flink ist die Streaming-Engine, welche die eigentliche Verarbeitung
 der Daten vornimmt. Apache Flink wurde in der Programmiersprache Java an der TU
 Berlin entwickelt und ist jetzt ein Apache Projekt. Zusätzlich zur Java-\gls{API}
@@ -259,12 +276,12 @@ simplicity.
 \enquote{graphstream-project} ist eine Java-Bibliothek für Graph-Streaming. Die
 Bibiliothek wurde 2009 von der Gruppe RI\textsubscript{2}C-Gruppe am LITIS ein
 Zusammenschluss von mehreren Universitäten und Firmen entwickelt. Derzeit wird
-die Bibliothek von der Universität Le Havre weiterentwickelt. Die aktuelleste
+die Bibliothek von der Universität Le Havre weiterentwickelt. Die aktuellste
 Version ist 1.3 .
 
-Die Bibliothek besteht aus drei verschiedenen Modulen core, algo und ui. Das core
-Modul enthält alle Basisklassen zum lesen und anzeigen von Graphen. Das algo
-Modul enthält zusätzliche Algorithmen für Graphen. Das ui Modul enthält ein
+Die Bibliothek besteht aus drei verschiedenen Modulen core, algo und ui. Das
+core-Modul enthält alle Basisklassen zum Lesen und Anzeigen von Graphen. Das
+algo-Modul enthält zusätzliche Algorithmen für Graphen. Das ui-Modul enthält ein
 alternatives Framework zur Darstellung der Graphen.
 
 \foreigntextquote{english}[\cite{Team2018}]{
@@ -279,7 +296,7 @@ die erzeugten Events stellen das Ziel dar. Diese Events sind gleichzeitig die
 Quelle der Verarbeitungseinheit, welche wiederum neue Events erzeugt. Diese neuen
 Events stellen die Quelle für die Ausgabe dar. Das verwendete Streaming-Modell
 wird dabei nicht erwähnt. Aufgrund der Tatsache, dass die Bibliothek sowohl
-Einfache- als auch Multigraphen abdecken kann, ist es aber warhscheinlich, dass
+Einfache- als auch Multi-Graphen abdecken kann, ist es aber wahrscheinlich, dass
 \enquote{Classical Streaming} zum Einsatz kommt.
 
 \foreigntextquote{english}[\cite{Team2018}]{
@@ -313,10 +330,10 @@ geschrieben ist. Diese wurde 2009 an der Universität of Technologie of Compièg
 in Frankreich entwickelt. Derzeit wir die Platform vom Gehpi Consortium betreut.
 Die aktuelleste Version ist 0.9.2 .
 
-Die Bibliothek baut auf der Netbeans Platform auf. Die Program bietet dabei nur
+Die Bibliothek baut auf der Netbeans Platform auf. Das Programm bietet dabei nur
 die Basisfunktionalität an. Zusätzliche Funktionen werden durch Plug-Ins
 realisiert. Die Streaming-Funktionalität besteht aus zwei Teilen, dem Client und
-dem Server. Die Kommunikation erfolgt dabei über \gls{JSON}.
+Server. Die Kommunikation erfolgt dabei in der Regel über \gls{JSON}.
 
 \foreigntextquote{english}[\cite{Bastian2009}]{
 Gephi Graph Streaming is divided in different modules: The core modules, that
@@ -330,7 +347,7 @@ Knotenerzeugung und extra Angaben wie Gewichte,~\dots erlaubt, ist hier
 ebenfalls von einem \enquote{Classical Streaming} Modell auszugehen.
 
 \section{Vergleich der Bibliotheken}
-Nach dem die Bibliotheken vorgestellt wurden soll nun ein Vergleich erfolgen.
+Nachdem die Bibliotheken vorgestellt wurden, soll nun ein Vergleich erfolgen.
 Dabei soll das Augenmerk auf folgenden Punkten liegen:
 
 \begin{itemize}
@@ -344,12 +361,12 @@ Dabei soll das Augenmerk auf folgenden Punkten liegen:
 Die Verwendung von Generatoren ist gerade bei der Entwicklung von Programmen
 wichtig. Wenn noch kein sehr großes Verständnis oder Datenbasis des angestrebten
 Zieles vorhanden ist, der Entwickler jedoch schon die Funktionalität seines
-Algorithmus testen möchte. Generatoren im Allgemeinen bieten sich zu verwenden
-an, wenn die eigentliche Zielerzeugung zu aufwändig ist oder aus anderen Gründen
-z.B. weil ein externes System beteiligt nicht möglich ist. Generatoren bieten den
+Algorithmus testen möchte. Generatoren bieten sich im Allgemeinen an, wenn die
+eigentliche Zielerzeugung zu aufwendig ist oder aus anderen Gründen nicht möglich
+ist z. B. wenn ein externes System beteiligt ist. Generatoren bieten den
 Vorteil, dass die Struktur vorgeben werden kann und die konkrete Ausprägung jedoch
 immer zufällig ist. Auf die Bibliotheken bezogen bedeutet dies, die Struktur ist
-z.B. ein einfacher Graph mit Sieben Knoten und die konkrete Ausprägung sind dann
+z. B. ein einfacher Graph mit sieben Knoten und die konkrete Ausprägung sind dann
 die Kanten, welche zufällig verteilt sein können.
 
 \enquote{gelly-streaming} hat als einzige Bibliothek keinen Generatoren.
@@ -407,8 +424,8 @@ Zu den Basisfunktionen gehören:
 \item etc.
 \end{itemize}
 
-Komplexfunktionen kombinieren mehrere Basisfunktionen um eine komplexe Funktion
-zu berechnen. Die Algorithmen sind dabei abhängig, vom der Darstellung
+Komplexfunktionen kombinieren mehrere Basisfunktionen, um eine komplexe Funktion
+durchzuführen. Die Algorithmen sind dabei abhängig, vom der Darstellung
 des Graphen Streams, des Streaming-Modells, der Umgebung,~\dots .
 
 \enquote{gelly-streaming} stellt verschiedene Basisfunktionen bereit und die
@@ -424,7 +441,7 @@ folgenden Algorithmen bereit: \cite{Kalavri2018}
 \item Continuous Degree Aggregate
 \end{itemize}
 
-Weitere Algorithmen lassen sich je nach Anwendungsfall umsetzen zum Beispiel um
+Weitere Algorithmen lassen sich je nach Anwendungsfall umsetzen, zum Beispiel um
 den Stream zu filtern oder eine besondere Aggretationsfunktion zu implementieren.
 
 \enquote{gelly-streaming} ist jedoch in ihrere Auswahl an Algorithmen eingeschränkt,
@@ -443,8 +460,8 @@ im Gegensatz zum theoretischen Modell keine mehrfachen Durchläufe gestattet sin
 \end{itemize}
 
 Weitere Algorithmen lassen sich durch Implementierungen eines Interfaces umsetzen.
-Die Implementierung bekommt eine Referenz auf den Graphen über eine
-Initialisierungs-Methode um eventuelle Vorbereitungen durchzuführen. Die
+Die Implementierung bekommt eine Referenz auf den Graphen, über eine
+Initialisierungs-Methode, um eventuelle Vorbereitungen durchzuführen. Die
 eigentliche Verarbeitung erfolgt in einer anderen Methode.
 
 \enquote{Gephi} stellt verschiedene Methoden zur Abfrage des Graphen bereit.
@@ -453,8 +470,8 @@ dynamische Abfrage kann auch nur auf einem dynamischen Graphen durchgeführt
 werden. Weitere Algorithmen können über Plug-Ins realisiert werden.
 
 \subsection{Verteilung}
-Verteilung kann für verschiedene Bereiche angewendet werden z.B. lassen sich
-größere Datenpakete teilen, Algorithmen auf mehrere Prozess verteilen, Programme
+Verteilung kann für verschiedene Bereiche angewendet werden z. B. lassen sich
+größere Datenpakete teilen, Algorithmen auf mehrere Prozesse verteilen, Programme
 auf mehrere Rechner verteilen,~\dots . In unserem Fall ist die Verteilung der
 Streaming-Programme auf mehrere Rechner gemeint.
 
@@ -474,23 +491,23 @@ obwohl sie von der Art und Weise ähnlich aufgebaut sind wie Apache Flink Anwend
 Denn sie werden ebenfalls über die main-Methode aufgerufen.
 
 \enquote{Gephi} Anwendungen lassen sich ebenfalls nicht, verteilen, dies hängt
-damit zusammen, dass Gephi sich nur mit der graphische Oberfläche gestartet werden
-kann.
+damit zusammen, dass Gephi sich nur mit der graphischen Oberfläche gestartet
+werden kann.
 
 \subsection{Connectoren}
-Connectoren sind der entscheidene Punkt, wenn es darum geht verschieden Systeme
-mit einander zu verbinden. Dies ist gerade beim Streaming entscheidend, da die
+Connectoren sind der entscheidende Punkt, wenn es darum geht verschieden Systeme
+miteinander zu verbinden. Dies ist gerade beim Streaming entscheidend, da die
 Daten ja in Echtzeit von verschiedenen Systemen gelesen und wieder geschrieben
 werden sollen.
 
-Apache Flink unterstützt ebenfalls Connectoren. Dabei werden einige Connectoren
+Apache Flink unterstützt Connectoren. Dabei werden einige Connectoren
 für Dateien, Sockets,~\dots vom Kern bereitgestellt. Zusätzliche Connectoren
 werden über Bibliotheken bereitgestellt.
 
 In der \enquote{graphstream-project} Bibliothek ist dies einfach Umzusetzen, da
 die Connectoren, dort nur einfache Interface Implementierungen sind und diese
 mit dem Graphen verbunden werden. Die bedeutet, wenn für ein spezielles
-System eine Client-Bibliothek existiert, dann lässt sich ein Connector mit
+System eine Client-Bibliothek existiert, dann lässt sich ein Connector mit der
 Hilfe der Client-Bibliothek programmieren.
 
 Bei \enquote{Gephi} sind alle Erweiterungen Plug-Ins. Die dann entweder von der
@@ -506,6 +523,6 @@ andere \enquote{Gephi}-Anwendungen dort anmelden können. Anschließend übernim
 der Master die Kommunikation der einzelnen Teilnehmer. Dabei werden alle gesendeten
 bzw. getätigten Änderungen an alle anderen Teilnehmer gesendet. Diese können
 auf die eingehenden Ereignisse reagieren. Der Standardfall ist, dass einfach der
-Graph aktuallisiert wird.
+Graph aktualisiert wird.
 
 %% Übergang ins nächste Kapitel 
