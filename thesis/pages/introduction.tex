@@ -13,7 +13,15 @@ Beim Batch-Processing wird eine feste Datenmenge in kleinere Einheiten unterteil
 Diese Teildaten werden dann von mehreren Rechnern einzeln bearbeitet und
 anschließen die Ergebnisse wieder kombiniert. Beim Stream-Processing gibt es
 keine feste Menge, sondern die Daten kommen kontinuierlich in die Verarbeitung.
-Dadurch ist es möglich die Daten in Echtzeit zu verarbeiten.
+Dadurch ist es möglich die Daten in Echtzeit zu verarbeiten. Stream-Processing
+eignet sich für folgende Einsatzgebiete:
+
+\begin{itemize}
+\item Fehlererkennung zum Beispiel bei Kreditkarten
+\item Spracherkennung
+\item Log-Analysen
+\item Event-Verarbeitung
+\end{itemizze}
 
 \begin{figure}
 \centering
@@ -42,13 +50,13 @@ in dieselbe Schule gegangen ist und nur Freund eines Freundes ist, wird diese
 Person der Liste der Personen hinzugefügt, welche der Benutzer eventuell kennt.
 
 \section{Motivation}
-Wenn beide Welten \gls{BigData} und Graphen miteinander kombiniert werden,
-ergeben sich die verschiedene Problemsituationen. Dies kommt daher, dass Graphen
-komplexe Datenstrukturen sind und sich die bestehenden Konzepte und Algorithmen
-vom Batch-Processing nicht so ohne weiteres aufs Stream-Processing übertragen
-lassen.
-
-%% Einsatzgebiete Graph Streaming
+Wenn beide Welten \gls{BigData} hier Stream-Processing und Graphen miteinander
+kombiniert werden, ergeben sich die verschiedene Problemsituationen, welche
+gelöst werden müssen. Zunächst einmal sind Graphen komplexe Datenstrukturen,
+diese müssen in geeigneter Weise in den Programmen bzw. im Speicher geeignet
+abgebildet werden können um eine Verarbeitung zu ermöglichen. Des Weiteren ist
+es nicht immer möglich und notwendig den gesamten Graphen zu speichern, sondern
+es steht nur ein Teilgraph zur Verfügung.
 
 \section{Ziel der Arbeit}
 Ziel der Arbeit ist es die gewählten Bibliotheken hinsichtlich geeigneter

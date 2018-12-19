@@ -2,7 +2,7 @@
 In diesem Kapitel geht es darum die Vor- und Nachteile der unterschiedlichen
 Bibliotheken anhand eines praktischen Beispieles zu zeigen. Dabei wird
 \enquote{gelly-streaming} als Referenz-Implementierung benutzt. Zunächst wird
-allgemein der Ablauf des Beispiel beschrieben. Dann wird die Architektur
+allgemein der Ablauf des Beispieles beschrieben. Dann wird die Architektur
 der Referenz beschrieben. Anschließend werden die Entwürfe für die anderen
 Bibliotheken beschrieben und was die Besonderheiten in Bezug auf die Referenz
 sind. Abschließend werden die Probleme der Bibliotheken benannt und mögliche
@@ -14,21 +14,21 @@ nicht. Dies bedeutet, ob ein Graph zweifarbig färbbar ist. Um dies für einen
 existierenden Graphen zu lösen, gibt es verschiedene Algorithmen. Die allgemeine
 Vorgehensweise ist dabei ähnlich.
 
-Am Begin sind alle Knoten ungefärbt. Dann werden zwei Farben gewählt.
+Am Beginn sind alle Knoten ungefärbt. Dann werden zwei Farben gewählt.
 Anschließend wird ein Startknoten gewählt und dieser in einer der Farben markiert.
 Dann werden die unmarkierten Nachbarknoten in der anderen Farbe markiert. Danach
 werden deren unmarkierte Nachbarknoten wieder in der ersten Farbe markiert, usw.
-bis alle Knoten makiert sind. Ein Graph ist dann bipartite, wenn alle Knoten so
-markiert sind, dass keine benachbarten Knoten die selbe Farbe haben. Diese
+bis alle Knoten markiert sind. Ein Graph ist dann bipartite, wenn alle Knoten so
+markiert sind, dass keine benachbarten Knoten dieselbe Farbe haben. Diese
 Vorgehensweise kann jeder selbst für kleine Graphen selbst durchführen. Je nachdem
 welche Informationen über den zu überprüfenden Graphen existieren, kann der Ablauf
 auch verkürzt werden. Wenn der Graph nämlich einen Kreis von ungerader Länge
-enthällt ist, kann der Graph nie bipartite sein unabhängig vom gewählten
+enthält ist, kann der Graph nie bipartite sein unabhängig vom gewählten
 Startknoten. Die Abbildung \ref{fig:bipartite-six-nodes} zeigt einen bipartiten
-Graphen mit einen Kreis der Länge sechs. Während dessen die Abbildung \ref{fig:bipartite-five-nodes}
-einen nicht bipartiten Graphen zeigt. Denn der Kreis hat eine ungerade Länge und
-lässt sich damit nie mit zwei Farben färben egal welcher Startknoten gewählt
-wurde. 
+Graphen mit einem Kreis der Länge sechs. Während dessen die Abbildung \ref{fig:bipartite-five-nodes}
+einen nicht bipartiten Graphen zeigt. Denn der Graph hat einen Kreis mit einer
+ungeraden Länge und lässt sich damit nie mit zwei Farben färben egal welcher
+Startknoten gewählt wurde. 
 
 \begin{figure}
 \centering
@@ -50,18 +50,19 @@ erfolgt zur Vereinfachung über eine Datei. Dies kann jedoch jederzeit auf eine
 alternative Eingabe umgestellt werden zum Beispiel um die Daten von einem
 Messaging-System wie Apache Kafka einlesen zu können. Dabei ist zu beachten,
 dass alle Bibliotheken, verschiedene Eingabeformate haben. Anschließend werden
-die Daten an eine beliebige Ausgabe gesendet. Dies ist in unserem Fall einfach
-die Konsole.
+die Daten an eine beliebige Ausgabe gesendet. Dies ist in unserem Fall die
+Konsole.
 
 \subsection{Architektur der Referenz-Implementierung}
-Die Anwendung besteht aus drei Teilen, welche wie eine Fileterkette aufgebaut
-sind Eingabe, Verarbeitung und Starten. Alle drei Teile definieren einen Apache
-Flink Job und in jede Anwendung sollte maximal nur einen Job umsetzen. Zunächst
-muss die Streaming-Engine initialisiert werden. Dabei ist es von Vorteil, zu
-wissen ob die spätere Anwendung nur lokal oder remote betrieben werden soll.
-Lokal bedeutet in diesem Zusammmenhang, dass die Anwendung einen Apache Flink
-Cluster in der selben JVM startet. Dies lässt sich bereits bei der Entwicklung
-fest einzuprogrammieren oder dynamisch von Apache Flink bestimmen lassen.
+Die Anwendung besteht aus drei Teilen, welche wie eine Filterkette aufgebaut ist.
+Sie besteht aus Eingabe, Verarbeitung und dem Starten der Anwendung. Alle drei
+Teile definieren einen Apache Flink Job und in jede Anwendung sollte maximal
+nur einen Job umsetzen. Zunächst muss die Streaming-Engine initialisiert werden.
+Dabei ist es von Vorteil zu wissen, ob die spätere Anwendung nur lokal oder
+remote betrieben werden soll.Lokal bedeutet in diesem Zusammenhang, dass die
+Anwendung einen Apache Flink Cluster in der selbem \gls{JVM} startet. Dies lässt
+sich bereits bei der Entwicklung fest einzuprogrammieren oder dynamisch von Apache
+Flink bestimmen lassen.
 
 \foreigntextquote{english}[\cite{Foundation2018}]{
 The LocalStreamEnvironment is a StreamExecutionEnvironment that runs the program
@@ -76,7 +77,7 @@ von Apache Flink enthalten ist. Die Umwandlung von Text zu Kanten muss für jede
 Anwendung neu definiert und programmiert werden. Im Beispiel liegen die Daten
 wie schon erwähnt in einer Datei vor. Dabei besteht jede Zeile aus genau einer
 Kante. Jede Kante besteht dabei aus zwei Identifikationsnummern für die Kanten,
-welche durch ein Tabulator getrennt sind. Alle Kanten sind in Apache Flink
+welche durch einen Tabulator getrennt sind. Alle Kanten sind in Apache Flink
 gerichtete Kanten. Eine ungerichtete Kante kann nur erzeugt werden, wenn es eine
 zweite Kante gibt, bei der die Anfangs- und End-Identifikationsnummern vertauscht
 sind.
@@ -87,19 +88,19 @@ A Graph may be undirected if for every Edge it contains a matching Edge from the
 target vertex to the source vertex.}
 
 Anschließend erfolgt die richtige Datenverarbeitung bei der das Filter-Pattern
-zur Anwendung kommt, wie es auch bei anderen Anwendungen, wie Map-Reduce zum
-Einsatz kommt. Dabei wird auch die Ausgabe mit definiert. Im Beispiel wird der
+zur Anwendung kommt, wie es auch bei anderen Anwendungen zum Beispiel bei Map-Reduce
+zum Einsatz kommt. Dabei wird auch die Ausgabe mit definiert. Im Beispiel wird der
 Graph dann überprüft, ob dieser bipartite ist oder nicht. Dabei werden die Daten
 in einem temporären Stream mit Fenster zwischengespeichert. Die Überprüfung wird
-in eine Aggretationsfunktion eingebettet um die Zwischenergebnisse zu speichern.
+in eine Aggregationsfunktion eingebettet, um die Zwischenergebnisse zu speichern.
 Als letztes wird der Job dann gestartet. Dabei wird in der lokalen Umgebung dann
 der Cluster gestartet.
 
 \subsection{Entwurf von \enquote{graphstream-project}}
-Die Umsetzung des Beispiel ist ähnlich wie eine normale Java-Anwendung zu
+Die Umsetzung des Beispieles ist ähnlich wie eine normale Java-Anwendung zu
 programmieren. Zunächst wird die Eingabe definiert. In \enquote{graphstream-project}
-sind werden Eingabe-Komponenten als \enquote{Sources} bezeichnet. Hier in diesem
-Beispiel werden die Graphendaten wieder von einer Datei bereitgestellt. Die
+werden Eingabe-Komponenten als \enquote{Sources} bezeichnet. Hier in diesem
+Beispiel werden die Graph-Daten wieder von einer Datei bereitgestellt. Die
 Bibliothek stellt ein Protokoll zur Datenübertragung bereit. Dadurch ist eine
 einfache Kommunikation auch mit anderen Systemen möglich. Das Protokoll hat dabei
 Ähnlichkeiten zum \enquote{Portable Bitmap File} Format. Beide Protokolle haben
@@ -120,63 +121,52 @@ den Graphen durch den Aufruf von Methoden zu ändern.
 
 Die Implementierung von Algorithmen erfolgt bei \enquote{graphstream-project}
 über das Interface Algorithm. Dieses stellt zwei Methoden bereit init und compute.
-Die Methode init bekommt einen Graphen übergeben und initialisiert den
-Algorithmus. Die compute Methode führt die eigentliche Berechnung aus.
-Die Resultate des Algorithmus werden über selbst programmiert Getter
-bereitgestellt.
-
-Die Ausgabe erfolgt über einen Aufruf der Konsole.
+Die Methode init bekommt einen Graphen übergeben und initialisiert den Algorithmus.
+Anschließend erfolgt die Manipulation des Graphen in der compute Methode.
+Abschließend werden die Resultate des Algorithmus über selbst programmiert
+Getter bereitgestellt. Die Ausgabe erfolgt über einen Aufruf der Konsole.
 
 \subsection{Entwurf von \enquote{Gephi}}
 Die Umsetzung des Beispieles von Gephi ist anders, als die anderen. Dort
-existieren mehrere Möglichkeiten diese Problem zu lösen.
+existieren mehrere Möglichkeiten, die Aufgabenstellung zu lösen.
 
 Die erste Möglichkeit besteht darin ein neues Statistik-Plug-In zu entwickeln
 und das bestehende Streaming-Plug-In nur für die Datenübertragung zu verwenden.
 Dies hätte den Vorteil, dass sehr viel von \enquote{Gephi} übernommen werden
-kann und nicht in die Kommunikation eingegriffen werden muss. Die Dateineingabe
-muss bei diesem Szenarion über einen geeingeten HTTP-Service erfolgen, der
-die Kommunikation mit den exterenen Systemem wie zum Beispiel Apache Kafka
-übernimmt und die eingehenden Daten in das entsprechenden Format konvertiert.
-Die Berechnung würde dann im Programm erfolgen ebenso die Ausgabe.
+kann und nicht in die Kommunikation eingegriffen werden muss. Der Graph muss
+dabei von einem externen Service bereitgestellt werden und über HTTP übertragen.
+Ob der Service die Daten selbst erzeugt oder diese zum Beispiel von einem
+externen Anbieter wie Apache Kafka ausließt, hängt von den Anforderungen ab. Der
+Service muss lediglich in der Lage sein, die Daten entsprechend transformieren
+zu können. Die Berechnung würde dann im Programm erfolgen ebenso die Ausgabe.
 
 Die andere Möglichkeit ergibt sich durch die direkte Benutzung des
 Streaming-Plug-Ins. Das Streaming-Plugin von \enquote{Gephi} basiert wie schon
 beschrieben auf HTTP. Dabei kann \enquote{Gephi} beide Seiten der
-Client-Server-Verbindung representieren je nach Anwendungsfall. Die
-Datenübertragung erfolgt dabei standartmäßig im JSON-Format. Somit ergeben sich
-zwei mögliche Szenarien.
+Client-Server-Verbindung repräsentieren je nach Anwendungsfall. Die
+Datenübertragung erfolgt dabei standardmäßig im JSON-Format. Wenn \enquote{Gephi}
+als Client betrieben wird, meldet es sich bei einem externen Service an und wartet
+anschließend bis vom Service Daten gesendet werden, um diese anzuzeigen. Im
+Serverbetrieb läuft \enquote{Gephi} mit einem Arbeitsbereich als Master. Dies
+bedeutet, dass sich externe Services und andere \enquote{Gephi} Anwendungen am
+Master anmelden können. Werden anschließend die Daten am Master durch den
+Benutzer verändert oder ein Teilnehmer verändert seine eigenen Daten, dann wird
+diese Information über den Master an alle Teilnehmer weitergeleitet.
 
-Das erste Szenario benutzt die Möglichkeit \enquote{Gephi} als Server zu
-betreiben. Dabei wird eine \enquote{Gephi}-Instanz gestartet mit einem
-Arbeitsbereich als Master. Die Dateneingabe muss dabei von einem externen
-Tool bzw. Dienst übernommen werden. Wie schon bei der ersten Möglichkeit. Daraus
-ergibt sich auch die ähnlichkeit zur ersten Möglichkeit. Die Datenverarbeitung
-erfolgt jedoch über einen anderen Weg. Der erste Weg ist die Verarbeitung im
-Tool zu übernehmen und diese dort auch anzuzeigen. Das Problem bei dieser Variante
-ist, dass das Ergebnis nicht von der \gls{API} übertragen werden kann, diese
-ist nur für Manipulationen des Graphen geeignet. Der zweite Weg stellt kann
-dabei eine Lösung sein in dem die \gls{API} um eine geeignete Methode erweitert
-wird. Problem bei dieser Variante ist, wie die Darstellung erfolgen kann.
-
-Das zweite Szenario benutzt die Client-Möglichkeit von \enquote{Gephi}. Bei
-dieser Variante werden die Komponenten von \enquote{Gephi} benutzt, deshalb
-ist eine Plug-In Implementierung notwendig. Zunächst einmal wird die aktuelle
-Graph-Instanz benötigt. Diese Instanz stellt der GraphController bereit, dessen
-aktuelle Referenz zuerst abgefragt werden muss. Als nächstes wird eine Referenz
-des StreamingControllers benötigt, welche ebenfalls abgefragt werden muss.
-Anschließend kann der Endpoint konfiguriert werden. Der StreamingController
-bekommt danach den Endpoint und den Graphen übermittelt und liefert, die
-Verbindung zurück, welchen abschließend gestartet werden kann. Die Aktualisierung
-der Oberfläche erfolgt dabei automatisch. Optional existiert auch die Möglichkeit
-Ereignis-Handler zu registrieren um beim schließen der Verbindung spezielle
-Schritte zu tätigen. Wenn dies wie in unserem Fall nicht ausreicht und zusätzlich
-Schritte erfolgen sollen als nur den Graphen zu aktualisieren, dann wird die
-Hilfe eines GraphEventHandler benötigt. Das Listing \ref{code:GephiGraphHandler}
-zeigt den prototypischen Einsatz eines solchen Handlers. Dieser Handler kann dann
-alle gewünschten Operationen ausführen je nach Anwendungsfall. Diese Variante ist
-jedoch Abstraktionsebene tiefer als, wenn der StreamingController direkt
-verwendet wird.
+Durch die beiden Seiten ergeben sich zwei mögliche Varianten bei der Benutzung
+des Streaming-Plug-Ins. Die erste Variante ist es, die vorhandene \gls{API}
+anzupassen. Um nicht nur den Graphen zu manipulieren, sondern auch um Statistiken
+über den Graphen abfragen zu können. Die andere Variante besteht darin, einen
+speziellen Event-Handler zu schreiben, der eine spezielle Funktion beim Eingang
+von Ereignissen umsetzt. Da beim Eingang von Ereignissen im Standardfall nur der
+Graph aktualisiert wird. Um die gewünschte Funktion umzusetzen, muss ein extra
+Plug-In geschrieben werden, da einige Komponenten von der \gls{API} benötigt
+werden. Das Listing \ref{code:GephiGraphHandler} zeigt den prototypischen Einsatz
+eines solchen Handlers. Dieser Handler kann dann alle gewünschten Operationen
+ausführen je nach Anwendungsfall. Diese Variante ist jedoch Abstraktionsebene
+tiefer als, wenn der StreamingController direkt verwendet wird. Der
+StreamingController erlaubt es jedoch nur Event-Handler zu registrieren, welche
+auf Ereignisse reagieren können, wenn der Stream geschlossen wird.
 
 \begin{listing}
 \inputminted[breaklines=true]{java}{../material/code/GephiGraphHandler.java}
@@ -186,21 +176,24 @@ verwendet wird.
 
 \section{Bewertung und Alternativen}
 Beim Vergleich der Bibliotheken in der Analysephase fällt auf, dass alle
-Bibliotheken noch im experimentellen Stadium sind. Deshalb sind sie nicht nicht
+Bibliotheken noch im experimentellen Stadium sind. Deshalb sind sie noch nicht
 für den produktiven Einsatz geeignet, jedoch haben alle schon gute Ansätze bzw.
 ihre Vor- und Nachteile.
 
 Zunächst benutzen die Bibliotheken unterschiedliche Informationen und Darstellungen
 für die Graph-Daten. Die Referenz \enquote{gelly-streaming} stellt dabei die
 wenigsten Informationen bereit. Dort wird lediglich die IDs und ein Wert
-gespeichert jedoch keine zusätzlichen Meta-Informationen zum Beispiel ob die
+gespeichert jedoch keine zusätzlichen Meta-Informationen zum Beispiel, ob die
 Kante hinzugefügt wurde, wie dies bei den anderen Bibliotheken der Fall ist.
-Es bringt einem Entwickler auch nichts diese Daten mit zu übertragen, da die
-Klasse Edge, welche eine Kante representiert, von Apache Flink nur zwei IDs und
+Es bringt einem Entwickler auch nichts diese Daten mitzusenden, da die
+Klasse Edge, welche eine Kante repräsentiert, von Apache Flink nur zwei IDs und
 einen Wert speichern kann. Somit haben hier die beiden anderen Bibliotheken klar
 einen Vorteil was die Informationsmenge angeht. Ob diese Informationen letzlich
 immer benötigt werden hängt natürlich stark von den Anforderungen der jeweiligen
-Anwendung ab.
+Anwendung ab. In diesem Zusammenhang ist noch wichtig zu erwähnen, dass
+\enquote{gelly-streaming} keine weiteren Zugriff auf die Knoten, bis auf die IDs,
+hat im Gegensatz zu \enquote{gelly}. Da nur Kanten eingelesen werden und Knoten
+automatisch aus den IDs erzeugt werden, jedoch mit leeren Werten.
 
 Wie schon oben erwähnt, könnte ein Entwickler die zusätzlichen Daten mit
 übertragen und dann bei \enquote{gelly-streaming} die Konvertierung übernehmen.
@@ -209,7 +202,7 @@ zum Problem. Der Entwickler hat zwar die Freiheit beliebige Daten zu übertragen
 allerdings muss bei jedem neuen Projekt genau definiert werden, wie die zu
 übertragenden Daten auszusehen haben. Dies kann gerade bei vielen Projekten zum
 Problem werden. Da im Standartfall einfach eine Zeichenkette zur Verfügung steht.
-Es existieren allerdings schon Ansätze diese Problemetik zu lösen. Apache Flink
+Es existieren allerdings schon Ansätze diese Problematik zu lösen. Apache Flink
 stellt Basisklassen für verschiedene Dateiformate bereit zum Beispiel
 BinaryInputFormat, CsvInputFormat,~\dots . Damit kann ein Entwickler konkrete
 Protokolle definieren bzw. gibt bei einer CSV-Datei nur die Trennzeichen an.
@@ -218,14 +211,14 @@ Die Referenz \enquote{gelly-streaming} hat Vorteile, bei der Streaming-Umgebung
 und der Verteilung. Dies kommt natürlich daher, dass Apache Flink in diesen
 Punkten schon über einen guten Entwicklungsstand verfügt. Darum ist
 \enquote{gelly-streaming} auch die einzige Bibliothek, welche sich verteilt
-betreiben lässt. Beim Vergleich der gesammten Streaming-Umgebung ist
-\enquote{gelly-streaming} klar am vorschrittlichsten. Es gibt ein eigenes
+betreiben lässt. Beim Vergleich der gesamten Streaming-Umgebung ist
+\enquote{gelly-streaming} klar am fortschrittlichsten. Es gibt ein eigenes
 Konzept für Streams, welches je nach Anforderung konfiguriert werden kann. In
 unserem Beispiel soll ein einfacher Test nach Ablauf eines Zeitfensters
 durchgeführt werden. Bei \enquote{gelly-streaming} wird zur Lösung dieses
 Problems eine Window-Stream über den Test konfiguriert. Bei \enquote{graphstream-project}
-wird ein andere Event-System-Ansatz gewählt. Dort hat der Entwickler die
-Möglichkeit zu entscheiden ob alle Events auf einmal eingelesen werden sollen
+wird ein anderer Event-System-Ansatz gewählt. Dort hat der Entwickler die
+Möglichkeit zu entscheiden, ob alle Events auf einmal eingelesen werden sollen
 oder nicht. Die Möglichkeit konkrete Zeitfenster zu definieren gibt es bei
 \enquote{graphstream-project} nicht. Es kann lediglich abgefragt werden, ob noch
 neue Events vorhanden sind. Auf die eigentlichen Events kann nicht zugegriffen
@@ -242,7 +235,7 @@ Allerdings ist auch dort kein Zeitfenster vorgesehen.
 
 Beim Vergleich der Unterstützung von Algorithmen haben alle Bibliotheken noch
 große Problem, obwohl bei \enquote{gelly-streaming} eigentlich mehr zu erwarten
-währe auf Grund der Verbindung zu Apache Flink und der Bibliothek \enquote{Gelly}.
+wäre aufgrund der Verbindung zu Apache Flink und der Bibliothek \enquote{Gelly}.
 Denn dort werden schon einige Graph-Algorithmen definiert, welche jedoch nicht in
 \enquote{gelly-streaming} verwendet werden. Des Weiteren stellt \enquote{Gelly}
 ein Interface GraphAlgorithm bereit, womit ein Entwickler eigene Graph-Algorithmen
@@ -260,12 +253,12 @@ implementieren einen Graph-Algorithmus darstellen. Jedoch wird dieses Interface
 nicht in anderen Klassen für zum Beispiel Polymorphismus,~\dots eingesetzt. Dies
 lässt sich auch ganz klar an der Interface-Struktur ablesen. Das Interface selbst
 besteht aus zwei Methoden einer init-Methode für die Initialisierung des
-Algorithmuses und einer compute-Methode für die Berechnung. Die Rückgabewerte
+Algorithmus und einer compute-Methode für die Berechnung. Die Rückgabewerte
 müssen über selbst definierte Getter an den Aufrufer zurückgegeben werden. Dies
-ist aber im Interface nicht vorgesehen. Um diese Einschränkung aufzuheben muss
-das Interface angepasst werden entweder um eine Getter Methode oder die
-compute-Methode wird um einen Rückgabewerte erweitert. Allerdings ergibt sich
-dabei die Frage, was passiert, wenn mehr als ein Rückgabewerte benötigt wird.
+ist aber im Interface nicht vorgesehen. Um diese Einschränkung aufzuheben, muss
+entweder das Interface angepasst werden um eine Getter Methode oder die
+compute-Methode wird um einen Rückgabewert erweitert. Allerdings ergibt sich
+dabei die Frage, was passiert, wenn mehr als ein Rückgabewert benötigt wird.
 
 
 
@@ -280,3 +273,4 @@ werden sollte. Es kann natürlich daran liegen, dass die Daten aus einer Datei
 eingelesen werden und nicht von einem Socket oder ähnliches.
 %% In der Umsetzung beschreiben
 
+%% übergang zur Implementierung
