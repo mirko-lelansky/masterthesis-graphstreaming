@@ -47,22 +47,25 @@ Startknoten gewählt wurde.
 
 Wie läuft das Beispiel nun konkret ab. Zunächst werden die Daten eingelesen. Dies
 erfolgt zur Vereinfachung über eine Datei. Dies kann jedoch jederzeit auf eine
-alternative Eingabe umgestellt werden zum Beispiel um die Daten von einem
+alternative Eingabe umgestellt werden, zum Beispiel um die Daten von einem
 Messaging-System wie Apache Kafka einlesen zu können. Dabei ist zu beachten,
-dass alle Bibliotheken, verschiedene Eingabeformate haben. Anschließend werden
-die Daten an eine beliebige Ausgabe gesendet. Dies ist in unserem Fall die
-Konsole.
+dass die Bibliotheken unterschiedliche Eingabeformate unterstützen. Anschließend
+werden die Daten an eine beliebige Ausgabe gesendet. Dies ist in unserem Fall die
+Konsole. Wie auch schon die Eingabe kann hier natürlich auch eine andere Möglichkeit
+genutzt werden.
 
 \subsection{Architektur der Referenz-Implementierung}
-Die Anwendung besteht aus drei Teilen, welche wie eine Filterkette aufgebaut ist.
-Sie besteht aus Eingabe, Verarbeitung und dem Starten der Anwendung. Alle drei
-Teile definieren einen Apache Flink Job und in jede Anwendung sollte maximal
-nur einen Job umsetzen. Zunächst muss die Streaming-Engine initialisiert werden.
-Dabei ist es von Vorteil zu wissen, ob die spätere Anwendung nur lokal oder
-remote betrieben werden soll.Lokal bedeutet in diesem Zusammenhang, dass die
-Anwendung einen Apache Flink Cluster in der selbem \gls{JVM} startet. Dies lässt
-sich bereits bei der Entwicklung fest einzuprogrammieren oder dynamisch von Apache
-Flink bestimmen lassen.
+Jede Streaming-Anwendung von Apache Flink wird als Job bezeichnet. Diese
+Bezeichnung wird oft im Batch-Bereich benutzt. Eine Streaming-Anwendung besteht
+aus zwei Teilen der Initialisierung der Streaming-Umgebung und der eigentlichen
+Anwendung, welche dem EVA-Prinzip folgt. Zunächst muss die Streaming-Engine
+initialisiert werden. Dabei ist es von Vorteil zu wissen, ob die spätere Anwendung
+nur lokal oder remote betrieben werden soll. Lokal bedeutet in diesem Zusammenhang,
+dass die Anwendung einen Apache Flink Cluster in der selbem \gls{JVM} startet.
+Dies lässt sich bereits bei der Entwicklung fest einprogrammieren oder dynamisch
+von Apache Flink bestimmen lassen. Die Streaming-Umgebung ist eine sehr wichtiges
+Management-Objekt, welches für verschiedene Aufgaben vom Entwickler benutzt
+werden sollte.
 
 \foreigntextquote{english}[\cite{Foundation2018}]{
 The LocalStreamEnvironment is a StreamExecutionEnvironment that runs the program
@@ -73,28 +76,29 @@ that cluster.}
 Danach können die eigentlichen Daten eingelesen werden. Dazu kann ein von Apache
 vordefinierter Connector zum Beispiel für Dateien benutzt werden oder eine
 Bibliothek. In diesem Beispiel wird der File-Connector benutzt, welcher im Kern
-von Apache Flink enthalten ist. Die Umwandlung von Text zu Kanten muss für jede
-Anwendung neu definiert und programmiert werden. Im Beispiel liegen die Daten
-wie schon erwähnt in einer Datei vor. Dabei besteht jede Zeile aus genau einer
-Kante. Jede Kante besteht dabei aus zwei Identifikationsnummern für die Kanten,
-welche durch einen Tabulator getrennt sind. Alle Kanten sind in Apache Flink
-gerichtete Kanten. Eine ungerichtete Kante kann nur erzeugt werden, wenn es eine
-zweite Kante gibt, bei der die Anfangs- und End-Identifikationsnummern vertauscht
-sind.
+von Apache Flink enthalten ist. Dieser kann einfach über die Streaming-Umgebung
+aufgerufen werden. Wenn andere Connectoren zum Einsatz kommen werden initialisiert
+und anschließend bei der Streaming-Umgebung registriert.
+
+Die Umwandlung von Text zu Kanten muss für jede Anwendung neu definiert und
+programmiert werden. Im Beispiel liegen die Daten wie schon erwähnt in einer
+Datei vor. Dabei besteht jede Zeile aus genau einer Kante. Jede Kante besteht
+dabei aus zwei Identifikationsnummern für die Kanten, welche durch einen
+Tabulator getrennt sind. Alle Kanten sind in Apache Flink gerichtete Kanten.
+Eine ungerichtete Kante kann nur erzeugt werden, wenn es eine zweite Kante gibt,
+bei der die Anfangs- und End-Identifikationsnummern vertauscht sind.
 
 \foreigntextquote{english}[\cite{Foundation2018}]{
 In Gelly an Edge is always directed from the source vertex to the target vertex.
 A Graph may be undirected if for every Edge it contains a matching Edge from the
 target vertex to the source vertex.}
 
-Anschließend erfolgt die richtige Datenverarbeitung bei der das Filter-Pattern
-zur Anwendung kommt, wie es auch bei anderen Anwendungen zum Beispiel bei Map-Reduce
-zum Einsatz kommt. Dabei wird auch die Ausgabe mit definiert. Im Beispiel wird der
-Graph dann überprüft, ob dieser bipartite ist oder nicht. Dabei werden die Daten
-in einem temporären Stream mit Fenster zwischengespeichert. Die Überprüfung wird
-in eine Aggregationsfunktion eingebettet, um die Zwischenergebnisse zu speichern.
-Als letztes wird der Job dann gestartet. Dabei wird in der lokalen Umgebung dann
-der Cluster gestartet.
+Anschließend erfolgt die Datenverarbeitung. Dabei wird auch die Ausgabe mit
+definiert. Im Beispiel wird der Graph getestet, ob dieser bipartite ist. Dabei
+werden die Daten in einem temporären Stream mit Fenster zwischengespeichert. Die
+Überprüfung wird in eine Aggregationsfunktion eingebettet, um die
+Zwischenergebnisse zu speichern. Als letztes wird der Job dann gestartet. Dabei
+wird in der lokalen Umgebung dann der Cluster gestartet.
 
 \subsection{Entwurf von \enquote{graphstream-project}}
 Die Umsetzung des Beispieles ist ähnlich wie eine normale Java-Anwendung zu
@@ -174,11 +178,11 @@ auf Ereignisse reagieren können, wenn der Stream geschlossen wird.
 \label{code:GephiGraphHandler}
 \end{listing}
 
-\section{Bewertung und Alternativen}
-Beim Vergleich der Bibliotheken in der Analysephase fällt auf, dass alle
-Bibliotheken noch im experimentellen Stadium sind. Deshalb sind sie noch nicht
-für den produktiven Einsatz geeignet, jedoch haben alle schon gute Ansätze bzw.
-ihre Vor- und Nachteile.
+\section{Vergleich der Designs und Beschreibung der Probleme}
+Eine Vergleich der verschiedenen Bibliotheken und der jeweiligen Designs ist
+schwierig, da die Bibliotheken über unterschiedlichste Entwicklungsstände
+verfügen und auch verschiedenen Ansätze verfolgen, wie schon in den Grundlagen
+erläutert wurde.
 
 Zunächst benutzen die Bibliotheken unterschiedliche Informationen und Darstellungen
 für die Graph-Daten. Die Referenz \enquote{gelly-streaming} stellt dabei die
@@ -190,10 +194,14 @@ Klasse Edge, welche eine Kante repräsentiert, von Apache Flink nur zwei IDs und
 einen Wert speichern kann. Somit haben hier die beiden anderen Bibliotheken klar
 einen Vorteil was die Informationsmenge angeht. Ob diese Informationen letzlich
 immer benötigt werden hängt natürlich stark von den Anforderungen der jeweiligen
-Anwendung ab. In diesem Zusammenhang ist noch wichtig zu erwähnen, dass
-\enquote{gelly-streaming} keine weiteren Zugriff auf die Knoten, bis auf die IDs,
-hat im Gegensatz zu \enquote{gelly}. Da nur Kanten eingelesen werden und Knoten
-automatisch aus den IDs erzeugt werden, jedoch mit leeren Werten.
+Anwendung ab. Dieses Problem liese sich jedoch beheben, in dem entweder die Klasse
+Edge um zusätliche Attribute ergänzt wird oder eine neue Klasse abgeleitete wird.
+In diesem Zusammenhang ist noch wichtig zu erwähnen, dass \enquote{gelly-streaming}
+keinen weiteren Zugriff auf die Knoten, bis auf die IDs, hat im Gegensatz zu \enquote{gelly}.
+Da nur Kanten eingelesen werden und Knoten automatisch aus den Ids der Kanten
+erzeugt werden. Ein Entwickler ist also immer gezwungen, sich die Daten der
+Knoten bei Bedarf nachzuladen. Dieses Phänomen ist auch als lazy-loading bekannt
+und kommt bei Anwendungen mit Datenbanken zum tragen.
 
 Wie schon oben erwähnt, könnte ein Entwickler die zusätzlichen Daten mit
 übertragen und dann bei \enquote{gelly-streaming} die Konvertierung übernehmen.
@@ -221,8 +229,8 @@ wird ein anderer Event-System-Ansatz gewählt. Dort hat der Entwickler die
 Möglichkeit zu entscheiden, ob alle Events auf einmal eingelesen werden sollen
 oder nicht. Die Möglichkeit konkrete Zeitfenster zu definieren gibt es bei
 \enquote{graphstream-project} nicht. Es kann lediglich abgefragt werden, ob noch
-neue Events vorhanden sind. Auf die eigentlichen Events kann nicht zugegriffen
-werden, sondern lediglich auf den vollständigen Graphen. Das Listing
+neue Events vorhanden sind. Auf die eigentlichen Events kann jedoch nicht
+zugegriffen werden, sondern lediglich auf den vollständigen Graphen. Das Listing
 \ref{code:GraphStreamInput} zeigt den Ablauf zum Einlesen von Events. Bei \enquote{Gephi}
 kann über einen speziellen GraphEventHandler auf die Events zugegriffen werden.
 Allerdings ist auch dort kein Zeitfenster vorgesehen.
@@ -242,7 +250,7 @@ ein Interface GraphAlgorithm bereit, womit ein Entwickler eigene Graph-Algorithm
 entwickeln kann. Diese Möglichkeit gibt es bei \enquote{gelly-streaming} nicht.
 Dies hat dort auch zur Folge, dass alle selbst definierten Algorithmen eine
 Erweiterung vom SummaryAggregation sein müssen. Dies macht eine Entwicklung
-neuer Algorithmen schwerere. Denn die meisten Algorithmen für die
+neuer Algorithmen schwerer. Denn die meisten Algorithmen für die
 Graph-Verabeitung lassen sich als Map-Reduce-Probleme beschreiben. Beim Interface
 GraphAlgorithm ist dies so vorgesehen, denn dieses Interface hat nur eine
 run-Methode in der die konkreten Methodenaufrufe gekapselt werden. Bei
@@ -252,25 +260,15 @@ konzipiert. Das bedeutet, dass alle Klassen, welche dieses Interface
 implementieren einen Graph-Algorithmus darstellen. Jedoch wird dieses Interface
 nicht in anderen Klassen für zum Beispiel Polymorphismus,~\dots eingesetzt. Dies
 lässt sich auch ganz klar an der Interface-Struktur ablesen. Das Interface selbst
-besteht aus zwei Methoden einer init-Methode für die Initialisierung des
-Algorithmus und einer compute-Methode für die Berechnung. Die Rückgabewerte
-müssen über selbst definierte Getter an den Aufrufer zurückgegeben werden. Dies
-ist aber im Interface nicht vorgesehen. Um diese Einschränkung aufzuheben, muss
-entweder das Interface angepasst werden um eine Getter Methode oder die
-compute-Methode wird um einen Rückgabewert erweitert. Allerdings ergibt sich
-dabei die Frage, was passiert, wenn mehr als ein Rückgabewert benötigt wird.
+besteht aus zwei Methoden. Die init-Methode ist für die Initialisierung des
+Algorithmus zuständig und die compute-Methode für die Berechnung. Die Rückgabewerte
+müssen über selbst definierte Getter an den Aufrufer zurückgegeben werden. Um
+das Interface für Polymorphismus nutzten zu können müsste jedoch eine Möglichkeit
+für die Rückgabewerte existieren. Dies ist aber im Interface nicht vorgesehen.
+Um diese Einschränkung aufzuheben, muss entweder das Interface angepasst werden
+um eine Getter Methode oder die compute-Methode wird um einen Rückgabewert
+erweitert. Allerdings ergibt sich dabei die Frage, was passiert, wenn mehr als ein
+Rückgabewert benötigt wird.
 
-
-
-
-
-
-
-Bei der Ausführung des Beispiels fällt auf, dass für jede neue Kante ein
-Ergebnis produziert wird. Dies sollte eigentlich nicht passieren, da ja ein
-Fenster aktiv sein sollte und somit nur pro Fenster ein Ergebnis geliefert
-werden sollte. Es kann natürlich daran liegen, dass die Daten aus einer Datei
-eingelesen werden und nicht von einem Socket oder ähnliches.
-%% In der Umsetzung beschreiben
-
-%% übergang zur Implementierung
+Nachdem die Designs analysiert wurden, wird nun deren praktische Umsetzung
+beschrieben und welche Problem dabei auftraten.
