@@ -13,6 +13,53 @@ dabei für die jeweilige Bibliothek angepasst. Des Weiteren lassen sich daraus
 schnell und einfach weitere Testfälle erzeugen.
 
 \subsection{Umsetzung der Referenz-Implementierung}
+Die Referenz-Implementierung basiert auf dem Beispiel aus der Bibliothek. Der
+wesentliche Unterschied zur Umsetzung aus der Bibliothek ist, dass eine
+zusätzliche Bibliothek für die Kommandozeile benutzt wurde. Dies sorgt dafür,
+dass die Anwendung sich gut erweitern lässt. Das Listing zeigt den Code wie es
+in der Bibliothek umgesetzt ist. Bei der Analyse des Beispieles fällt auf, dass
+die Anwendung aus vier Parametern besteht:
+
+\begin{itemize}
+\item dem Pfad für die Kanten
+\item dem Pfad für die Ausgabe
+\item dem Zeitinterwall für das Fenster
+\item dem Trennzeichen für die Kanten
+\end{itemize} 
+
+Die ersten beiden Parameter sind dabei die wichtigsten. Die beiden anderen
+Parameter sind im Beispiel schon definiert. Das Zeitintervall hat dabei eine
+Länge von 500ms und das Trennzeichen ist das Tabzeichen. In der Methode
+\enquote{parseParameters} werden die Paramter der Kommandozeile analysiert und
+ggf. ein starten der Anwendung verhindert. Es sind dabei nur zwei Zustände
+erlaubt. Der erste Zustand ist, wenn gar keine Parameter übergeben werden. Dann
+werden die Kanten automatisch erzeugt und die Ergebnisse auf der Konsole
+ausgegeben. Der zweite Zustand ist, wenn beide Parameter übergeben werden. Dann
+werden die Kanten aus der Datei gelesen und auch in eine Datei geschrieben. Ein
+Blick in die main-Methode zeigt jedoch, dass sich auch die Ausgabe über eine
+Variable steuern lässt. Dies wird jedoch nicht genutzt. Der Grund dafür liegt
+klar in der schlechten Transformation der Kommandozeilenparameter. Falls die
+Anwendung dahingehend verändert wird, dass jemand nur einen einzigen Parameter
+übergeben muss und jemand dies auch tut, kann die Anwendung nicht unterscheiden,
+ob es sich dabei um den Pfad für die Kanten oder um dem Ausgabepfad handelt.
+
+Das Problem des Beispiel ist, dass hier zwei verschiedene Konzepte falsch
+verwendert werden. Nämlich die Konzepte von Optionen und Argumente wie, sie in
+jeder Kommandozeile zum Einsatz kommen, wie zum Beispiel bei Linux dort sind die
+meisten Programme Kommandozeilenanwendungen. Argumente sind Variablen, welche für
+die Erfüllung der Aufgabe notwendig sind. Im Gegensatz dazu sind Optionen
+Schalter, welche es dem Benutzer ermöglichen, gewisse Basiswerte zu verändern.
+Ein klassisches Beispiel ist ein SSH- oder FTP-Client, diese ermöglichen es den
+jeweiligen Port über eine Option zu ändern, dies ändert jedoch nicht die
+Anwendungslogik. Wenn ein Benutzer jedoch keine Address mitgibt, dann wird der
+Client eine Fehlermeldung ausgeben, denn die Address ist hier ein Argument. In
+dem Beispiel müssten deshalb sowohl der Dateipfad für die Kanten als auch der
+Dateipfad für die Ausgabe Optionen sein, denn es spielt für die Anwendung ja
+keine Rolle ob die Pfade übergeben werden oder nicht. Denn wenn kein Dateipfad
+für die Kanten übergeben werden, werden die Kanten generiert und wenn kein
+Ausgabepfad übergeben wird, dann werden die Daten einfach in die Konsole
+ausgegeben.
+
 
 \subsection{Umsetzung von \enquote{graphstream-project}}
 \subsection{Umsetzung von \enquote{Gephi}}
