@@ -90,6 +90,37 @@ Entwickler dann nicht mehr die \enquote{readTextFile}-Methode aufrufen kann.
 \label{code:BipartiteReferenz}
 \end{listing}
 
+Die Ausgabe für verschiedene Eingaben hat Ähnlichkeiten zu einem
+\gls{JSON}-Dokument. Allerdings erschließt sich dem Betrachter die genaue
+Struktur des Formates nicht. Das Listing \ref{code:BipartiteGellyResult} zeigt
+exemplarisch die Ausgabe von einem bipartiten Graphen.
+
+\begin{listing}
+\begin{minted}{text}
+(true,{1={1=(1,true), 2=(2,false), 3=(3,true), 4=(4,false), 5=(5,true), 6=(6,false)}})
+\end{minted}
+\caption{Ausgabe \enquote{gelly-streaming} für bipartiten Graph}
+\label{code:BipartiteGellyResult}
+\end{listing}
+
+Des Weiteren ergeben sich Probleme bei der Verwendung der Streaming-Umgebung.
+Apache Flink kennt wie schon erwähnt zwei mögliche Laufzeitumgebungen den lokalen
+Cluster und einen eigenen Cluster. Diese beiden Umgebungen sorgen jedoch bei
+der Erstellung und der Ausführung des Archives für Probleme. Falls ein externer
+Cluster benutzt wird, braucht das Archive nicht die Klassen des Clusters
+enthalten. Im Gegensatz dazu braucht der lokale Cluster die Klassen. Dies macht
+jedoch eine Entwicklung per \gls{IDE} schwierig. Da diese nicht unterscheiden
+kann, wann die zusätzlichen Bibliotheken benötigt werden und wann nicht. Um
+dieses Problem zu lösen, werden entweder Maven-Profile benötigt oder es werden
+die Klassen einfach immer mit in das Archive gepackt. Allerdings hat dieses auch
+zwei Nachteile. Der erste Nachteil ist, dass sich der Speicher des Archives
+erhöht. Dieser Punkt ist nicht so entscheident. Der zweite Nachteil ist dagegen
+nicht zu verachten. Falls alle Klassen im Archive sind und die Anwendung auf
+einem externen Cluster gestartet wird, der ebenfalls die Klassen beinhaltet,
+dann werden Klassen überschrieben. In der Regel werden dies die Klassen des
+Clusters sein. Dies kann jedoch dazuführen, dass verschiedene Versionen
+Inkompatibilitäten hervorrufen.
+
 \subsection{Umsetzung von \enquote{graphstream-project}}
 \subsection{Umsetzung von \enquote{Gephi}}
 \section{Bewertung der Umsetzungen}
