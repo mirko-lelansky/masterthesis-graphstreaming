@@ -14,11 +14,12 @@ schnell und einfach weitere Testfälle erzeugen.
 
 \subsection{Umsetzung der Referenz-Implementierung}
 Die Referenz-Implementierung basiert auf dem Beispiel aus der Bibliothek. Der
-wesentliche Unterschied zur Umsetzung aus der Bibliothek ist, dass eine
-zusätzliche Bibliothek für die Kommandozeile benutzt wurde. Dies sorgt dafür,
-dass die Anwendung sich gut erweitern lässt. Das Listing zeigt den Code wie es
-in der Bibliothek umgesetzt ist. Bei der Analyse des Beispieles fällt auf, dass
-die Anwendung aus vier Parametern besteht:
+wesentliche Unterschied zur Umsetzung aus der Bibliothek ist, dass die
+Bibliothek Picocli\footnote{\url{https://picocli.info/}} für die Kommandozeile
+benutzt wurde. Dies sorgt dafür, dass die Anwendung sich gut erweitern lässt.
+Das Listing \ref{code:BipartiteGellyStreaming} zeigt den Code wie es in der
+Bibliothek umgesetzt ist. Bei der Analyse des Beispieles fällt auf, dass die
+Anwendung vier Informationen benötigt:
 
 \begin{itemize}
 \item dem Pfad für die Kanten
@@ -26,6 +27,12 @@ die Anwendung aus vier Parametern besteht:
 \item dem Zeitinterwall für das Fenster
 \item dem Trennzeichen für die Kanten
 \end{itemize} 
+
+\begin{listing}
+\inputminted[breaklines=true]{java}{../material/code/BipartitenessCheckExample.java}
+\caption{Umsetzung von Bipartitness von \enquote{gelly-streaming} \cite{Kalavri2018}}
+\label{code:BipartiteGellyStreaming}
+\end{listing}
 
 Die ersten beiden Parameter sind dabei die wichtigsten. Die beiden anderen
 Parameter sind im Beispiel schon definiert. Das Zeitintervall hat dabei eine
@@ -60,6 +67,28 @@ für die Kanten übergeben werden, werden die Kanten generiert und wenn kein
 Ausgabepfad übergeben wird, dann werden die Daten einfach in die Konsole
 ausgegeben.
 
+In der veränderten Realisierung wird dies auch so umgesetzt. Das Listing \ref{code:BipartiteReferenz}
+zeigt den veränderten Code. Dabei wir der Fall entfernt, dass kein Dateipfad
+für die Eingabedatei übergeben wurde. Der Dateipfad für die Kanten ist jetzt ein
+verplichtendes Argument der Anwendung. Alle weiteren Daten wie Ausgabepfad,
+Zeitintervall und Trennzeichen sind jetzt Optionen und können bei Bedarf angepasst
+werden. Dadurch ist es schnell möglich die Eingabedatei zu ändern oder das
+Zeitintervall anzupassen. Alle möglichen Argumente und Optionen werden dabei als
+private Variablen angelegt und mit Annotationen versehen. Diese werden anschließend
+von der Bibliothek verarbeitet.  Ein Problem bei der Implementierung bleibt aber
+bestehen, in der \enquote{getEdgesDataSet} werden die Daten von der Umgebung
+gelesen und gleichzeitig in Objekte transformiert. Für eine optimale Umsetzung
+müsste das Einlesen der Daten getrennt von der Transformation erfolgen.
+Dies spielt genau dann eine Rolle, wenn die Eingabequelle nicht mehr eine Datei,
+sondern zum Beispiel ein Messaging-System ist. Da die Transformation der
+Daten trotzdem erfolgen muss, egal welche Eingabequelle vorhanden ist und ein
+Entwickler dann nicht mehr die \enquote{readTextFile}-Methode aufrufen kann.
+
+\begin{listing}
+\inputminted[breaklines=true]{java}{../material/code/GellyStreamingResult.java}
+\caption{Umsetzung von Bipartitness}
+\label{code:BipartiteReferenz}
+\end{listing}
 
 \subsection{Umsetzung von \enquote{graphstream-project}}
 \subsection{Umsetzung von \enquote{Gephi}}
