@@ -1,8 +1,3 @@
-/**
- * This is the main command of the application.
- *
- * @author mlelansky
- */
 @CommandLine.Command(description = "This program checks the bipartite of a "
 +  "graph and writes the result back to the cmd or in a text file.",
 version = "Version: 0.1.0")

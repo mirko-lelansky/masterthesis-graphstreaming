@@ -1,23 +1,6 @@
-/**
- * This is the main command.
- *
- * @author mlelansky
- */
 @CommandLine.Command(description = "This program checks the bipartite of"
 + "a graph.", version = "Version: 0.1.0")
 public class MainCommand implements Callable<Void> {
-
-    /**
-     * The serialisation id.
-     */
-    private static final long serialVersionUID = -7588372038062730425L;
-
-    /**
-     * This is the input graph parameter.
-     */
-    @CommandLine.Parameters(arity = "1", paramLabel = "INPUT",
-            description = "The input graph file.")
-    private File inputFilePath;
 
     @Override
     public Void call() throws Exception {
