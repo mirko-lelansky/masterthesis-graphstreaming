@@ -86,7 +86,7 @@ Entwickler dann nicht mehr die \enquote{readTextFile}-Methode aufrufen kann.
 
 \begin{listing}
 \inputminted[breaklines=true]{java}{../material/code/GellyStreamingResult.java}
-\caption{Umsetzung von Bipartitness}
+\caption{Umsetzung von Bipartitness für \enquote{gelly-streaming}}
 \label{code:BipartiteReferenz}
 \end{listing}
 
@@ -97,7 +97,14 @@ exemplarisch die Ausgabe von einem bipartiten Graphen.
 
 \begin{listing}
 \begin{minted}{text}
-(true,{1={1=(1,true), 2=(2,false), 3=(3,true), 4=(4,false), 5=(5,true), 6=(6,false)}})
+(true, {1= {
+        1=(1,true),
+        2=(2,false),
+        3=(3,true),
+        4=(4,false),
+        5=(5,true),
+        6=(6,false)}
+})
 \end{minted}
 \caption{Ausgabe \enquote{gelly-streaming} für bipartiten Graph}
 \label{code:BipartiteGellyResult}
@@ -122,5 +129,73 @@ Clusters sein. Dies kann jedoch dazuführen, dass verschiedene Versionen
 Inkompatibilitäten hervorrufen.
 
 \subsection{Umsetzung von \enquote{graphstream-project}}
+Für die erfolgreiche Umsetzung waren zwei Schritte notewendig. Als erstes wurde
+der Algorithmus implementiert. Dazu wurde eine Klasse erstellt, welches das
+Algorithm-Interface implementiert, wie es alle Algorithmen von
+\enquote{graphstream-project} machen. Anschließend wurde die Hauptklasse
+geschrieben, welche die Daten einliest und den Algorithmus auffruft.
+Das Listing \ref{code:GraphStreamProjectResult} zeigt die Hauptklasse mit dem
+Ablauf zum einlesen der Daten. Die Besonderheit bei dieser Lösung ist, dass
+der Graph bei der Quelle registriert wird und dadurch über ein Event-System
+automatisch aktualisiert wird. Eine Konvertierung der Eingabedaten ist nicht
+erforderlich, da \enquote{graphstream-project} ein Protokoll bereitstellt und
+die Transformation automatisch beim Einlesen der Daten übernimmt.
+
+\begin{listing}
+\inputminted[breaklines=true]{java}{../material/code/GraphStreamProjectResult.java}
+\caption{Umsetzung von Bipartitness für \enquote{graphstream-project}}
+\label{code:GraphStreamProjectResult}
+\end{listing}
+
+Wie schon im Entwurf beschrieben ist es nicht möglich die Events abzufragen,
+sondern lediglich ob noch weitere Events vorhanden sind. Ebenso ist es nicht
+möglich ein Zeitfenster festzulegen, wie dies bei \enquote{gelly-streaming}
+der Fall ist. Eine Möglichkeit für ein Zeitfenster ist es, wenn am Ende der
+Verarbeitung die \gls{JVM} den gewünschten Zeitraum wartet. Dies müsste
+allerdings genauer getestet werden, ob sich dadurch nicht irgendwelche anderen
+Problemfälle ergeben.
+
+Wie bei \enquote{gelly-streaming} ist es bei \enquote{graphstream-project}
+möglich mehrere Algorithmen hintereinander auszuführen. Allerdings gibt es einen
+wichtigen Unterschied zwischen beiden Bibliotheken. Bei \enquote{graphstream-project}
+liegt der Graph direkt als Objekt vor. Dadurch ist der Entwickler jedoch in
+der Lage den Graphen über einen Algorithmus zu manipulieren und dadurch denn
+Ablauf zu verfälschen. Bei \enquote{gelly-streaming} ist dies nicht der Fall.
+Dort ist der Ablauf wie bei einer Filterkette. Die eingehenden Daten werden
+verarbeitet und an die nächste Einheit weitergereicht, usw. bis zur letzten
+Einheit. Wenn anschließend neue Daten ankommen, laufen diese durch den selben
+Prozess ohne von den alten Daten beeinflusst zu werden.
+
+Bei der Ausgabe ist \enquote{graphstream-project} besser als
+\enquote{gelly-streaming}. Denn bei \enquote{graphstream-project} kann der
+Entwickler die Ausgabe komplett selbst definieren oder diese auch komplett
+weglassen. Das Listing \ref{code:BipartiteGraphStreamResult} zeigt die Ausgabe
+eines bipartiten Graphen. Jede Zeile steht dabei für ein ankommendes Event. In
+unserem Beispiel enthalten die Beispieldaten Events zur Erzeugung von Kanten und
+Knoten. Da die Knoten nicht automatisch mit erzeugt werden, jedoch Vorraussetzung
+für die Erstellung der Kanten sind.
+
+\begin{listing}
+\begin{minted}{text}
+The graph is bipartite: true
+The graph is bipartite: true
+The graph is bipartite: true
+The graph is bipartite: true
+The graph is bipartite: true
+The graph is bipartite: true
+The graph is bipartite: true
+The graph is bipartite: true
+The graph is bipartite: true
+The graph is bipartite: true
+The graph is bipartite: true
+The graph is bipartite: true
+The graph is bipartite: true
+The graph is bipartite: true
+The graph is bipartite: true
+\end{minted}
+\caption{Ausgabe \enquote{graphstream-project} für bipartiten Graphen}
+\label{code:BipartiteGraphStreamResult}
+\end{listing}
+
 \subsection{Umsetzung von \enquote{Gephi}}
 \section{Bewertung der Umsetzungen}
