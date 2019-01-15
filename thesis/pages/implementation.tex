@@ -198,4 +198,83 @@ The graph is bipartite: true
 \end{listing}
 
 \subsection{Umsetzung von \enquote{Gephi}}
+Im Gegensatz zu den beiden anderen Implementierungen konnte \enquote{Gephi}
+nicht erfolgreich umgesetzt werden, obwohl die Entwürfe mit fortgeschrittenen
+Java-Kentnissen umsetzbar sein müssten. Aufgrund der Architektur und dem
+technischen Fortschritt liesen sich die Entwürfe nicht umsetzten.
+
+Die Anwendung \enquote{Gephi} ist wie schon erwähnt eine Netbeans-Anwendung.
+Dabei besteht die Anwendung aus einem Kern und zusätzlichen Plug-Ins, welche den
+Kern um weitere Funtionalität ergänzen. Daran ist auf den ersten Blick auch
+nichts ausszusetzten, denn andere Anwendungen wie Eclipse,
+Jetbrains IntelliJ IDEA arbeiten,~\dots arbeiten nach dem selben Prinzip.
+Allerdings bergen solche Architekturen immer auch Risikos. Zum einen besteht die
+Gefahr, dass falls ein Benutzer zu viele Plug-Ins aktiviert, diese sich
+gegenseitig behindern oder sogar das Programm zum Absturz bringen
+können. Ein anderes Problem sind zu viele und unklare Abhängigkeiten auch als
+\enquote{Dependency-Hell} bekannt. Dabei werden zwischen einzelnen
+Komponenten Abhängigkeiten geschaffen, welche wiederum Abhängkeiten zu anderen
+Komponenten haben und somit ein komplexes Netzwerk von Abhängigkeiten entsteht,
+welches der Entwickler weder durchschauen, noch dieses mit relativ überschaubaren
+Aufwand auflösen kann.
+
+Der Kern von \enquote{Gephi} besteht aus circa 70 Modulen. Bei einem genaueren
+Blick auf die einzelnen Module stellt der Betrachter fest, dass es Module gibt,
+welche keine Funktionalität bereitstellen, wie zum Beispiel bei dem Modul
+\enquote{CoreLibraryWrapper}. Diese Module dienen lediglich dazu verschiedene
+Abhängigkeiten zu bündeln. Dieser Vorgang wird durchgeführt um möglichst ähnliche
+Komponenten, welche in vielen Modulen zum Einsatz kommen sollen für den Entwickler
+leichter verfügbar zu machen. Bei dem Modul \enquote{CoreLibraryWrapper} ist
+dies jedoch nicht der Fall. Diese Modul bündelt zwar andere Abhängkeiten und wird
+selber von vielen Modulen als Abhängkeit benutzt, jedoch sind die gebündelten
+Abhängigkeiten sehr verschieden. Denn dort sind Hilfsbibliotheken wie
+\enquote{Apache Commons Codec} und Bibliotheken zur Darstellung wie
+\enquote{JFreeChart} enthalten. Dies sorgt jedoch für Probleme, denn nicht alle
+Module benutzen auch alle bzw. viele von diesen Abhängkeiten, sondern die meisten
+nutzen nur einige wenige. Dadurch ist ein Entwickler gezwungen sich alle Module
+anzusehen, falls er in seinem Modul einen Fehler entdeckt hat und diesen nur
+durch eine andere Version einer Bibliothek aus \enquote{CoreLibraryWrapper} zu
+lösen ist.
+
+Dieses Abhängigkeitsproblem allein ist für sich genommen erstmal noch kein
+Problem. In Kombination mit einem zweiten Problem bricht das ganze System jedoch
+zusammen. Das zweite Problem ist die Entwicklung der Programmiersprache Java,
+welche \enquote{Gephi} nicht ständig kontrolliert hat und dadurch seine eigenen
+Entwicklung behindert hat. Ob die Entwicklung von Java die Entwicklung von
+\enquote{Gephi} beeinflusst hat oder ob die Entwicklung von \enquote{Gephi}
+stagnierte und anschließend nur schwer wieder aufgenommen werden konnte lässt
+sich nicht mit Sicherheit festellen. Wie bei vielen neuen Entwicklungen, war es
+auch bei Java so, dass diese über einige Kinderkrankheiten verfügte. Diese haben
+die Entwickler anschließend in eigenen Bibliotheken gelöst und der Allgemeinheit
+zur Verfügung gestellt. Dies wurde gerade zur Anfangszeit von Java durchgeführt.
+In unserem Fall trifft dies auf eine StAX-Bibliothek zur Verarbeitung von
+\gls{XML}-Dateien zu. Diese Bibliothek wurde in Java 6 Standard. Davor musste ein
+Entwickler diese Funktionen über eine Bibliothek bereitstellen. 
+
+Die StAX-Bibliothek wird seit 2007 nicht mehr aktiv weiterentwickelt, denn im
+Jahr 2006 wurde Java 6 veröffentlicht und wurde dadurch nicht mehr benötigt.
+Daraus folgt die Entwickler hatten mehr als ein Jahr Zeit ihren Codebasis
+anzupassen. In der Realität war sogar mehr als ein Jahr Zeit, denn die
+Bibliotheken werden ja normalerweise nicht gelöscht. Jedoch hat Sun bzw. Oracle
+den Support für Java 5 im Jahr 2009 bzw. für Java 6 im Jahr 2013 eingestellt.
+Dadurch wurde die StAX-Bibliothek ebenfalls nicht mehr benötigt und wurde
+entfernt. 
+
+Die Pull-API StAX inklusive Implementierung ist Teil der Standardbibliothek und JDK/JRE ab Version 6. [Um die API vor Java 6 nutzen zu können, kann unter http://stax.codehaus.org/ eine Implementierung der API bezogen werden. ] Mit ihr lassen sich XML-Dokumente sehr performant ablaufen, jedoch nicht ändern.
+
+Beide Problem zusammen sorgen für die nur noch marginale Weiterentwicklung bzw.
+Benutzbarkeit von \enquote{Gephi}. Denn viele Module haben eine Abhängkeit zu
+\enquote{CoreLibraryWrapper} benutzen jedoch nicht alle dadurch bereitgestellten
+Bibliothek. Dadurch ist es nicht einfach möglich die Abhängkeit von StAX zu löschen,
+da es bei den vielen Modulen nicht klar offensichtlicht ist, ob die Module StAX
+benutzen oder nicht. Um dieses Problem insgesammt lösen zu können muss das Modul
+\enquote{CoreLibraryWrapper} komplett entfernt werden. Im zuge der Entfernung
+müssen alle Module, welche die StAX-Bibliothek verwenden auf Java 6 oder moderner
+portiert werden. Allerdings dürfen die Module auch nicht auf eine der aktuellsten
+Versionen wie Java 9 oder später portiert werden, denn dort wurden Bibliothek
+welche sowohl extern als auch im JDK enthalten waren entfernt. Zu diesen Bibliothek
+gehörten zum Beispiel Bibliothek für die \gls{XML}-Verarbeitung. Dieser Vorgang
+wurde durchgeführt um einerseits den JDK zu verschlanken und andererseits um
+JavaSE von JavaEE bzw. JakartaEE sauber zu trennen.
+
 \section{Bewertung der Umsetzungen}
