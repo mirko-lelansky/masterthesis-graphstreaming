@@ -251,6 +251,13 @@ In unserem Fall trifft dies auf eine StAX-Bibliothek zur Verarbeitung von
 \gls{XML}-Dateien zu. Diese Bibliothek wurde in Java 6 Standard. Davor musste ein
 Entwickler diese Funktionen über eine Bibliothek bereitstellen. 
 
+\textquote[\cite{Ullenboom2019}]{
+Die Pull-API StAX inklusive Implementierung ist Teil der Standardbibliothek und
+JDK/JRE ab Version 6. [Um die API vor Java 6 nutzen zu können, kann unter 
+\url{http://stax.codehaus.org/} eine Implementierung der API bezogen werden. ]
+Mit ihr lassen sich XML-Dokumente sehr performant ablaufen, jedoch nicht ändern.
+}
+
 Die StAX-Bibliothek wird seit 2007 nicht mehr aktiv weiterentwickelt, denn im
 Jahr 2006 wurde Java 6 veröffentlicht und wurde dadurch nicht mehr benötigt.
 Daraus folgt die Entwickler hatten mehr als ein Jahr Zeit ihren Codebasis
@@ -259,8 +266,6 @@ Bibliotheken werden ja normalerweise nicht gelöscht. Jedoch hat Sun bzw. Oracle
 den Support für Java 5 im Jahr 2009 bzw. für Java 6 im Jahr 2013 eingestellt.
 Dadurch wurde die StAX-Bibliothek ebenfalls nicht mehr benötigt und wurde
 entfernt. 
-
-Die Pull-API StAX inklusive Implementierung ist Teil der Standardbibliothek und JDK/JRE ab Version 6. [Um die API vor Java 6 nutzen zu können, kann unter http://stax.codehaus.org/ eine Implementierung der API bezogen werden. ] Mit ihr lassen sich XML-Dokumente sehr performant ablaufen, jedoch nicht ändern.
 
 Beide Problem zusammen sorgen für die nur noch marginale Weiterentwicklung bzw.
 Benutzbarkeit von \enquote{Gephi}. Denn viele Module haben eine Abhängkeit zu
