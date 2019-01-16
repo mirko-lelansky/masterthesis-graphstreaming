@@ -306,4 +306,50 @@ Graph-Daten, welche verarbeitet werden.
 
 Beim einlesen der Daten sind beide Bibliotheken gleich gut, da beide
 verschiedensten Connectoren bereitstellen bzw. dem Entwickler die Möglichkeit
-geben eigene zu entwickeln.
+geben eigene zu entwickeln. Was die eigentlichen Daten angeht haben beide, wie
+schon erwähnt ähnliche Möglichkeiten. Deshalb wird es, was die Daten angeht sehr
+stark auf den jeweiligen Anwendungsfall ankommen. Wenn für die gewünschte Analyse
+lediglich die Kanten mit ihren Werten benötigt werden bzw. die Knoten nur sehr
+selten, dann ist die Verwendung von \enquote{gelly-streaming} ausreichend. Zum
+Beispiel bei klassischen statischen Auswertung, wie zum Beispiel wie viele Events
+kommen von einem bestimmten Typ innerhalb eines festgelegten Zeitraumes an. Bei
+Graphen in sozialen Netzwerken sind die Kanten jedoch nicht so wertvoll, sondern
+eher die Knoten, denn in den Kanten steht ja meistens so etwas wie \enquote{kennt}
+, \enquote{geliked},~\dots . Die sozialen Netzwerke leben jedoch davon, dass sie
+gezielt Werbung, bzw. Vorschlagslisten anzeigen zum Beispiel über Personen,
+welche der Benutzer noch kennen könnte. Um diese zu erstellen sind jedoch die
+Informationen der Knoten notwendig.
+
+Bei der Verarbeitung sind beide Bibliotheken gleich gut. Der Entwickler kann bei
+beiden Bibliotheken beliebige Graph-Algorithmen erstellen. Dies ist natürlich
+immer bezogen auf die jeweilige Umgebung. Ob es jedoch praktisch möglich ist
+alle Graph-Algorithmen umzusetzen, wird sich nur im Einzelfall klären lassen.
+Auch in wie weit die Konzepte an ihre Grenzen stoßen. Dafür sind die derzeitigen
+Testbeispiele bzw. Anwendungsfälle jedoch noch zu einfach. Um dies zu ändern
+müsste eine Firma aus der Praxis mindestens ein halbes Jahr in die Forschung
+inverstieren. Damit es möglich ist ein wirklich komplexes Beispiel mit der
+notwendigen Infrastruktur aufzubauen und dann die jeweiligen Anwendungsfälle
+mit sehr vielen Daten zu testen. Dies schließt auch die Frage der jeweiligen
+Streaming-Umgebung ein. Apache Flink ist von seinem Unterbau und seinen
+Möglichkeiten schon eine richtige verteielte Streaming-Anwendung. Im Gegensatz
+dazu ist \enquote{graphstream-project} eher eine normale Java-Anwendung. Dies
+fällt vorallem bei der Event-Verarbeitung auf. Bei \enquote{graphstream-project}
+gibt es laut dem Protokoll zwar auch so etwas wie eine Uhr, jedoch fehlen dabei
+konkrete Anwendungsfälle bzw. Informationen ob sich damit so etwas wie ein
+Zeitfenster realisieren lässt.
+
+Alle Bibliotheken haben noch Probleme, damit konkrete Anwendungsfälle zu
+definieren bzw. Einsatzgebiete. Ohne diese wird jedoch ein praktischer Einsatz
+eher unwarscheinlich. Zu mal sich bei \enquote{gelly-streaming} die Frage stellt,
+ob die Bibliothek in diesem Umfang überhaupt gebraucht wird. Denn eine Kante
+ist ja vereinfacht gesagt nichts anderes als eine Liste bzw. ein Tupel von
+einfachen Daten. Die anschließend verarbeitet werden. Dieses Konzept gibt es
+jedoch schon von Apache Storm,~\dots bzw. vereifacht kann dies auch Apache Kafka.
+Daraus folgt, dass die Verarbeitungschritte, welche derzeit von
+\enquote{gelly-streaming} angeboten werden sich auch einfacher mit anderen
+Methoden ausgerechnet werden können. Auch kann es sinnvoll sein über
+Graph-Datenbanken, wie Neo4j nachzudenken. Denn Graph-Verarbeitung macht
+eigentlich eher sinn, wenn nicht einzelne Kanten übertragen werden, sondern
+Teilgraphen. Dieser könnten dann analysiert werden um daraus Rückschlüsse auf
+den Hauptgraph zu ziehen. So ähnlich, wie dies auch in anderen Bereichen
+getätigt wird, wie zum Beispiel in der Finanzwelt um Prognosen zu erstellen.
