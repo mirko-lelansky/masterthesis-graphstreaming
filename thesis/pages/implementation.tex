@@ -283,3 +283,23 @@ wurde durchgeführt um einerseits den JDK zu verschlanken und andererseits um
 JavaSE von JavaEE bzw. JakartaEE sauber zu trennen.
 
 \section{Bewertung der Umsetzungen}
+Ein Vergleich der verschiedenen Umsetzungen ist nicht leicht, da einerseits die
+Bibliotheken sehr unterschiedliche Ansätze benutzen und andereseits die
+Implementierung mit \enquote{Gephi} nicht umsetzbar war. Dies heißt nicht
+automatisch, dass die Bibliothek \enquote{Gephi} schlecht ist. Sie ist lediglich
+im Moment nicht benutzbar, lässt sich jedoch wie oben beschrieben auch beheben.
+Wenn jemand \enquote{Gephi} verbessert, kann es durchaus sinnvoll sein sich die
+gesammte Architektur bzw. die Infrastruktur anzusehen und ggf. diese vorher
+anzupassen. Wenn sich durch diese Betrachtung jedoch ergibt, dass die gewählte
+Technologie mit Netbeans nicht geeignet ist, ist ein Blick auf die
+funktionierenden Bibliotheken anzuraten. Je nachdem wie viele Resourcen zur
+Verfügung stehen. Denn, dass der Ansatz über Plug-Ins funktioniert zeigen ja,
+gerade Beispiele, wie Eclipse, IntelliJ IDEA,~\dots . Der Netbeans \gls{IDE}
+unterstützt dies natürlich auch.
+
+Wenn nur die beiden funktionierenden Umsetzungen betrachtet werden, wird einem
+klar, dass beide Bibliothek im begrenzten Umfang Graph Streaming durchführen.
+Denn einerseits können die Bibliotheken Daten von einer unbegrenzten Liste
+einlesen, zum Beispiel von Apache Kafka, was ja die Definition eines Streams
+ausmacht. Zum anderen handelt es sich bei den Daten ja um Kanten also um
+Graph-Daten welche verarbeitet werden.
