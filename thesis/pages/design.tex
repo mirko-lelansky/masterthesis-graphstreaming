@@ -186,16 +186,23 @@ erläutert wurde.
 
 Zunächst benutzen die Bibliotheken unterschiedliche Informationen und Darstellungen
 für die Graph-Daten. Die Referenz \enquote{gelly-streaming} stellt dabei die
-wenigsten Informationen bereit. Dort wird lediglich die IDs und ein Wert
-gespeichert jedoch keine zusätzlichen Meta-Informationen zum Beispiel, ob die
-Kante hinzugefügt wurde, wie dies bei den anderen Bibliotheken der Fall ist.
-Es bringt einem Entwickler auch nichts diese Daten mitzusenden, da die
-Klasse Edge, welche eine Kante repräsentiert, von Apache Flink nur zwei IDs und
-einen Wert speichern kann. Somit haben hier die beiden anderen Bibliotheken klar
-einen Vorteil was die Informationsmenge angeht. Ob diese Informationen letzlich
-immer benötigt werden hängt natürlich stark von den Anforderungen der jeweiligen
-Anwendung ab. Dieses Problem liese sich jedoch beheben, in dem entweder die Klasse
-Edge um zusätliche Attribute ergänzt wird oder eine neue Klasse abgeleitete wird.
+wenigsten Informationen bereit. Dies liegt natürlich an den verschiedenen
+Konzepten der Bibliotheken. Es existieren zwei Arten von Informationen, die
+eigentlichen Graph-Daten und Meta-Informationen, welche zusätzliche Informationen
+zu den Graph-Daten bereitstellen. Bei \enquote{gelly-streaming} gibt es keine
+Meta-Informationen und es werden lediglich die Kanten als Graph-Daten verarbeitet.
+Eine Kante besteht dabei aus zwei IDs und einem Wert. Sowohl der Wert als auch
+die IDs können dabei beliebige Datentypen annehmen. Es gibt lediglich eine
+Einschränkung, dass beide IDs den selben Typ angehören müssen. Die Knoten werden
+aus den IDs der Kanten erzeugt und haben sonst keine zusätzlichen Werte. Die
+beiden anderen Bibliotheken stellen umfangreichere Daten bereit. Dort existieren
+sowohl Meta-Informationen, als auch die bei \enquote{gelly-streaming} fehlenden
+Knoten. Ob diese Informationen letzlich immer benötigt werden hängt natürlich
+von den Anforderungen der jeweiligen Anwendung ab. Ein Entwickler könnte die
+zusätzlichen Meta-Informationen mit übermitteln. Dies hat jedoch zur Folge, dass
+der einzelne Wert dann immer ein komplexer Datentyp sein muss, wie zum Beispiel
+eine Map, Liste,~\dots oder eine eigene Klasse.
+
 In diesem Zusammenhang ist noch wichtig zu erwähnen, dass \enquote{gelly-streaming}
 keinen weiteren Zugriff auf die Knoten, bis auf die IDs, hat im Gegensatz zu \enquote{gelly}.
 Da nur Kanten eingelesen werden und Knoten automatisch aus den Ids der Kanten
@@ -250,24 +257,24 @@ ein Interface GraphAlgorithm bereit, womit ein Entwickler eigene Graph-Algorithm
 entwickeln kann. Diese Möglichkeit gibt es bei \enquote{gelly-streaming} nicht.
 Dies hat dort auch zur Folge, dass alle selbst definierten Algorithmen eine
 Erweiterung vom SummaryAggregation sein müssen. Dies macht eine Entwicklung
-neuer Algorithmen schwerer. Denn die meisten Algorithmen für die
-Graph-Verabeitung lassen sich als Map-Reduce-Probleme beschreiben. Beim Interface
-GraphAlgorithm ist dies so vorgesehen, denn dieses Interface hat nur eine
-run-Methode in der die konkreten Methodenaufrufe gekapselt werden. Bei
-\enquote{graphstream-project} existiert ebenfals ein Interface Algorithm für die
-Implementierung von Graph-Algorithmen. Dies ist als sogenanntes Marker-Interface
-konzipiert. Das bedeutet, dass alle Klassen, welche dieses Interface
-implementieren einen Graph-Algorithmus darstellen. Jedoch wird dieses Interface
-nicht in anderen Klassen für zum Beispiel Polymorphismus,~\dots eingesetzt. Dies
-lässt sich auch ganz klar an der Interface-Struktur ablesen. Das Interface selbst
-besteht aus zwei Methoden. Die init-Methode ist für die Initialisierung des
-Algorithmus zuständig und die compute-Methode für die Berechnung. Die Rückgabewerte
-müssen über selbst definierte Getter an den Aufrufer zurückgegeben werden. Um
-das Interface für Polymorphismus nutzten zu können müsste jedoch eine Möglichkeit
-für die Rückgabewerte existieren. Dies ist aber im Interface nicht vorgesehen.
-Um diese Einschränkung aufzuheben, muss entweder das Interface angepasst werden
-um eine Getter Methode oder die compute-Methode wird um einen Rückgabewert
-erweitert. Allerdings ergibt sich dabei die Frage, was passiert, wenn mehr als ein
+neuer Algorithmen schwerer. Denn die Algorithmen bei \enquote{Gelly} werden als
+Map-Reduce-Probleme beschrieben. Beim Interface GraphAlgorithm ist dies so vorgesehen,
+denn dieses Interface hat nur eine run-Methode in der die konkreten
+Methodenaufrufe gekapselt werden. Bei \enquote{graphstream-project} existiert
+ebenfals ein Interface Algorithm für die Implementierung von Graph-Algorithmen.
+Dies ist als sogenanntes Marker-Interface konzipiert. Das bedeutet, dass alle
+Klassen, welche dieses Interface implementieren einen Graph-Algorithmus darstellen.
+Jedoch wird dieses Interface nicht in anderen Klassen für zum Beispiel
+Polymorphismus,~\dots eingesetzt. Dies lässt sich auch ganz klar an der
+Interface-Struktur ablesen. Das Interface selbst besteht aus zwei Methoden.
+Die init-Methode ist für die Initialisierung des Algorithmus zuständig und die
+compute-Methode für die Berechnung. Die Rückgabewerte müssen über selbst
+definierte Getter an den Aufrufer zurückgegeben werden. Um das Interface für
+Polymorphismus nutzten zu können müsste jedoch eine Möglichkeit für die
+Rückgabewerte existieren. Dies ist aber im Interface nicht vorgesehen. Um diese
+Einschränkung aufzuheben, muss entweder das Interface angepasst werden um eine
+Getter Methode oder die compute-Methode wird um einen Rückgabewert erweitert.
+Allerdings ergibt sich dabei die Frage, was passiert, wenn mehr als ein
 Rückgabewert benötigt wird.
 
 Nachdem die Designs analysiert wurden, wird nun deren praktische Umsetzung
