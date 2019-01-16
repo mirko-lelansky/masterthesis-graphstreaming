@@ -227,7 +227,7 @@ deshalb gibt es noch keine Alpha/Beta/Finale-Versionen. Die Bibliothek verwendet
 dass semi-Streaming Modell. Bei dem nur der Stream aus Kanten abgespeichert wird.
 Die Kante wird dabei durch zwei Knoten representiert. Die Bibliothek ist dabei
 in ihrer Funktionalität gebunden, an ihre Laufzeitumgebung
-Apache-Flink, deren \gls{API} sie benutzt. Derzeit wird Apache 1.2.0 benutzt.
+Apache-Flink, deren \gls{API} sie benutzt. Derzeit wird Apache Flink 1.2.0 benutzt.
 
 \foreigntextquote{english}[\cite{Bali2015}]{
 The semi-streaming model allows for the storage of O(polylog n) elements for n
@@ -241,7 +241,12 @@ von Apache Flink ist die Streaming-Engine, welche die eigentliche Verarbeitung
 der Daten vornimmt. Apache Flink wurde in der Programmiersprache Java an der TU
 Berlin entwickelt und ist jetzt ein Apache Projekt. Zusätzlich zur Java-\gls{API}
 existiert noch eine Scala-\gls{API}, welche als Wrapper dient. Die aktuelleste
-Version ist 1.6.0. 
+Version ist 1.6.0. Apache Flink wird hauptsächlich von der Firma \enquote{data Artisans}
+weiterentwickelt. Diese veranstalltet auch Konferenzen um mit der Community in
+verbindung zu bleiben und dort neue Impulse anzuregen. Im Jahr 2019 wurde die
+Firma von \enquote{Alibaba} gekauft \cite{Parbel2019}. In wie weit dies Einfluss
+auf die weitere Entwicklung von \enquote{gelly-streaming} nehmen wird lässt sich
+zum jetzigen Zeitpunkt nicht sagen.
 
 Apache Flink ist modular aufgebaut. Die Architektur ist im Bild \ref{fig:flink-architecture}
 dargestellt. Auf die Streaming-Engine bauen die beiden \gls{API} auf.
