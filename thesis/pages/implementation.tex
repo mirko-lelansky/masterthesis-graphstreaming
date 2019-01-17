@@ -2,7 +2,7 @@
 In diesem Kapitel geht es darum, die wichtigsten Punkte der Realisierungen
 zu beschreiben. Die Bibliothek \enquote{gelly-streaming} wird dabei wieder als
 Referenz benutzt. Anschließend werden die Realisierung und deren Benutzbarkeit
-analysiert und mögliche Lösungsen beschrieben.
+analysiert und mögliche Lösungen beschrieben.
 
 \section{Analyse der Umsetzung}
 Die Umsetzung der jeweiligen Versionen erfolgte nach den Methoden der
@@ -17,7 +17,7 @@ Die Referenz-Implementierung basiert auf dem Beispiel aus der Bibliothek. Der
 wesentliche Unterschied zur Umsetzung aus der Bibliothek ist, dass die
 Bibliothek Picocli\footnote{\url{https://picocli.info/}} für die Kommandozeile
 benutzt wurde. Dies sorgt dafür, dass die Anwendung sich gut erweitern lässt.
-Das Listing \ref{code:BipartiteGellyStreaming} zeigt den Code wie es in der
+Das Listing \ref{code:BipartiteGellyStreaming} zeigt den Code, wie er in der
 Bibliothek umgesetzt ist. Bei der Analyse des Beispieles fällt auf, dass die
 Anwendung vier Informationen benötigt:
 
@@ -36,9 +36,9 @@ Anwendung vier Informationen benötigt:
 
 Die ersten beiden Parameter sind dabei die wichtigsten. Die beiden anderen
 Parameter sind im Beispiel schon definiert. Das Zeitintervall hat dabei eine
-Länge von 500ms und das Trennzeichen ist das Tabzeichen. In der Methode
-\enquote{parseParameters} werden die Paramter der Kommandozeile analysiert und
-ggf. ein starten der Anwendung verhindert. Es sind dabei nur zwei Zustände
+Länge von 500 ms und das Trennzeichen ist das Tabzeichen. In der Methode
+\enquote{parseParameters} werden die Parameter der Kommandozeile analysiert und
+ggf. ein Starten der Anwendung verhindert. Es sind dabei nur zwei Zustände
 erlaubt. Der erste Zustand ist, wenn gar keine Parameter übergeben werden. Dann
 werden die Kanten automatisch erzeugt und die Ergebnisse auf der Konsole
 ausgegeben. Der zweite Zustand ist, wenn beide Parameter übergeben werden. Dann
@@ -50,27 +50,27 @@ Anwendung dahingehend verändert wird, dass jemand nur einen einzigen Parameter
 übergeben muss und jemand dies auch tut, kann die Anwendung nicht unterscheiden,
 ob es sich dabei um den Pfad für die Kanten oder um dem Ausgabepfad handelt.
 
-Das Problem des Beispiel ist, dass hier zwei verschiedene Konzepte falsch
-verwendert werden. Nämlich die Konzepte von Optionen und Argumente wie, sie in
+Das Problem des Beispiels ist, dass hier zwei verschiedene Konzepte falsch
+verwendet werden. Nämlich die Konzepte von Optionen und Argumente wie, sie in
 jeder Kommandozeile zum Einsatz kommen, wie zum Beispiel bei Linux dort sind die
 meisten Programme Kommandozeilenanwendungen. Argumente sind Variablen, welche für
 die Erfüllung der Aufgabe notwendig sind. Im Gegensatz dazu sind Optionen
 Schalter, welche es dem Benutzer ermöglichen, gewisse Basiswerte zu verändern.
-Ein klassisches Beispiel ist ein SSH- oder FTP-Client, diese ermöglichen es den
-jeweiligen Port über eine Option zu ändern, dies ändert jedoch nicht die
-Anwendungslogik. Wenn ein Benutzer jedoch keine Address mitgibt, dann wird der
-Client eine Fehlermeldung ausgeben, denn die Address ist hier ein Argument. In
-dem Beispiel müssten deshalb sowohl der Dateipfad für die Kanten als auch der
-Dateipfad für die Ausgabe Optionen sein, denn es spielt für die Anwendung ja
-keine Rolle ob die Pfade übergeben werden oder nicht. Denn wenn kein Dateipfad
-für die Kanten übergeben werden, werden die Kanten generiert und wenn kein
-Ausgabepfad übergeben wird, dann werden die Daten einfach in die Konsole
-ausgegeben.
+Ein klassisches Beispiel für Optionen sind ein SSH- oder FTP-Client, wo der
+Benutzer die Möglichkeit hat den jeweiligen Port über eine Option zu ändern,
+dies ändert jedoch nicht die Anwendungslogik. Wenn ein Benutzer jedoch keine
+Adresse mitgibt, dann wird der Client eine Fehlermeldung ausgeben, denn die
+Adresse ist hier ein Argument. In dem Beispiel müssten deshalb sowohl der
+Dateipfad für die Kanten als auch der Dateipfad für die Ausgabe Optionen sein,
+denn es spielt für die Anwendung ja keine Rolle ob die Pfade übergeben werden
+oder nicht. Denn wenn kein Dateipfad für die Kanten übergeben werden, werden
+die Kanten generiert und wenn kein Ausgabepfad übergeben wird, dann werden die
+Daten einfach in die Konsole ausgegeben.
 
 In der veränderten Realisierung wird dies auch so umgesetzt. Das Listing \ref{code:BipartiteReferenz}
 zeigt den veränderten Code. Dabei wir der Fall entfernt, dass kein Dateipfad
 für die Eingabedatei übergeben wurde. Der Dateipfad für die Kanten ist jetzt ein
-verplichtendes Argument der Anwendung. Alle weiteren Daten wie Ausgabepfad,
+verpflichtendes Argument der Anwendung. Alle weiteren Daten wie Ausgabepfad,
 Zeitintervall und Trennzeichen sind jetzt Optionen und können bei Bedarf angepasst
 werden. Dadurch ist es schnell möglich die Eingabedatei zu ändern oder das
 Zeitintervall anzupassen. Alle möglichen Argumente und Optionen werden dabei als
@@ -113,29 +113,29 @@ exemplarisch die Ausgabe von einem bipartiten Graphen.
 Des Weiteren ergeben sich Probleme bei der Verwendung der Streaming-Umgebung.
 Apache Flink kennt wie schon erwähnt zwei mögliche Laufzeitumgebungen den lokalen
 Cluster und einen eigenen Cluster. Diese beiden Umgebungen sorgen jedoch bei
-der Erstellung und der Ausführung des Archives für Probleme. Falls ein externer
-Cluster benutzt wird, braucht das Archive nicht die Klassen des Clusters
+der Erstellung und der Ausführung des Archivs für Probleme. Falls ein externer
+Cluster benutzt wird, braucht das Archiv nicht die Klassen des Clusters zu
 enthalten. Im Gegensatz dazu braucht der lokale Cluster die Klassen. Dies macht
 jedoch eine Entwicklung per \gls{IDE} schwierig. Da diese nicht unterscheiden
 kann, wann die zusätzlichen Bibliotheken benötigt werden und wann nicht. Um
-dieses Problem zu lösen, werden entweder Maven-Profile benötigt oder es werden
-die Klassen einfach immer mit in das Archive gepackt. Allerdings hat dieses auch
-zwei Nachteile. Der erste Nachteil ist, dass sich der Speicher des Archives
-erhöht. Dieser Punkt ist nicht so entscheident. Der zweite Nachteil ist dagegen
-nicht zu verachten. Falls alle Klassen im Archive sind und die Anwendung auf
+dieses Problem zu lösen, werden entweder Maven-Profil benötigt oder es werden
+die Klassen einfach immer mit in das Archiv gepackt. Allerdings hat dieses auch
+zwei Nachteile. Der erste Nachteil ist, dass sich der Speicher des Archivs
+erhöht. Dieser Punkt ist nicht so entscheidend. Der zweite Nachteil ist dagegen
+nicht zu verachten. Falls alle Klassen im Archiv sind und die Anwendung auf
 einem externen Cluster gestartet wird, der ebenfalls die Klassen beinhaltet,
 dann werden Klassen überschrieben. In der Regel werden dies die Klassen des
 Clusters sein. Dies kann jedoch dazuführen, dass verschiedene Versionen
 Inkompatibilitäten hervorrufen.
 
 \subsection{Umsetzung von \enquote{graphstream-project}}
-Für die erfolgreiche Umsetzung waren zwei Schritte notewendig. Als erstes wurde
+Für die erfolgreiche Umsetzung waren zwei Schritte notewendig. Als Erstes wurde
 der Algorithmus implementiert. Dazu wurde eine Klasse erstellt, welches das
 Algorithm-Interface implementiert, wie es alle Algorithmen von
 \enquote{graphstream-project} machen. Anschließend wurde die Hauptklasse
-geschrieben, welche die Daten einliest und den Algorithmus auffruft.
+geschrieben, welche die Daten einliest und den Algorithmus aufruft.
 Das Listing \ref{code:GraphStreamProjectResult} zeigt die Hauptklasse mit dem
-Ablauf zum einlesen der Daten. Die Besonderheit bei dieser Lösung ist, dass
+Ablauf zum Einlesen der Daten. Die Besonderheit bei dieser Lösung ist, dass
 der Graph bei der Quelle registriert wird und dadurch über ein Event-System
 automatisch aktualisiert wird. Eine Konvertierung der Eingabedaten ist nicht
 erforderlich, da \enquote{graphstream-project} ein Protokoll bereitstellt und
@@ -148,7 +148,7 @@ die Transformation automatisch beim Einlesen der Daten übernimmt.
 \end{listing}
 
 Wie schon im Entwurf beschrieben ist es nicht möglich die Events abzufragen,
-sondern lediglich ob noch weitere Events vorhanden sind. Ebenso ist es nicht
+sondern lediglich, ob noch weitere Events vorhanden sind. Ebenso ist es nicht
 möglich ein Zeitfenster festzulegen, wie dies bei \enquote{gelly-streaming}
 der Fall ist. Eine Möglichkeit für ein Zeitfenster ist es, wenn am Ende der
 Verarbeitung die \gls{JVM} den gewünschten Zeitraum wartet. Dies müsste
@@ -163,7 +163,7 @@ der Lage den Graphen über einen Algorithmus zu manipulieren und dadurch denn
 Ablauf zu verfälschen. Bei \enquote{gelly-streaming} ist dies nicht der Fall.
 Dort ist der Ablauf wie bei einer Filterkette. Die eingehenden Daten werden
 verarbeitet und an die nächste Einheit weitergereicht, usw. bis zur letzten
-Einheit. Wenn anschließend neue Daten ankommen, laufen diese durch den selben
+Einheit. Wenn anschließend neue Daten ankommen, laufen diese durch denselben
 Prozess ohne von den alten Daten beeinflusst zu werden.
 
 Bei der Ausgabe ist \enquote{graphstream-project} besser als
@@ -172,7 +172,7 @@ Entwickler die Ausgabe komplett selbst definieren oder diese auch komplett
 weglassen. Das Listing \ref{code:BipartiteGraphStreamResult} zeigt die Ausgabe
 eines bipartiten Graphen. Jede Zeile steht dabei für ein ankommendes Event. In
 unserem Beispiel enthalten die Beispieldaten Events zur Erzeugung von Kanten und
-Knoten. Da die Knoten nicht automatisch mit erzeugt werden, jedoch Vorraussetzung
+Knoten. Da die Knoten nicht automatisch mit erzeugt werden, jedoch Voraussetzung
 für die Erstellung der Kanten sind.
 
 \begin{listing}
@@ -205,15 +205,15 @@ technischen Fortschritt liesen sich die Entwürfe nicht umsetzten.
 
 Die Anwendung \enquote{Gephi} ist wie schon erwähnt eine Netbeans-Anwendung.
 Dabei besteht die Anwendung aus einem Kern und zusätzlichen Plug-Ins, welche den
-Kern um weitere Funtionalität ergänzen. Daran ist auf den ersten Blick auch
-nichts ausszusetzten, denn andere Anwendungen wie Eclipse,
-Jetbrains IntelliJ IDEA arbeiten,~\dots arbeiten nach dem selben Prinzip.
+Kern um weitere Funktionalität ergänzen. Daran ist auf den ersten Blick auch
+nichts ausszusetzen, denn andere Anwendungen wie Eclipse,
+Jetbrains IntelliJ IDEA arbeiten,~\dots arbeiten nach demselben Prinzip.
 Allerdings bergen solche Architekturen immer auch Risikos. Zum einen besteht die
 Gefahr, dass falls ein Benutzer zu viele Plug-Ins aktiviert, diese sich
 gegenseitig behindern oder sogar das Programm zum Absturz bringen
 können. Ein anderes Problem sind zu viele und unklare Abhängigkeiten auch als
 \enquote{Dependency-Hell} bekannt. Dabei werden zwischen einzelnen
-Komponenten Abhängigkeiten geschaffen, welche wiederum Abhängkeiten zu anderen
+Komponenten Abhängigkeiten geschaffen, welche wiederum Abhängigkeiten zu anderen
 Komponenten haben und somit ein komplexes Netzwerk von Abhängigkeiten entsteht,
 welches der Entwickler weder durchschauen, noch dieses mit relativ überschaubaren
 Aufwand auflösen kann.
@@ -225,25 +225,25 @@ welche keine Funktionalität bereitstellen, wie zum Beispiel bei dem Modul
 Abhängigkeiten zu bündeln. Dieser Vorgang wird durchgeführt um möglichst ähnliche
 Komponenten, welche in vielen Modulen zum Einsatz kommen sollen für den Entwickler
 leichter verfügbar zu machen. Bei dem Modul \enquote{CoreLibraryWrapper} ist
-dies jedoch nicht der Fall. Diese Modul bündelt zwar andere Abhängkeiten und wird
-selber von vielen Modulen als Abhängkeit benutzt, jedoch sind die gebündelten
-Abhängigkeiten sehr verschieden. Denn dort sind Hilfsbibliotheken wie
-\enquote{Apache Commons Codec} und Bibliotheken zur Darstellung wie
+dies jedoch nicht der Fall. Dieses Modul bündelt zwar andere Abhängigkeiten und
+wird selber von vielen Modulen als Abhängkeit benutzt, jedoch sind die
+gebündelten Abhängigkeiten sehr verschieden. Denn dort sind Hilfsbibliotheken
+wie \enquote{Apache Commons Codec} und Bibliotheken zur Darstellung wie
 \enquote{JFreeChart} enthalten. Dies sorgt jedoch für Probleme, denn nicht alle
-Module benutzen auch alle bzw. viele von diesen Abhängkeiten, sondern die meisten
+Module benutzen auch alle bzw. viele von diesen Abhängigkeiten, sondern die meisten
 nutzen nur einige wenige. Dadurch ist ein Entwickler gezwungen sich alle Module
 anzusehen, falls er in seinem Modul einen Fehler entdeckt hat und diesen nur
 durch eine andere Version einer Bibliothek aus \enquote{CoreLibraryWrapper} zu
 lösen ist.
 
-Dieses Abhängigkeitsproblem allein ist für sich genommen erstmal noch kein
+Dieses Abhängigkeitsproblem allein ist für sich genommen erst mal noch kein
 Problem. In Kombination mit einem zweiten Problem bricht das ganze System jedoch
 zusammen. Das zweite Problem ist die Entwicklung der Programmiersprache Java,
-welche \enquote{Gephi} nicht ständig kontrolliert hat und dadurch seine eigenen
+welche \enquote{Gephi} nicht ständig kontrolliert hat und dadurch seine eigene
 Entwicklung behindert hat. Ob die Entwicklung von Java die Entwicklung von
 \enquote{Gephi} beeinflusst hat oder ob die Entwicklung von \enquote{Gephi}
-stagnierte und anschließend nur schwer wieder aufgenommen werden konnte lässt
-sich nicht mit Sicherheit festellen. Wie bei vielen neuen Entwicklungen, war es
+stagnierte und anschließend nur schwer wieder aufgenommen werden konnte, lässt
+sich nicht mit Sicherheit feststellen. Wie bei vielen neuen Entwicklungen, war es
 auch bei Java so, dass diese über einige Kinderkrankheiten verfügte. Diese haben
 die Entwickler anschließend in eigenen Bibliotheken gelöst und der Allgemeinheit
 zur Verfügung gestellt. Dies wurde gerade zur Anfangszeit von Java durchgeführt.
@@ -260,7 +260,7 @@ Mit ihr lassen sich XML-Dokumente sehr performant ablaufen, jedoch nicht ändern
 
 Die StAX-Bibliothek wird seit 2007 nicht mehr aktiv weiterentwickelt, denn im
 Jahr 2006 wurde Java 6 veröffentlicht und wurde dadurch nicht mehr benötigt.
-Daraus folgt die Entwickler hatten mehr als ein Jahr Zeit ihren Codebasis
+Daraus folgt, die Entwickler hatten mehr als ein Jahr Zeit ihren Codebasis
 anzupassen. In der Realität war sogar mehr als ein Jahr Zeit, denn die
 Bibliotheken werden ja normalerweise nicht gelöscht. Jedoch hat Sun bzw. Oracle
 den Support für Java 5 im Jahr 2009 bzw. für Java 6 im Jahr 2013 eingestellt.
@@ -268,31 +268,31 @@ Dadurch wurde die StAX-Bibliothek ebenfalls nicht mehr benötigt und wurde
 entfernt. 
 
 Beide Problem zusammen sorgen für die nur noch marginale Weiterentwicklung bzw.
-Benutzbarkeit von \enquote{Gephi}. Denn viele Module haben eine Abhängkeit zu
+Benutzbarkeit von \enquote{Gephi}. Denn viele Module haben eine Abhängigkeit zu
 \enquote{CoreLibraryWrapper} benutzen jedoch nicht alle dadurch bereitgestellten
-Bibliothek. Dadurch ist es nicht einfach möglich die Abhängkeit von StAX zu löschen,
-da es bei den vielen Modulen nicht klar offensichtlicht ist, ob die Module StAX
-benutzen oder nicht. Um dieses Problem insgesammt lösen zu können muss das Modul
-\enquote{CoreLibraryWrapper} komplett entfernt werden. Im zuge der Entfernung
+Bibliothek. Dadurch ist es nicht einfach möglich die Abhängigkeit von StAX zu
+löschen, da es bei den vielen Modulen nicht klar ist, ob die Module StAX benutzen
+oder nicht. Um dieses Problem insgesamt lösen zu können muss das Modul
+\enquote{CoreLibraryWrapper} komplett entfernt werden. Im Zuge der Entfernung
 müssen alle Module, welche die StAX-Bibliothek verwenden auf Java 6 oder moderner
 portiert werden. Allerdings dürfen die Module auch nicht auf eine der aktuellsten
-Versionen wie Java 9 oder später portiert werden, denn dort wurden Bibliothek
-welche sowohl extern als auch im JDK enthalten waren entfernt. Zu diesen Bibliothek
-gehörten zum Beispiel Bibliothek für die \gls{XML}-Verarbeitung. Dieser Vorgang
-wurde durchgeführt um einerseits den JDK zu verschlanken und andererseits um
-JavaSE von JavaEE bzw. JakartaEE sauber zu trennen.
+Versionen wie Java 9 oder später portiert werden, denn dort wurden Bibliotheken,
+welche sowohl extern als auch im \gls{JDK} enthalten waren entfernt. Zu diesen
+Bibliotheken gehörten zum Beispiel Bibliotheken für die \gls{XML}-Verarbeitung.
+Dieser Vorgang wurde durchgeführt, um einerseits den JDK zu verkleinern und
+andererseits um JavaSE von JavaEE bzw. JakartaEE sauber zu trennen.
 
 \section{Bewertung der Umsetzungen}
 Ein Vergleich der verschiedenen Umsetzungen ist nicht leicht, da einerseits die
-Bibliotheken sehr unterschiedliche Ansätze benutzen und andereseits die
+Bibliotheken sehr unterschiedliche Ansätze benutzen und anderseits die
 Implementierung mit \enquote{Gephi} nicht umsetzbar war. Dies heißt nicht
 automatisch, dass die Bibliothek \enquote{Gephi} schlecht ist. Sie ist lediglich
 im Moment nicht benutzbar, lässt sich jedoch wie oben beschrieben auch beheben.
 Wenn jemand \enquote{Gephi} verbessert, kann es durchaus sinnvoll sein sich die
-gesammte Architektur bzw. die Infrastruktur anzusehen und ggf. diese vorher
+gesamte Architektur bzw. die Infrastruktur anzusehen und ggf. diese vorher
 anzupassen. Wenn sich durch diese Betrachtung jedoch ergibt, dass die gewählte
 Technologie mit Netbeans nicht geeignet ist, ist ein Blick auf die
-funktionierenden Bibliotheken anzuraten. Je nachdem wie viele Resourcen zur
+anderen Bibliotheken anzuraten. Je nachdem wie viele Ressourcen zur
 Verfügung stehen. Denn, dass der Ansatz über Plug-Ins funktioniert zeigen ja,
 gerade Beispiele, wie Eclipse, IntelliJ IDEA,~\dots . Der Netbeans \gls{IDE}
 unterstützt dies natürlich auch.
@@ -300,11 +300,11 @@ unterstützt dies natürlich auch.
 Wenn nur die beiden funktionierenden Umsetzungen betrachtet werden, wird einem
 klar, dass beide Bibliothek im begrenzten Umfang Graph Streaming durchführen.
 Denn einerseits können die Bibliotheken Daten von einer unbegrenzten Liste
-einlesen, zum Beispiel von Apache Kafka, was ja die Definition eines Streams
-ausmacht. Zum anderen handelt es sich bei den Daten ja um Kanten also um
+einlesen, zum Beispiel von Apache Kafka, was die Definition eines Streams
+ausmacht. Zum anderen handelt es sich bei den Daten um Kanten, also um
 Graph-Daten, welche verarbeitet werden.
 
-Beim einlesen der Daten sind beide Bibliotheken gleich gut, da beide
+Beim Einlesen der Daten sind beide Bibliotheken gleich gut, da beide
 verschiedensten Connectoren bereitstellen bzw. dem Entwickler die Möglichkeit
 geben eigene zu entwickeln. Was die eigentlichen Daten angeht haben beide, wie
 schon erwähnt ähnliche Möglichkeiten. Deshalb wird es, was die Daten angeht sehr
@@ -314,42 +314,42 @@ selten, dann ist die Verwendung von \enquote{gelly-streaming} ausreichend. Zum
 Beispiel bei klassischen statischen Auswertung, wie zum Beispiel wie viele Events
 kommen von einem bestimmten Typ innerhalb eines festgelegten Zeitraumes an. Bei
 Graphen in sozialen Netzwerken sind die Kanten jedoch nicht so wertvoll, sondern
-eher die Knoten, denn in den Kanten steht ja meistens so etwas wie \enquote{kennt}
+eher die Knoten, denn in den Kanten stehen meistens Werte wie \enquote{kennt}
 , \enquote{geliked},~\dots . Die sozialen Netzwerke leben jedoch davon, dass sie
 gezielt Werbung, bzw. Vorschlagslisten anzeigen zum Beispiel über Personen,
 welche der Benutzer noch kennen könnte. Um diese zu erstellen sind jedoch die
 Informationen der Knoten notwendig.
 
 Bei der Verarbeitung sind beide Bibliotheken gleich gut. Der Entwickler kann bei
-beiden Bibliotheken beliebige Graph-Algorithmen erstellen. Dies ist natürlich
+beiden Bibliotheken beliebige Graph-Algorithmen erstellen. Dies gilt natürlich
 immer bezogen auf die jeweilige Umgebung. Ob es jedoch praktisch möglich ist
 alle Graph-Algorithmen umzusetzen, wird sich nur im Einzelfall klären lassen.
-Auch in wie weit die Konzepte an ihre Grenzen stoßen. Dafür sind die derzeitigen
-Testbeispiele bzw. Anwendungsfälle jedoch noch zu einfach. Um dies zu ändern
+Auch in wieweit die Konzepte an ihre Grenzen stoßen. Dafür sind die derzeitigen
+Testbeispiele bzw. Anwendungsfälle jedoch noch zu einfach. Um dieses zu ändern,
 müsste eine Firma aus der Praxis mindestens ein halbes Jahr in die Forschung
-inverstieren. Damit es möglich ist ein wirklich komplexes Beispiel mit der
+investieren. Damit es möglich ist ein wirklich komplexes Beispiel mit der
 notwendigen Infrastruktur aufzubauen und dann die jeweiligen Anwendungsfälle
 mit sehr vielen Daten zu testen. Dies schließt auch die Frage der jeweiligen
 Streaming-Umgebung ein. Apache Flink ist von seinem Unterbau und seinen
-Möglichkeiten schon eine richtige verteielte Streaming-Anwendung. Im Gegensatz
+Möglichkeiten schon eine richtige verteilte Streaming-Anwendung. Im Gegensatz
 dazu ist \enquote{graphstream-project} eher eine normale Java-Anwendung. Dies
-fällt vorallem bei der Event-Verarbeitung auf. Bei \enquote{graphstream-project}
+fällt vor allem bei der Event-Verarbeitung auf. Bei \enquote{graphstream-project}
 gibt es laut dem Protokoll zwar auch so etwas wie eine Uhr, jedoch fehlen dabei
-konkrete Anwendungsfälle bzw. Informationen ob sich damit so etwas wie ein
+konkrete Anwendungsfälle bzw. Informationen, ob sich damit so etwas wie ein
 Zeitfenster realisieren lässt.
 
 Alle Bibliotheken haben noch Probleme, damit konkrete Anwendungsfälle zu
 definieren bzw. Einsatzgebiete. Ohne diese wird jedoch ein praktischer Einsatz
-eher unwarscheinlich. Zu mal sich bei \enquote{gelly-streaming} die Frage stellt,
+eher unwahrscheinlich. Zumal sich bei \enquote{gelly-streaming} die Frage stellt,
 ob die Bibliothek in diesem Umfang überhaupt gebraucht wird. Denn eine Kante
 ist ja vereinfacht gesagt nichts anderes als eine Liste bzw. ein Tupel von
 einfachen Daten. Die anschließend verarbeitet werden. Dieses Konzept gibt es
-jedoch schon von Apache Storm,~\dots bzw. vereifacht kann dies auch Apache Kafka.
-Daraus folgt, dass die Verarbeitungschritte, welche derzeit von
+jedoch schon von Apache Storm,~\dots bzw. vereinfacht kann dies auch Apache Kafka.
+Daraus folgt, dass die Verarbeitungsschritte, welche derzeit von
 \enquote{gelly-streaming} angeboten werden sich auch einfacher mit anderen
 Methoden ausgerechnet werden können. Auch kann es sinnvoll sein über
-Graph-Datenbanken, wie Neo4j nachzudenken. Denn Graph-Verarbeitung macht
-eigentlich eher sinn, wenn nicht einzelne Kanten übertragen werden, sondern
-Teilgraphen. Dieser könnten dann analysiert werden um daraus Rückschlüsse auf
-den Hauptgraph zu ziehen. So ähnlich, wie dies auch in anderen Bereichen
-getätigt wird, wie zum Beispiel in der Finanzwelt um Prognosen zu erstellen.
+Graph-Datenbanken, wie Neo4j nachzudenken. Denn Graph-Verarbeitung ist eigentlich
+besser geeignet, wenn nicht einzelne Kanten übertragen werden, sondern
+Teilgraphen. Diese könnten dann analysiert werden, um daraus Rückschlüsse auf
+den Hauptgraphen zu ziehen. So ähnlich, wie dies auch in anderen Bereichen
+der Industrie getätigt wird.

@@ -63,7 +63,7 @@ initialisiert werden. Dabei ist es von Vorteil zu wissen, ob die spätere Anwend
 nur lokal oder remote betrieben werden soll. Lokal bedeutet in diesem Zusammenhang,
 dass die Anwendung einen Apache Flink Cluster in der selbem \gls{JVM} startet.
 Dies lässt sich bereits bei der Entwicklung fest einprogrammieren oder dynamisch
-von Apache Flink bestimmen lassen. Die Streaming-Umgebung ist eine sehr wichtiges
+von Apache Flink bestimmen lassen. Die Streaming-Umgebung ist ein sehr wichtiges
 Management-Objekt, welches für verschiedene Aufgaben vom Entwickler benutzt
 werden sollte.
 
@@ -208,7 +208,7 @@ keinen weiteren Zugriff auf die Knoten, bis auf die IDs, hat im Gegensatz zu \en
 Da nur Kanten eingelesen werden und Knoten automatisch aus den Ids der Kanten
 erzeugt werden. Ein Entwickler ist also immer gezwungen, sich die Daten der
 Knoten bei Bedarf nachzuladen. Dieses Phänomen ist auch als lazy-loading bekannt
-und kommt bei Anwendungen mit Datenbanken zum tragen.
+und kommt bei Anwendungen mit Datenbanken zum Tragen.
 
 Wie schon oben erwähnt, könnte ein Entwickler die zusätzlichen Daten mit
 übertragen und dann bei \enquote{gelly-streaming} die Konvertierung übernehmen.
@@ -270,7 +270,7 @@ Interface-Struktur ablesen. Das Interface selbst besteht aus zwei Methoden.
 Die init-Methode ist für die Initialisierung des Algorithmus zuständig und die
 compute-Methode für die Berechnung. Die Rückgabewerte müssen über selbst
 definierte Getter an den Aufrufer zurückgegeben werden. Um das Interface für
-Polymorphismus nutzten zu können müsste jedoch eine Möglichkeit für die
+Polymorphismus nutzten zu können, müsste jedoch eine Möglichkeit für die
 Rückgabewerte existieren. Dies ist aber im Interface nicht vorgesehen. Um diese
 Einschränkung aufzuheben, muss entweder das Interface angepasst werden um eine
 Getter Methode oder die compute-Methode wird um einen Rückgabewert erweitert.
