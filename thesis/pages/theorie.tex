@@ -243,10 +243,10 @@ Berlin entwickelt und ist jetzt ein Apache Projekt. Zusätzlich zur Java-\gls{AP
 existiert noch eine Scala-\gls{API}, welche als Wrapper dient. Die aktuelleste
 Version ist 1.6.0. Apache Flink wird hauptsächlich von der Firma \enquote{data Artisans}
 weiterentwickelt. Diese veranstalltet auch Konferenzen um mit der Community in
-verbindung zu bleiben und dort neue Impulse anzuregen. Im Jahr 2019 wurde die
-Firma von \enquote{Alibaba} gekauft \cite{Parbel2019}. In wie weit dies Einfluss
-auf die weitere Entwicklung von \enquote{gelly-streaming} nehmen wird lässt sich
-zum jetzigen Zeitpunkt nicht sagen.
+Verbindung zu bleiben und dort neue Impulse anzuregen. Im Jahr 2019 wurde die
+Firma von \enquote{Alibaba} gekauft \parencite{Parbel2019}. In wie weit dies
+Einfluss auf die weitere Entwicklung von \enquote{gelly-streaming} nehmen wird,
+lässt sich zum jetzigen Zeitpunkt nicht sagen.
 
 Apache Flink ist modular aufgebaut. Die Architektur ist im Bild \ref{fig:flink-architecture}
 dargestellt. Auf die Streaming-Engine bauen die beiden \gls{API} auf.
@@ -300,9 +300,9 @@ Ablauf eines Verarbeitungsprozesses. Der Graph wird aus einer Datei gelesen und
 die erzeugten Events stellen das Ziel dar. Diese Events sind gleichzeitig die
 Quelle der Verarbeitungseinheit, welche wiederum neue Events erzeugt. Diese neuen
 Events stellen die Quelle für die Ausgabe dar. Das verwendete Streaming-Modell
-wird dabei nicht erwähnt. Aufgrund der Tatsache, dass die Bibliothek sowohl
-Einfache- als auch Multi-Graphen abdecken kann, ist es aber wahrscheinlich, dass
-\enquote{Classical Streaming} zum Einsatz kommt.
+wird dabei nicht erwähnt. Es ist jedoch anzunehmen, dass das \enquote{Classical Streaming}
+zum Einsatz kommt. Da die Bibliothek sowohl Einfache- als auch Multi-Graphen
+unterstützt.
 
 \foreigntextquote{english}[\cite{Team2018}]{
 GraphStream is a graph handling Java library that focuses on the dynamics aspects
@@ -348,7 +348,7 @@ responsible for the HTTP REST Server, and the interface modules.
 
 \enquote{Gephi} macht über das Streaming-Modell ebenfalls keine genauen Angaben.
 Da \enquote{Gephi} wie auch \enquote{graphstream-project} Events für
-Knotenerzeugung und extra Angaben wie Gewichte,~\dots erlaubt, ist hier
+Knotenerzeugung und extra Angaben wie Gewichte,~\dots~erlaubt, ist hier
 ebenfalls von einem \enquote{Classical Streaming} Modell auszugehen.
 
 \section{Vergleich der Bibliotheken}
@@ -482,7 +482,7 @@ Streaming-Programme auf mehrere Rechner gemeint.
 
 \enquote{gelly-streaming} ist die einzige Bibliothek, welche verteilt auf mehrere
 Knoten läuft, weil die Laufzeitumgebung Apache Flink dies unterstützt.
-Der Cluster kann dabei in den verschiedensten Umgebungen laufen wie: \cite{Foundation2018}
+Der Cluster kann dabei in den verschiedensten Umgebungen laufen wie: \parencite{Foundation2018}
 
 \begin{itemize}
 \item AWS
@@ -492,12 +492,12 @@ Der Cluster kann dabei in den verschiedensten Umgebungen laufen wie: \cite{Found
 \end{itemize}
 
 Anwendungen von \enquote{graphstream-project} können nicht verteilt werden,
-obwohl sie von der Art und Weise ähnlich aufgebaut sind wie Apache Flink Anwendungen.
-Denn sie werden ebenfalls über die main-Methode aufgerufen.
+obwohl sie von der Art und Weise ähnlich aufgebaut sind wie Apache Flink
+Anwendungen. Denn sie werden ebenfalls über die main-Methode aufgerufen.
 
 \enquote{Gephi} Anwendungen lassen sich ebenfalls nicht, verteilen, dies hängt
-damit zusammen, dass Gephi sich nur mit der graphischen Oberfläche gestartet
-werden kann.
+damit zusammen, dass Gephi nur mit der graphischen Oberfläche gestartet werden
+kann.
 
 \subsection{Connectoren}
 Connectoren sind der entscheidende Punkt, wenn es darum geht verschieden Systeme
@@ -506,7 +506,7 @@ Daten ja in Echtzeit von verschiedenen Systemen gelesen und wieder geschrieben
 werden sollen.
 
 Apache Flink unterstützt Connectoren. Dabei werden einige Connectoren
-für Dateien, Sockets,~\dots vom Kern bereitgestellt. Zusätzliche Connectoren
+für Dateien, Sockets,~\dots~vom Kern bereitgestellt. Zusätzliche Connectoren
 werden über Bibliotheken bereitgestellt.
 
 In der \enquote{graphstream-project} Bibliothek ist dies einfach Umzusetzen, da
