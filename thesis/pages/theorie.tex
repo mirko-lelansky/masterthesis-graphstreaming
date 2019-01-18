@@ -31,9 +31,9 @@ Kante gibt, welche zum nächsten Knoten führt. In der Regel sind Start- und
 End-Knoten verschieden. Wenn Start- und End-Knoten gleich sind, handelt es sich
 um einen Kreis. Zwei Sonderfälle von Kreisen spielen bei vielen Graph-Problemen
 eine Rolle Schlingen und Mehrfachkanten. Schlingen sind Kreise der Länge eins.
-Dies bedeutet, dass kein weiterer Knoten zwischen dem Start- und End-Knoten
+Dies bedeutet, dass kein weiterer Knoten zwischen dem Start- bzw. End-Knoten
 liegt. Mehrfachkanten sind Kreise der Länge zwei. Dabei liegt noch genau ein
-Knoten zwischen dem Start- und End-Knoten. Diese Kanten lassen sich zu einer
+Knoten zwischen dem Start- bzw. End-Knoten. Diese Kanten lassen sich zu einer
 einzigen Kante zusammenfassen. Dazu wird nur eine Kante dargestellt mit einer
 Zahl versehen, welche die Mehrfachkanten repräsentiert.
 
@@ -48,7 +48,7 @@ alle Ecken mit Ausnahme $v_{0} = v_{t}$ , heißt ein Kreis, wobei t wiederum die
 Länge des Kreises ist.
 }
 
-Es werden zwei Klassen von Graphen unterschieden. Graphen, welche nur keine
+Es werden zwei Klassen von Graphen unterschieden. Graphen, welche keine
 Schlingen und Mehrfachkanten zulassen, werden als einfache Graphen bezeichnet,
 sonst als Multi-Graphen.
 
@@ -167,7 +167,7 @@ free. [\dots]
 \section{Graph-Streaming Bibliotheken}
 Graph-Streaming Bibliotheken sind Bibliotheken, welche die beiden Welten
 \gls{BigData} und Graphen miteinander kombinieren wollen. Dabei geht es darum
-große Graphen bzw. Teilgraphen effizient und möglichst in Echtzeit mit der Hilfe
+große Graphen bzw. Teilgraphen effizient und möglichst in Echtzeit mit Hilfe
 von Streams zu verarbeiten.
 
 Bevor eine Verarbeitung der Daten stattfinden kann, muss die Repräsentation
