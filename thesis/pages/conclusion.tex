@@ -1,0 +1,77 @@
+\chapter{Zusammenfassung}
+In diesem Kapitel wird die Arbeit kurz zusammengefasst und ein Überblick über
+die nächsten Schritte gegeben.
+
+\section{Fazit}
+In dieser Arbeit wurde gezeigt, wie weit der Entwicklungsstand der gewählten
+Graph-Bibliotheken ist. Dazu war es notwendig sich erst einmal über die
+unterschiedlichen Konzepte zu informieren. Denn sowohl \enquote{Stream Processing},
+als auch Graphen sind für sich genommen schon sehr komplexe und teils neue Themen.
+Dies gilt besonders in Bezug auf das Thema \gls{BigData}. Die Kombination von
+beiden Themen ist dementsprechend nochmals komplexer, denn Konzepte, welche in
+der eigenen Welt funktionieren, müssen in der kombinierten Welt nicht unbedingt
+funktionieren. Denn es gibt verschiedene \enquote{Stream Processing} Konzepte und
+ein Graph besteht ebenfalls aus mehreren Konzepten. Dadurch ist auch klar, warum
+es nicht die eine Bibliothek gibt, weil jede Bibliothek unterschiedliche Konzepte
+gewählt hat und diese testen muss, ob sie geeignet sind, für einen produktiven
+Einsatz.
+
+Zum Zeitpunkt der Arbeit waren alle Bibliothek noch in einem experimentellen
+Status. Dies wird vermutlich noch eine Weile so bleiben. Denn obwohl alle
+Bibliothek über gute Ansätze verfügen, mangelt es vor allem noch an ausreichendem
+Einsatzgebieten und den daraus resultierenden Testfällen, Daten und Beispielen.
+Die derzeit vorhandenen Beispiele gehen mehr oder weniger nicht über ein normales
+\enquote{Hello World} hinaus. Obwohl \enquote{gelly-streaming} durch Apache Flink
+schon über einen guten Unterbau verfügt. Des Weiteren scheint die Entwicklung bei
+allen mehr oder weniger zu stagnieren. Dies kann natürliche unterschiedliche
+Ursachen haben. Zunächst einmal alle Bibliothek wurden als Pionierarbeit an
+Universitäten entwickelt. Diese ist schon mal ein enormer Aufwand, der im
+Allgemeinen auch nicht entlohnt wird. Ausgehend von dieser Pionierarbeit dann
+eine Firma zu gründen bzw. eine Firma zu finden, welche dies weiterentwickelt ist
+nicht gerade einfach, da die Projekte meistens noch nicht wirklich ausgereift
+sind. Die Firmen müssen jedoch ihre Finanzen im Blick behalten, denn sie haben
+ja Angestellte und diese wollen auch noch in einigen Jahren ihren Lohn
+bekommen. Ein Projekt zu finanzieren, welches dann vielleicht nach einiger
+Entwicklungszeit von den Projektbeteiligten eingestellt werden muss ist, ist da
+selten zu verkraften. Bei kleinen hausinternen Projekten ist, dies meistens
+noch eher zu verkraften. Auf der anderen Seite, wenn es sich um eine
+revolutionäre Idee handelt, welche einzigartig und von den Firmen dringen gesucht
+wird, wird dies selten als Open-Source-Projekt zu Ende gebracht. Denn diese
+Projekte sind meistens die Einstiege in neue Jobs. Ein weiterer Punkt ist natürlich,
+dass die aktiven Entwickler sich anderen Projekten bzw. Aufgaben zu wenden können.
+Dies wird gerade auch bei \enquote{gelly-streaming} klar, wo derzeit keine bis
+nur eine minimale Entwicklung stattfindet, der Unterbau Apache Flink wird
+im Gegensatz dazu jedoch sehr stark weiterentwickelt. Wie die weitere Entwicklung
+von Apache Flink weitergeht, lässt sich nicht vorhersagen. Dies gilt ins
+besondere, da die Firma \enquote{data Artisan}, welche die Entwicklung von
+Apache Flink betreibt, von \enquote{Alibaba} gekauft wurde.
+
+Das Beispiel konnte nicht mit allen Bibliotheken praktisch umgesetzt werden. Dies
+hängt vor allem mit der zum Teil schlechten Infrastruktur und dem experimentellen
+Status zusammen, denn die Entwürfe für die einzelnen Bibliotheken wurden ja
+entwickelt. Alle Bibliotheken nutzen sehr verschiedene Ansätze und haben noch
+einige Probleme bzw. müssen sich noch weiter bewähren.
+
+Deshalb gibt es auch keinen klaren Favoriten. Wenn jedoch Apache Flink in die
+Betrachtung mit einfließt, dann hat \enquote{gelly-streaming} schon einen klaren
+Vorteil. Zumal Apache Flink mit \enquote{Gelly} schon eine Graph-Bibliothek für
+\enquote{Batch-Processing} hat und es angedacht ist, dass diese mit
+\enquote{gelly-streaming} zusammengeführt wird. Die Bibliothek \enquote{Table API \& SQL}
+baut sowohl auf der \enquote{Stream-Processing}- wie auch auf der
+\enquote{Batch-Processing}-\gls{API} von Apache Flink auf. Jedoch ist keine
+der beteiligten Bibliotheken für einen produktiven Einsatz geeignet.
+
+\section{Ausblick}
+Für die nächsten Entwicklungsschritte bieten sich mehrere Möglichkeiten an. Zum
+einen könnte die gesamte Infrastruktur von \enquote{Gephi} aktualisiert werden.
+Dadurch würde eine weitere Bibliothek zum Testen hinzukommen bzw. die zugrunde
+liegenden Ideen könnten überprüft und gegebenenfalls für andere Projekte benutzt
+werden.
+
+Eine andere Möglichkeiten besteht darin, für die beiden anderen Bibliotheken ein
+größeres Beispiel zu definieren und dieses dann praktisch umzusetzen. Um
+anschließend genau zu wissen, welche Bibliothek für welchen Einsatzzweck geeignet
+ist und welche nicht weiter entwickelt werden sollte. Eine direkte Weiterentwicklung
+von \enquote{gelly-streaming} ist jedoch abzuraten, da diese eine direkte Beziehung
+zu Apache Flink hat und es ist deshalb anzuraten sich mit den Entwicklern von
+Apache Flink auseinander zu setzen.
