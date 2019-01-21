@@ -42,7 +42,7 @@ ggf. ein Starten der Anwendung verhindert. Es sind dabei nur zwei Zustände
 erlaubt. Der erste Zustand ist, wenn gar keine Parameter übergeben werden. Dann
 werden die Kanten automatisch erzeugt und die Ergebnisse auf der Konsole
 ausgegeben. Der zweite Zustand ist, wenn beide Parameter übergeben werden. Dann
-werden die Kanten aus der Datei gelesen und auch in eine Datei geschrieben. Ein
+werden die Kanten aus der Datei gelesen und in eine Datei geschrieben. Ein
 Blick in die main-Methode zeigt jedoch, dass sich auch die Ausgabe über eine
 Variable steuern lässt. Dies wird jedoch nicht genutzt. Der Grund dafür liegt
 klar in der schlechten Transformation der Kommandozeilenparameter. Falls die
@@ -272,7 +272,7 @@ Benutzbarkeit von \enquote{Gephi}. Denn viele Module haben eine Abhängigkeit zu
 \enquote{CoreLibraryWrapper} benutzen jedoch nicht alle dadurch bereitgestellten
 Bibliothek. Dadurch ist es nicht einfach möglich die Abhängigkeit von StAX zu
 löschen, da es bei den vielen Modulen nicht klar ist, ob die Module StAX benutzen
-oder nicht. Um dieses Problem insgesamt lösen zu können muss das Modul
+oder nicht. Um dieses Problem lösen zu können muss das Modul
 \enquote{CoreLibraryWrapper} komplett entfernt werden. Im Zuge der Entfernung
 müssen alle Module, welche die StAX-Bibliothek verwenden auf Java 6 oder moderner
 portiert werden. Allerdings dürfen die Module auch nicht auf eine der aktuellsten
@@ -287,7 +287,7 @@ Ein Vergleich der verschiedenen Umsetzungen ist nicht leicht, da einerseits die
 Bibliotheken sehr unterschiedliche Ansätze benutzen und anderseits die
 Implementierung mit \enquote{Gephi} nicht umsetzbar war. Dies heißt nicht
 automatisch, dass die Bibliothek \enquote{Gephi} schlecht ist. Sie ist lediglich
-im Moment nicht benutzbar, lässt sich jedoch wie oben beschrieben auch beheben.
+im Moment nicht benutzbar, lässt sich jedoch wie oben beschrieben beheben.
 Wenn jemand \enquote{Gephi} verbessert, kann es durchaus sinnvoll sein sich die
 gesamte Architektur bzw. die Infrastruktur anzusehen und ggf. diese vorher
 anzupassen. Wenn sich durch diese Betrachtung jedoch ergibt, dass die gewählte
@@ -344,7 +344,7 @@ eher unwahrscheinlich. Zumal sich bei \enquote{gelly-streaming} die Frage stellt
 ob die Bibliothek in diesem Umfang überhaupt gebraucht wird. Denn eine Kante
 ist ja vereinfacht gesagt nichts anderes als eine Liste bzw. ein Tupel von
 einfachen Daten. Die anschließend verarbeitet werden. Dieses Konzept gibt es
-jedoch schon von Apache Storm,~\dots bzw. vereinfacht kann dies auch Apache Kafka.
+jedoch schon von Apache Storm,~\dots~bzw. vereinfacht kann dies auch Apache Kafka.
 Daraus folgt, dass die Verarbeitungsschritte, welche derzeit von
 \enquote{gelly-streaming} angeboten werden sich auch einfacher mit anderen
 Methoden ausgerechnet werden können. Auch kann es sinnvoll sein über
