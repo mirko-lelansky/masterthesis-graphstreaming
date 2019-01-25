@@ -70,7 +70,9 @@ tasks.named<Javadoc>("javadoc") {
 }
 
 tasks.named<ProcessResources>("processResources") {
-    expand(mapOf("artifact" to project.name, "group" to group, "version" to version))
+    filesMatching("**/application.properties") {
+        expand(mapOf("artifact" to project.name, "group" to project.group, "version" to project.version))
+    }
 }
 
 tasks.named<Test>("test") {
