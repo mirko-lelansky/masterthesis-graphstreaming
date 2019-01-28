@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" data-ember-extension="1"><!--<![endif]--><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>GraphStream - Getting Started</title>
+	<meta name="description" content="GraphStream, java library, API, Graph Visualisation, Graph Layout
+">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<link rel="canonical" href="http://graphstream-project.org/doc/Tutorials/Getting-Started/">
+	<link rel="alternate" type="application/rss+xml" title="GraphStream - A Dynamic Graph Library" href="http://graphstream-project.org/feed.xml">
+
+	<link type="text/css" href="GraphStream%20-%20Getting%20Started-Dateien/css" rel="stylesheet">
+	<link href="GraphStream%20-%20Getting%20Started-Dateien/css_002" rel="stylesheet" type="text/css">
+	
+	<link rel="stylesheet" type="text/css" href="GraphStream%20-%20Getting%20Started-Dateien/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="GraphStream%20-%20Getting%20Started-Dateien/font-awesome.css">
+	<link rel="stylesheet" type="text/css" href="GraphStream%20-%20Getting%20Started-Dateien/highlighter.css">
+	
+	<link rel="stylesheet" type="text/css" href="GraphStream%20-%20Getting%20Started-Dateien/main.css">
+	
+
+	
+	
+	<link rel="stylesheet" type="text/css" href="GraphStream%20-%20Getting%20Started-Dateien/doc-index.css">
+	
+
+
+
+
+
+</head>
+
+	
+	<body>
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+		
+		<nav id="head" class="navbar navbar-inverse navbar-fixed-top">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#gs-navbar">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="http://graphstream-project.org/">
+				<img alt="GS" src="GraphStream%20-%20Getting%20Started-Dateien/gs-logo-white-tiny.svg" height="100%">
+			</a>
+		</div>
+		
+		<div class="navbar-collapse collapse" id="gs-navbar">
+			<ul class="nav navbar-nav">
+				<li><a href="http://graphstream-project.org/" title="Main page, general information">Home</a></li>
+				<li><a href="http://graphstream-project.org/download/" title="Download the binaries, source code and developper documentation">Download</a></li>
+				<li><a href="http://graphstream-project.org/doc/" title="Documents that help you install and uses GraphStream">Documentation</a></li>
+				<li><a href="http://graphstream-project.org/news/" title="News about GraphStream">News</a></li>
+				<li><a href="https://github.com/graphstream/gs-core/issues" title="Issue tracker">Tracker</a></li>
+				<li><a href="http://graphstream-project.org/doc/Applications/" title="Scientific and Reasearch Applications that use GraphStream">Applications</a></li>
+			</ul>
+		</div>
+	</div>
+</nav>
+
+			
+		<div class="container fitheight" style="padding:0px; margin-top: 65px;">
+		
+			<div class="content row fitheight">
+				<div class="col-md-3 fitheight hidden-xs hidden-sm sidebar-container">
+					<div class="sidebar">
+	<div class="container-fluid">
+		
+		
+		
+		
+		<div class="panel panel-default">
+	<div class="panel-body">
+	<h4 class="with-icon">
+	<a href="http://graphstream-project.org/doc/">
+		<!--<span class="icon fa-stack fa-lg">
+			<i class="fa fa-square fa-stack-2x"></i>-->
+			<i class="fa fa-rss"></i>&nbsp;
+		<!--</span>-->
+		Latest News
+	</a>
+</h4>
+
+		
+			<div><a class="list-group-item-heading" href="http://graphstream-project.org/2018/09/01/postdoc-position-dynamic-graphs.html"><code style="font-weight:300;">2018-09-01</code>&nbsp;Postdoc position in dynamic graphs at the university Le Havre Normandy, France</a></div>
+		
+			<div><a class="list-group-item-heading" href="http://graphstream-project.org/2018/04/20/GraphStream-in-Poznan.html"><code style="font-weight:300;">2018-04-20</code>&nbsp;GraphStream talk at the Poznan University of Technology</a></div>
+		
+			<div><a class="list-group-item-heading" href="http://graphstream-project.org/2018/04/10/graphstream-2.0-alpha-release.html"><code style="font-weight:300;">2018-04-10</code>&nbsp;GraphStream v2.0-alpha Release</a></div>
+		
+			<div><a class="list-group-item-heading" href="http://graphstream-project.org/2016/04/21/graphstream-at-ISCPIF.html"><code style="font-weight:300;">2016-04-21</code>&nbsp;GraphStream demonstration to the "Formation Jedi" at ISCPIF</a></div>
+		
+			<div><a class="list-group-item-heading" href="http://graphstream-project.org/2016/02/20/nice-comminity-detection-article-with-graphstream.html"><code style="font-weight:300;">2016-02-20</code>&nbsp;Nice article on Overlapping Community with GraphStream</a></div>
+		
+	</div>
+</div>
+
+		
+		<div class="panel panel-default">
+			<div class="panel-body">
+			<h4 class="with-icon">
+	<a href="http://graphstream-project.org/doc/">
+		<!--<span class="icon fa-stack fa-lg">
+			<i class="fa fa-square fa-stack-2x"></i>-->
+			<i class="fa fa-question"></i>&nbsp;
+		<!--</span>-->
+		About Us
+	</a>
+</h4>
+
+				<p>
+				GraphStream is hosted by the <a href="http://www.univ-lehavre.fr/">University of Le Havre</a>. It is initiated and maintained by members of the <a href="http://www.litislab.eu/front-page/themes/reseaux-dinteractions-et-intelligence-collective">RI<sub>2</sub>C</a> research team from the <a href="http://www.litislab.fr/">LITIS</a> computer science lab.
+				</p>
+			</div>
+		</div>
+		
+		<div class="panel panel-default">
+			<div class="panel-body">
+			<h4 class="with-icon">
+	
+		<!--<span class="icon fa-stack fa-lg">
+			<i class="fa fa-square fa-stack-2x"></i>-->
+			<i class="fa fa-group"></i>&nbsp;
+		<!--</span>-->
+		Mailing lists
+	
+</h4>
+
+				<div>
+					<a href="http://sympa.litislab.fr/sympa/subscribe/graphstream-users" class="email">
+						users@graphstream-project.org
+					</a>
+				</div>
+				<div>
+					<a href="http://sympa.litislab.fr/sympa/subscribe/graphstream-dev" class="email">
+						dev@graphstream-project.org
+					</a>
+				</div>
+			</div>
+		</div>
+		
+		<div class="panel panel-default">
+			<div class="panel-body">
+			<h4 class="with-icon">
+	
+		<!--<span class="icon fa-stack fa-lg">
+			<i class="fa fa-square fa-stack-2x"></i>-->
+			<i class="fa fa-gear"></i>&nbsp;
+		<!--</span>-->
+		Development
+	
+</h4>
+
+				<ul>
+					<li><a href="http://graphstream-project.org/doc/Roadmap/">Roadmap</a></li>
+					<li><a href="http://graphstream-project.org/doc/API/">API</a></li>
+					<li><a href="http://graphstream-project.org/doc/Source-Repository/">Source Repository</a></li>
+				</ul>
+			</div>
+		</div>
+		
+		<div class="panel panel-default">
+			<div class="panel-body">
+			<h4 class="with-icon">
+	<a href="http://graphstream-project.org/doc/">
+		<!--<span class="icon fa-stack fa-lg">
+			<i class="fa fa-square fa-stack-2x"></i>-->
+			<i class="fa fa-file"></i>&nbsp;
+		<!--</span>-->
+		Documentation
+	</a>
+</h4>
+
+				See the <a href="http://graphstream-project.org/doc/">Documentation</a> pages for detailed tutorials and help. See also:
+				<ul>
+					<li><a href="http://graphstream-project.org/doc/Tutorials/">Tutorials</a></li>
+					<li><a href="http://graphstream-project.org/doc/FAQ/">FAQ</a></li>
+					<li><a href="http://graphstream-project.org/doc/Talks/">Talks</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+				</div>
+				<div class="col-xs-1 visible-xs"></div>
+				
+				<div id="main" class="col-xs-10 col-md-9 fitheight">
+					<article id="content">
+						<h3>
+	<a href="http://graphstream-project.org/doc/">Documentation</a>
+
+	
+	
+		
+	 / <a href="http://graphstream-project.org/doc/Tutorials/">Tutorials</a>
+	
+
+</h3>
+
+
+
+<h1>Getting Started</h1>
+
+<h2 id="some-words-about-graphstream">Some words about GraphStream</h2>
+
+<p>GraphStream is a graph handling Java library that focuses on the dynamics
+aspects of graphs. Its main focus is on the modeling of dynamic interaction networks
+of various sizes.</p>
+
+<p>The goal of the library is to provide a way to represent graphs and work on it.
+To this end, GraphStream proposes several graph classes that allow to model
+directed and undirected graphs, 1-graphs or p-graphs (a.k.a. multigraphs, that
+are graphs that can have several edges between two nodes).</p>
+
+<p>GraphStream allows to store any kind of data attribute on the graph elements:
+numbers, strings, or any object.</p>
+
+<p>Moreover, in addition, GraphStream provides a way to handle the graph evolution
+in time. This means handling the way nodes and edges are added and removed, and
+the way data attributes may appear, disappear and evolve.</p>
+
+<p><img src="GraphStream%20-%20Getting%20Started-Dateien/dynamicGraph.png" alt="Dynamic Graph"></p>
+
+<p>In order to handle dynamic graphs, the library defines in addition to graph
+structures the notion of “stream of graph events”, which as you guessed, is at
+the origin of the library name. The number of events is restricted they are:</p>
+
+<ul>
+  <li>node addition,</li>
+  <li>node removal,</li>
+  <li>edge addition,</li>
+  <li>edge removal,</li>
+  <li>graph/node/edge attribute addition,</li>
+  <li>graph/node/edge attribute change,</li>
+  <li>graph/node/edge attribute removal.</li>
+  <li>step</li>
+</ul>
+
+<p>Inside the library, a lot of components can generate such streams of events.
+These components are called <em>sources</em>. Other components can receive these
+events and process them, they are in fact very comparable to listeners, a
+concept widely used in the Java world. We call such components <em>sinks</em>.</p>
+
+<p>When a component is able to both receive graph events (sink) and produce them
+(source) we call it a <em>pipe</em>. The graph structures in GraphStream are pipes.
+There are many kinds of pipes, that can act as filter, removing some
+events, or adding more events, or allowing to cross the network, or communicate
+between threads.</p>
+
+<p>Here is an example of an often used pipeline:</p>
+
+<p><img src="GraphStream%20-%20Getting%20Started-Dateien/simplePipeline.png" alt="Simple Pipeline"></p>
+
+<p>A reader reads graph events in a file and acts as a source, producing these
+events in order. Its output is connected to a graph. Each time a graph receives
+an event it modifies its structure to reflect the effect of the event. The
+graph is also a source, that is connected here to a viewer. The viewer accepts
+the events and shows a graphical representation of the graph.</p>
+
+<h2 id="installation">Installation</h2>
+
+<p>Before delving into code, it is important to quickly look at the project
+organisation in terms of library modules.</p>
+
+<p>The most important and necessary one is gs-core. It defines the base graph
+classes, the graph event streaming classes and a minimalist, yet efficient, graph rendering
+user interface. The goal of this library is to remain small. This module is
+contained in the file <code class="highlighter-rouge">gs-core-X.Y.jar</code>, where <code class="highlighter-rouge">X</code> is the major GraphStream
+version, and <code class="highlighter-rouge">Y</code> is the minor GraphStream version. This jar is
+the minimal requirement.</p>
+
+<p>Another important module is the gs-algo one. It provides generalist algorithms
+often tied to graph libraries (shortest paths, modularity, centrality, etc.) as
+well as what we call <em>generators</em>, that are algorithms that produce graphs with
+predefined features (random, grid, scale-free, etc.). It is defined in the
+<code class="highlighter-rouge">gs-algo-X-Y.jar</code> file.</p>
+
+<p>When you download GraphStream you will find these two jars in the <code class="highlighter-rouge">lib/</code>
+directory. Simply include them in your <code class="highlighter-rouge">classpath</code>.</p>
+
+<p>Alternatively, you can use Maven to install graphstream and setup eclipse
+projects as described in <a href="http://graphstream-project.org/doc/Tutorials/GraphStream-Maven/">the maven tutorial</a>.</p>
+
+<h2 id="a-first-example">A first example</h2>
+
+<p>It is time to test the API. Although we emphasize on the dynamics aspects of
+the library, it is probably better to start with a simple static graph that we
+will evolve afterwards, in the following tutorials.</p>
+
+<p>All graphs in GraphStream follow the <code class="highlighter-rouge">Graph</code> interface. You import it with:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.graphstream.graph.*</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>There exist several graph implementations, a versatile one is the <code class="highlighter-rouge">SingleGraph</code>
+class. It provides a 1-graph (there can be only one edge between two nodes), that
+can be either directed or undirected. In fact you can mix directed and undirected
+edges inside such a graph, simply consider undirected edges as bidirectional. This
+does not well cope with the mathematical definition, but is certainly easier to use
+for developing. You import it with:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.graphstream.graph.implementations.*</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>You create the graph this way:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Tutorial1</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span> <span class="n">args</span><span class="o">[])</span> <span class="o">{</span>
+		<span class="n">Graph</span> <span class="n">graph</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SingleGraph</span><span class="o">(</span><span class="s">"Tutorial 1"</span><span class="o">);</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>There are lots of ways to populate a graph with nodes, edges and data
+attributes. In GraphStream the better way is to connect a graph event producer
+to the graph (such as a loader or graph generator). However the <code class="highlighter-rouge">Graph</code> class
+also provides a <em>construction</em> interface that allows to build the graph <em>by
+hand</em>. This interface is mostly useful to build small examples and to experiment
+with idea prototypes.</p>
+
+<p>The construction API of the graph works as a factory for node and edge elements
+(you cannot create nodes and edges by yourself and add them in the graph, you
+must ask the graph to create them for you). Add the following lines after the
+graph declaration:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">graph</span><span class="o">.</span><span class="na">addNode</span><span class="o">(</span><span class="s">"A"</span> <span class="o">);</span>
+<span class="n">graph</span><span class="o">.</span><span class="na">addNode</span><span class="o">(</span><span class="s">"B"</span> <span class="o">);</span>
+<span class="n">graph</span><span class="o">.</span><span class="na">addNode</span><span class="o">(</span><span class="s">"C"</span> <span class="o">);</span>
+<span class="n">graph</span><span class="o">.</span><span class="na">addEdge</span><span class="o">(</span><span class="s">"AB"</span><span class="o">,</span> <span class="s">"A"</span><span class="o">,</span> <span class="s">"B"</span><span class="o">);</span>
+<span class="n">graph</span><span class="o">.</span><span class="na">addEdge</span><span class="o">(</span><span class="s">"BC"</span><span class="o">,</span> <span class="s">"B"</span><span class="o">,</span> <span class="s">"C"</span><span class="o">);</span>
+<span class="n">graph</span><span class="o">.</span><span class="na">addEdge</span><span class="o">(</span><span class="s">"CA"</span><span class="o">,</span> <span class="s">"C"</span><span class="o">,</span> <span class="s">"A"</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>As their name suggest, these methods will add three nodes and three edges between
+the nodes. You can see that each node or edge is identified by a string. Such
+identifiers must naturally be unique.</p>
+
+<p>It is often useful to check the graph by seeing it, you can easily do this using
+the <code class="highlighter-rouge">display()</code> utility method:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">graph</span><span class="o">.</span><span class="na">display</span><span class="o">();</span>
+</code></pre></div></div>
+
+<p>This should produce a result similar to this:</p>
+
+<p><img src="GraphStream%20-%20Getting%20Started-Dateien/tutorial1.png" alt="Tutorial 1"></p>
+
+<p>Here is the full text of the above program:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.graphstream.graph.*</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.graphstream.graph.implementations.*</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Tutorial1</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span> <span class="n">args</span><span class="o">[])</span> <span class="o">{</span>
+		<span class="n">Graph</span> <span class="n">graph</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SingleGraph</span><span class="o">(</span><span class="s">"Tutorial 1"</span><span class="o">);</span>
+
+		<span class="n">graph</span><span class="o">.</span><span class="na">addNode</span><span class="o">(</span><span class="s">"A"</span><span class="o">);</span>
+		<span class="n">graph</span><span class="o">.</span><span class="na">addNode</span><span class="o">(</span><span class="s">"B"</span><span class="o">);</span>
+		<span class="n">graph</span><span class="o">.</span><span class="na">addNode</span><span class="o">(</span><span class="s">"C"</span><span class="o">);</span>
+		<span class="n">graph</span><span class="o">.</span><span class="na">addEdge</span><span class="o">(</span><span class="s">"AB"</span><span class="o">,</span> <span class="s">"A"</span><span class="o">,</span> <span class="s">"B"</span><span class="o">);</span>
+		<span class="n">graph</span><span class="o">.</span><span class="na">addEdge</span><span class="o">(</span><span class="s">"BC"</span><span class="o">,</span> <span class="s">"B"</span><span class="o">,</span> <span class="s">"C"</span><span class="o">);</span>
+		<span class="n">graph</span><span class="o">.</span><span class="na">addEdge</span><span class="o">(</span><span class="s">"CA"</span><span class="o">,</span> <span class="s">"C"</span><span class="o">,</span> <span class="s">"A"</span><span class="o">);</span>
+
+		<span class="n">graph</span><span class="o">.</span><span class="na">display</span><span class="o">();</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>The graph being a factory for node, it can create nodes automatically if needed. Instead
+of the graph construction seen above, you can use:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">graph</span><span class="o">.</span><span class="na">setStrict</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
+<span class="n">graph</span><span class="o">.</span><span class="na">setAutoCreate</span><span class="o">(</span> <span class="kc">true</span> <span class="o">);</span>
+<span class="n">graph</span><span class="o">.</span><span class="na">addEdge</span><span class="o">(</span> <span class="s">"AB"</span><span class="o">,</span> <span class="s">"A"</span><span class="o">,</span> <span class="s">"B"</span> <span class="o">);</span>
+<span class="n">graph</span><span class="o">.</span><span class="na">addEdge</span><span class="o">(</span> <span class="s">"BC"</span><span class="o">,</span> <span class="s">"B"</span><span class="o">,</span> <span class="s">"C"</span> <span class="o">);</span>
+<span class="n">graph</span><span class="o">.</span><span class="na">addEdge</span><span class="o">(</span> <span class="s">"CA"</span><span class="o">,</span> <span class="s">"C"</span><span class="o">,</span> <span class="s">"A"</span> <span class="o">);</span>
+</code></pre></div></div>
+
+<p>To produce the same result. If a node is unknown, it will be created for you.</p>
+
+<h2 id="exploring-the-graph-structure">Exploring the graph structure</h2>
+
+<p>Each time you add a node or edge in the graph, a corresponding object is
+created for you. These objects belong to the <code class="highlighter-rouge">Node</code> and <code class="highlighter-rouge">Edge</code> interfaces. As you have seen it above, you name the nodes
+and edges
+by an identifier under the form of a string of characters. Each identifier
+must be unique since they relate to only one node or one edge.</p>
+
+<p>Once added in a graph with an identifier, you can obtain a reference on these objects using this identifier:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Node</span> <span class="n">A</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="na">getNode</span><span class="o">(</span><span class="s">"A"</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>or:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Edge</span> <span class="n">AB</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="na">getEdge</span><span class="o">(</span><span class="s">"AB"</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>The <code class="highlighter-rouge">Node</code> and <code class="highlighter-rouge">Edge</code> interfaces then allow to obtain details on the
+represented nodes and edges. For example:</p>
+
+<ul>
+  <li>what is the unique identifier of the node or edge (<code class="highlighter-rouge">Node.getId()</code>, <code class="highlighter-rouge">Edge.getId()</code>),</li>
+  <li>what is the degree of the node (number of connected edges, <code class="highlighter-rouge">Node.getDegree()</code>),</li>
+  <li>what are the edges connected to a node (<code class="highlighter-rouge">Node.hasEdgeToward(String id)</code> and <code class="highlighter-rouge">Node.getEdgeToward(String id)</code>),</li>
+  <li>is an edge directed or not (<code class="highlighter-rouge">Edge.isDirected()</code>),</li>
+  <li>what is the node at the other end of the edge (<code class="highlighter-rouge">Edge.getOpposite(Node n)</code>),</li>
+  <li>etc.</li>
+</ul>
+
+<p>In addition to <code class="highlighter-rouge">getNode</code> and <code class="highlighter-rouge">getEdge</code> which impose to know the identifier
+of the node or edge, the graph class provides ways to iterate on the nodes or
+edges, you can write:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span><span class="o">(</span><span class="n">Node</span> <span class="nl">n:</span><span class="n">graph</span><span class="o">)</span> <span class="o">{</span>
+	<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">n</span><span class="o">.</span><span class="na">getId</span><span class="o">());</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>The code above allows to iterate on all the nodes of the graph and will print
+their unique identifier, one by line. You can do a similar thing for edges:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span><span class="o">(</span><span class="n">Edge</span> <span class="nl">e:</span><span class="n">graph</span><span class="o">.</span><span class="na">getEachEdge</span><span class="o">())</span> <span class="o">{</span>
+	<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">e</span><span class="o">.</span><span class="na">getId</span><span class="o">());</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>In fact the <code class="highlighter-rouge">for(Node n:graph)</code> instruction is a shorthand for:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span><span class="o">(</span><span class="n">Node</span> <span class="nl">n:</span><span class="n">graph</span><span class="o">.</span><span class="na">getEachNode</span><span class="o">())</span> <span class="o">{</span>
+	<span class="o">...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>You can also obtain a read-only set of nodes from the graph (this is not a
+copy, but a view on the set of nodes, hence the operation is reasonably fast):</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Collection</span><span class="o">&lt;</span><span class="n">Node</span><span class="o">&gt;</span> <span class="n">nodes</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="na">getNodeSet</span><span class="o">();</span>
+</code></pre></div></div>
+
+<p>This can be useful since a lot of algorithms in the <code class="highlighter-rouge">java.util.Collections</code>
+are then applicable on the obtained set. The same operation is possible on edges using <code class="highlighter-rouge">getEdgeSet()</code>.</p>
+
+<p>Finally, you can also, if you prefer, use iterators on theses sets of nodes
+and edges:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Iterator</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="n">Node</span><span class="o">&gt;</span> <span class="n">nodes</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="na">getNodeIterator</span><span class="o">();</span>
+
+<span class="k">while</span><span class="o">(</span><span class="n">nodes</span><span class="o">.</span><span class="na">hasNext</span><span class="o">())</span> <span class="o">{</span>
+	<span class="n">Node</span> <span class="n">node</span> <span class="o">=</span> <span class="n">nodes</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
+	<span class="o">...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>And anew, this is exactly the same for edges with <code class="highlighter-rouge">Graph.getEdgeIterator()</code>.</p>
+
+<p>Another way to access graph elements is to use their indices. Unlike identifiers which are specified when the elements are
+created, indices are automatically maintained by the graph. They could change when elements are added or removed but are
+always between zero and node/edge count minus one. The following loop iterates on all the nodes of the graph:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">graph</span><span class="o">.</span><span class="na">getNodeCount</span><span class="o">();</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+	<span class="n">Node</span> <span class="n">node</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="na">getNode</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+	<span class="o">...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Access by index is generally faster than access by identifier. It can be useful to interface GraphStream with APIs that use
+arrays. The following code constructs the adjacency matrix of a graph:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="na">getNodeCount</span><span class="o">();</span>
+<span class="kt">byte</span> <span class="n">adjacencyMatrix</span><span class="o">[][]</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="n">n</span><span class="o">][</span><span class="n">n</span><span class="o">];</span>
+<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span>
+	<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">n</span><span class="o">;</span> <span class="n">j</span><span class="o">++)</span>
+		<span class="n">adjacencyMatrix</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">j</span><span class="o">]</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="na">getNode</span><span class="o">(</span><span class="n">i</span><span class="o">).</span><span class="na">hasEdgeBetween</span><span class="o">(</span><span class="n">j</span><span class="o">)</span> <span class="o">?</span> <span class="mi">1</span> <span class="o">:</span> <span class="mi">0</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>To get the index of a node knowing its identifier, use:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="na">getNode</span><span class="o">(</span><span class="s">"A"</span><span class="o">).</span><span class="na">getIndex</span><span class="o">();</span>
+</code></pre></div></div>
+
+<p>Inversely, to get the identifier of a node when its index is known, use</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">String</span> <span class="n">id</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="na">getNode</span><span class="o">(</span><span class="mi">0</span><span class="o">).</span><span class="na">getId</span><span class="o">();</span>
+</code></pre></div></div>
+
+<h3 id="other-version-of-this-document">Other version of this document</h3>
+
+<ul>
+  <li><a href="http://graphstream-project.org/doc/Tutorials/Getting-Started/1.0/">GraphStream 1.0</a></li>
+</ul>
+
+
+
+					</article>
+					
+					<footer>Copyright  © 2010-2018, <a href="http://graphstream-project.org/doc/About-Us/">GraphStream Team.</a> All rights reserved.</footer>
+
+				</div>
+			</div>
+		</div>
+
+        <script src="GraphStream%20-%20Getting%20Started-Dateien/ga.js"></script><script src="GraphStream%20-%20Getting%20Started-Dateien/jquery.js"></script>
+<script src="GraphStream%20-%20Getting%20Started-Dateien/bootstrap.js"></script>
+
+
+<script src="GraphStream%20-%20Getting%20Started-Dateien/main.js"></script>
+
+
+
+
+
+<script>
+var _gaq=[['_setAccount','UA-19598785-1'],['_setDomainName', '.graphstream-project.org'],['_trackPageview']];
+(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+    
+
+</body></html>

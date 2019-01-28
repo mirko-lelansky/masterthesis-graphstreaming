@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" data-ember-extension="1"><!--<![endif]--><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>GraphStream - Source Repository</title>
+	<meta name="description" content="GraphStream, java library, API, Graph Visualisation, Graph Layout
+">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<link rel="canonical" href="http://graphstream-project.org/doc/Source-Repository/">
+	<link rel="alternate" type="application/rss+xml" title="GraphStream - A Dynamic Graph Library" href="http://graphstream-project.org/feed.xml">
+
+	<link type="text/css" href="GraphStream%20-%20Source%20Repository-Dateien/css" rel="stylesheet">
+	<link href="GraphStream%20-%20Source%20Repository-Dateien/css_002" rel="stylesheet" type="text/css">
+	
+	<link rel="stylesheet" type="text/css" href="GraphStream%20-%20Source%20Repository-Dateien/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="GraphStream%20-%20Source%20Repository-Dateien/font-awesome.css">
+	<link rel="stylesheet" type="text/css" href="GraphStream%20-%20Source%20Repository-Dateien/highlighter.css">
+	
+	<link rel="stylesheet" type="text/css" href="GraphStream%20-%20Source%20Repository-Dateien/main.css">
+	
+
+	
+	
+	<link rel="stylesheet" type="text/css" href="GraphStream%20-%20Source%20Repository-Dateien/doc-index.css">
+	
+
+
+
+
+
+</head>
+
+	
+	<body>
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+		
+		<nav id="head" class="navbar navbar-inverse navbar-fixed-top">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#gs-navbar">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="http://graphstream-project.org/">
+				<img alt="GS" src="GraphStream%20-%20Source%20Repository-Dateien/gs-logo-white-tiny.svg" height="100%">
+			</a>
+		</div>
+		
+		<div class="navbar-collapse collapse" id="gs-navbar">
+			<ul class="nav navbar-nav">
+				<li><a href="http://graphstream-project.org/" title="Main page, general information">Home</a></li>
+				<li><a href="http://graphstream-project.org/download/" title="Download the binaries, source code and developper documentation">Download</a></li>
+				<li><a href="http://graphstream-project.org/doc/" title="Documents that help you install and uses GraphStream">Documentation</a></li>
+				<li><a href="http://graphstream-project.org/news/" title="News about GraphStream">News</a></li>
+				<li><a href="https://github.com/graphstream/gs-core/issues" title="Issue tracker">Tracker</a></li>
+				<li><a href="http://graphstream-project.org/doc/Applications/" title="Scientific and Reasearch Applications that use GraphStream">Applications</a></li>
+			</ul>
+		</div>
+	</div>
+</nav>
+
+			
+		<div class="container fitheight" style="padding:0px; margin-top: 65px;">
+		
+			<div class="content row fitheight">
+				<div class="col-md-3 fitheight hidden-xs hidden-sm sidebar-container">
+					<div class="sidebar">
+	<div class="container-fluid">
+		
+		
+		
+		
+		<div class="panel panel-default">
+	<div class="panel-body">
+	<h4 class="with-icon">
+	<a href="http://graphstream-project.org/doc/">
+		<!--<span class="icon fa-stack fa-lg">
+			<i class="fa fa-square fa-stack-2x"></i>-->
+			<i class="fa fa-rss"></i>&nbsp;
+		<!--</span>-->
+		Latest News
+	</a>
+</h4>
+
+		
+			<div><a class="list-group-item-heading" href="http://graphstream-project.org/2018/09/01/postdoc-position-dynamic-graphs.html"><code style="font-weight:300;">2018-09-01</code>&nbsp;Postdoc position in dynamic graphs at the university Le Havre Normandy, France</a></div>
+		
+			<div><a class="list-group-item-heading" href="http://graphstream-project.org/2018/04/20/GraphStream-in-Poznan.html"><code style="font-weight:300;">2018-04-20</code>&nbsp;GraphStream talk at the Poznan University of Technology</a></div>
+		
+			<div><a class="list-group-item-heading" href="http://graphstream-project.org/2018/04/10/graphstream-2.0-alpha-release.html"><code style="font-weight:300;">2018-04-10</code>&nbsp;GraphStream v2.0-alpha Release</a></div>
+		
+			<div><a class="list-group-item-heading" href="http://graphstream-project.org/2016/04/21/graphstream-at-ISCPIF.html"><code style="font-weight:300;">2016-04-21</code>&nbsp;GraphStream demonstration to the "Formation Jedi" at ISCPIF</a></div>
+		
+			<div><a class="list-group-item-heading" href="http://graphstream-project.org/2016/02/20/nice-comminity-detection-article-with-graphstream.html"><code style="font-weight:300;">2016-02-20</code>&nbsp;Nice article on Overlapping Community with GraphStream</a></div>
+		
+	</div>
+</div>
+
+		
+		<div class="panel panel-default">
+			<div class="panel-body">
+			<h4 class="with-icon">
+	<a href="http://graphstream-project.org/doc/">
+		<!--<span class="icon fa-stack fa-lg">
+			<i class="fa fa-square fa-stack-2x"></i>-->
+			<i class="fa fa-question"></i>&nbsp;
+		<!--</span>-->
+		About Us
+	</a>
+</h4>
+
+				<p>
+				GraphStream is hosted by the <a href="http://www.univ-lehavre.fr/">University of Le Havre</a>. It is initiated and maintained by members of the <a href="http://www.litislab.eu/front-page/themes/reseaux-dinteractions-et-intelligence-collective">RI<sub>2</sub>C</a> research team from the <a href="http://www.litislab.fr/">LITIS</a> computer science lab.
+				</p>
+			</div>
+		</div>
+		
+		<div class="panel panel-default">
+			<div class="panel-body">
+			<h4 class="with-icon">
+	
+		<!--<span class="icon fa-stack fa-lg">
+			<i class="fa fa-square fa-stack-2x"></i>-->
+			<i class="fa fa-group"></i>&nbsp;
+		<!--</span>-->
+		Mailing lists
+	
+</h4>
+
+				<div>
+					<a href="http://sympa.litislab.fr/sympa/subscribe/graphstream-users" class="email">
+						users@graphstream-project.org
+					</a>
+				</div>
+				<div>
+					<a href="http://sympa.litislab.fr/sympa/subscribe/graphstream-dev" class="email">
+						dev@graphstream-project.org
+					</a>
+				</div>
+			</div>
+		</div>
+		
+		<div class="panel panel-default">
+			<div class="panel-body">
+			<h4 class="with-icon">
+	
+		<!--<span class="icon fa-stack fa-lg">
+			<i class="fa fa-square fa-stack-2x"></i>-->
+			<i class="fa fa-gear"></i>&nbsp;
+		<!--</span>-->
+		Development
+	
+</h4>
+
+				<ul>
+					<li><a href="http://graphstream-project.org/doc/Roadmap/">Roadmap</a></li>
+					<li><a href="http://graphstream-project.org/doc/API/">API</a></li>
+					<li><a href="http://graphstream-project.org/doc/Source-Repository/">Source Repository</a></li>
+				</ul>
+			</div>
+		</div>
+		
+		<div class="panel panel-default">
+			<div class="panel-body">
+			<h4 class="with-icon">
+	<a href="http://graphstream-project.org/doc/">
+		<!--<span class="icon fa-stack fa-lg">
+			<i class="fa fa-square fa-stack-2x"></i>-->
+			<i class="fa fa-file"></i>&nbsp;
+		<!--</span>-->
+		Documentation
+	</a>
+</h4>
+
+				See the <a href="http://graphstream-project.org/doc/">Documentation</a> pages for detailed tutorials and help. See also:
+				<ul>
+					<li><a href="http://graphstream-project.org/doc/Tutorials/">Tutorials</a></li>
+					<li><a href="http://graphstream-project.org/doc/FAQ/">FAQ</a></li>
+					<li><a href="http://graphstream-project.org/doc/Talks/">Talks</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+				</div>
+				<div class="col-xs-1 visible-xs"></div>
+				
+				<div id="main" class="col-xs-10 col-md-9 fitheight">
+					<article id="content">
+						<h3>
+	<a href="http://graphstream-project.org/doc/">Documentation</a>
+
+</h3>
+
+
+
+<h1>Source Repository</h1>
+
+<p>GraphStream uses <a href="http://git-scm.com/">git</a> to manage its sources. If you are not initiated to this
+revision control system, you could find a tutorial <a href="http://www.kernel.org/pub/software/scm/git/docs/gittutorial.html">here</a>.</p>
+
+<p>GraphStream is divided into several modules, and there is a repository for each of them. The main ones are :</p>
+
+<ul>
+  <li><code class="highlighter-rouge">gs-core</code></li>
+  <li><code class="highlighter-rouge">gs-algo</code></li>
+  <li><code class="highlighter-rouge">gs-ui</code></li>
+</ul>
+
+<p><code class="highlighter-rouge">gs-core</code> is the base of GraphStream which is all you need to read a graph
+and display it easily. <code class="highlighter-rouge">gs-algo</code> contains extra algorithms which can be run
+on a graph. <code class="highlighter-rouge">gs-ui</code> provides other graphic viewers and will contain sources for graphical tools.</p>
+
+<p>Actually, public repositories of GraphStream are hosted on <a href="https://www.github.com/graphstream/">github</a>.</p>
+
+<h2 id="clone-a-graphstream-repository">Clone a GraphStream repository</h2>
+
+<p>To retrieve sources of GraphStream, you have to clone the corresponding repository.
+You have to use the following command :</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">git clone git://github.com/graphstream/gs-xxx.git</code></pre></figure>
+
+<p>where <code class="highlighter-rouge">xxx</code> is one of</p>
+
+<ul>
+  <li><code class="highlighter-rouge">core</code></li>
+  <li><code class="highlighter-rouge">algo</code></li>
+  <li><code class="highlighter-rouge">ui</code></li>
+</ul>
+
+<p>Git will create a new directory ( named <code class="highlighter-rouge">gs-xxx</code> ) and download files of the
+repository. This cloned repository is in read-only mode, so you can not push changes
+you will bring on files.</p>
+
+<h2 id="work-with-the-team-on-a-repository">Work with the team on a repository</h2>
+
+<p>First you have to be registered on github and to be added as a gs-developer.
+Then, you have to clone the repository in ssh-mode:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">git clone git@github.com:graphstream/gs-core.git</code></pre></figure>
+
+<p>Then you can bring changes to files. To learn how to commit your changes on the repository, you can read the “<em>Making changes</em>” part of the <a href="http://www.kernel.org/pub/software/scm/git/docs/gittutorial.html">git tutorial</a>.</p>
+
+
+
+
+					</article>
+					
+					<footer>Copyright  © 2010-2018, <a href="http://graphstream-project.org/doc/About-Us/">GraphStream Team.</a> All rights reserved.</footer>
+
+				</div>
+			</div>
+		</div>
+
+        <script src="GraphStream%20-%20Source%20Repository-Dateien/ga.js"></script><script src="GraphStream%20-%20Source%20Repository-Dateien/jquery.js"></script>
+<script src="GraphStream%20-%20Source%20Repository-Dateien/bootstrap.js"></script>
+
+
+<script src="GraphStream%20-%20Source%20Repository-Dateien/main.js"></script>
+
+
+
+
+
+<script>
+var _gaq=[['_setAccount','UA-19598785-1'],['_setDomainName', '.graphstream-project.org'],['_trackPageview']];
+(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+    
+
+</body></html>

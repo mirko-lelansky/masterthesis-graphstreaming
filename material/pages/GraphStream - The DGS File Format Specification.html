@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" data-ember-extension="1"><!--<![endif]--><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>GraphStream - The DGS File Format Specification</title>
+	<meta name="description" content="GraphStream, java library, API, Graph Visualisation, Graph Layout
+">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<link rel="canonical" href="http://graphstream-project.org/doc/Advanced-Concepts/The-DGS-File-Format/">
+	<link rel="alternate" type="application/rss+xml" title="GraphStream - A Dynamic Graph Library" href="http://graphstream-project.org/feed.xml">
+
+	<link type="text/css" href="GraphStream%20-%20The%20DGS%20File%20Format%20Specification-Dateien/css" rel="stylesheet">
+	<link href="GraphStream%20-%20The%20DGS%20File%20Format%20Specification-Dateien/css_002" rel="stylesheet" type="text/css">
+	
+	<link rel="stylesheet" type="text/css" href="GraphStream%20-%20The%20DGS%20File%20Format%20Specification-Dateien/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="GraphStream%20-%20The%20DGS%20File%20Format%20Specification-Dateien/font-awesome.css">
+	<link rel="stylesheet" type="text/css" href="GraphStream%20-%20The%20DGS%20File%20Format%20Specification-Dateien/highlighter.css">
+	
+	<link rel="stylesheet" type="text/css" href="GraphStream%20-%20The%20DGS%20File%20Format%20Specification-Dateien/main.css">
+	
+
+	
+	
+	<link rel="stylesheet" type="text/css" href="GraphStream%20-%20The%20DGS%20File%20Format%20Specification-Dateien/doc-index.css">
+	
+
+
+
+
+
+</head>
+
+	
+	<body>
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+		
+		<nav id="head" class="navbar navbar-inverse navbar-fixed-top">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#gs-navbar">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="http://graphstream-project.org/">
+				<img alt="GS" src="GraphStream%20-%20The%20DGS%20File%20Format%20Specification-Dateien/gs-logo-white-tiny.svg" height="100%">
+			</a>
+		</div>
+		
+		<div class="navbar-collapse collapse" id="gs-navbar">
+			<ul class="nav navbar-nav">
+				<li><a href="http://graphstream-project.org/" title="Main page, general information">Home</a></li>
+				<li><a href="http://graphstream-project.org/download/" title="Download the binaries, source code and developper documentation">Download</a></li>
+				<li><a href="http://graphstream-project.org/doc/" title="Documents that help you install and uses GraphStream">Documentation</a></li>
+				<li><a href="http://graphstream-project.org/news/" title="News about GraphStream">News</a></li>
+				<li><a href="https://github.com/graphstream/gs-core/issues" title="Issue tracker">Tracker</a></li>
+				<li><a href="http://graphstream-project.org/doc/Applications/" title="Scientific and Reasearch Applications that use GraphStream">Applications</a></li>
+			</ul>
+		</div>
+	</div>
+</nav>
+
+			
+		<div class="container fitheight" style="padding:0px; margin-top: 65px;">
+		
+			<div class="content row fitheight">
+				<div class="col-md-3 fitheight hidden-xs hidden-sm sidebar-container">
+					<div class="sidebar">
+	<div class="container-fluid">
+		
+		
+		
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<h4 class="with-icon">
+	
+		<!--<span class="icon fa-stack fa-lg">
+			<i class="fa fa-square fa-stack-2x"></i>-->
+			<i class="fa fa-code-fork"></i>&nbsp;
+		<!--</span>-->
+		Other versions
+	
+</h4>
+
+				<ul>
+					
+					
+					<li><a href="http://graphstream-project.org/doc/Advanced-Concepts/The-DGS-File-Format/1.0/">Version 1.0</a></li>
+					
+				</ul>
+			</div>
+		</div>
+		
+		
+		<div class="panel panel-default">
+	<div class="panel-body">
+	<h4 class="with-icon">
+	<a href="http://graphstream-project.org/doc/">
+		<!--<span class="icon fa-stack fa-lg">
+			<i class="fa fa-square fa-stack-2x"></i>-->
+			<i class="fa fa-rss"></i>&nbsp;
+		<!--</span>-->
+		Latest News
+	</a>
+</h4>
+
+		
+			<div><a class="list-group-item-heading" href="http://graphstream-project.org/2018/09/01/postdoc-position-dynamic-graphs.html"><code style="font-weight:300;">2018-09-01</code>&nbsp;Postdoc position in dynamic graphs at the university Le Havre Normandy, France</a></div>
+		
+			<div><a class="list-group-item-heading" href="http://graphstream-project.org/2018/04/20/GraphStream-in-Poznan.html"><code style="font-weight:300;">2018-04-20</code>&nbsp;GraphStream talk at the Poznan University of Technology</a></div>
+		
+			<div><a class="list-group-item-heading" href="http://graphstream-project.org/2018/04/10/graphstream-2.0-alpha-release.html"><code style="font-weight:300;">2018-04-10</code>&nbsp;GraphStream v2.0-alpha Release</a></div>
+		
+			<div><a class="list-group-item-heading" href="http://graphstream-project.org/2016/04/21/graphstream-at-ISCPIF.html"><code style="font-weight:300;">2016-04-21</code>&nbsp;GraphStream demonstration to the "Formation Jedi" at ISCPIF</a></div>
+		
+			<div><a class="list-group-item-heading" href="http://graphstream-project.org/2016/02/20/nice-comminity-detection-article-with-graphstream.html"><code style="font-weight:300;">2016-02-20</code>&nbsp;Nice article on Overlapping Community with GraphStream</a></div>
+		
+	</div>
+</div>
+
+		
+		<div class="panel panel-default">
+			<div class="panel-body">
+			<h4 class="with-icon">
+	<a href="http://graphstream-project.org/doc/">
+		<!--<span class="icon fa-stack fa-lg">
+			<i class="fa fa-square fa-stack-2x"></i>-->
+			<i class="fa fa-question"></i>&nbsp;
+		<!--</span>-->
+		About Us
+	</a>
+</h4>
+
+				<p>
+				GraphStream is hosted by the <a href="http://www.univ-lehavre.fr/">University of Le Havre</a>. It is initiated and maintained by members of the <a href="http://www.litislab.eu/front-page/themes/reseaux-dinteractions-et-intelligence-collective">RI<sub>2</sub>C</a> research team from the <a href="http://www.litislab.fr/">LITIS</a> computer science lab.
+				</p>
+			</div>
+		</div>
+		
+		<div class="panel panel-default">
+			<div class="panel-body">
+			<h4 class="with-icon">
+	
+		<!--<span class="icon fa-stack fa-lg">
+			<i class="fa fa-square fa-stack-2x"></i>-->
+			<i class="fa fa-group"></i>&nbsp;
+		<!--</span>-->
+		Mailing lists
+	
+</h4>
+
+				<div>
+					<a href="http://sympa.litislab.fr/sympa/subscribe/graphstream-users" class="email">
+						users@graphstream-project.org
+					</a>
+				</div>
+				<div>
+					<a href="http://sympa.litislab.fr/sympa/subscribe/graphstream-dev" class="email">
+						dev@graphstream-project.org
+					</a>
+				</div>
+			</div>
+		</div>
+		
+		<div class="panel panel-default">
+			<div class="panel-body">
+			<h4 class="with-icon">
+	
+		<!--<span class="icon fa-stack fa-lg">
+			<i class="fa fa-square fa-stack-2x"></i>-->
+			<i class="fa fa-gear"></i>&nbsp;
+		<!--</span>-->
+		Development
+	
+</h4>
+
+				<ul>
+					<li><a href="http://graphstream-project.org/doc/Roadmap/">Roadmap</a></li>
+					<li><a href="http://graphstream-project.org/doc/API/">API</a></li>
+					<li><a href="http://graphstream-project.org/doc/Source-Repository/">Source Repository</a></li>
+				</ul>
+			</div>
+		</div>
+		
+		<div class="panel panel-default">
+			<div class="panel-body">
+			<h4 class="with-icon">
+	<a href="http://graphstream-project.org/doc/">
+		<!--<span class="icon fa-stack fa-lg">
+			<i class="fa fa-square fa-stack-2x"></i>-->
+			<i class="fa fa-file"></i>&nbsp;
+		<!--</span>-->
+		Documentation
+	</a>
+</h4>
+
+				See the <a href="http://graphstream-project.org/doc/">Documentation</a> pages for detailed tutorials and help. See also:
+				<ul>
+					<li><a href="http://graphstream-project.org/doc/Tutorials/">Tutorials</a></li>
+					<li><a href="http://graphstream-project.org/doc/FAQ/">FAQ</a></li>
+					<li><a href="http://graphstream-project.org/doc/Talks/">Talks</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+				</div>
+				<div class="col-xs-1 visible-xs"></div>
+				
+				<div id="main" class="col-xs-10 col-md-9 fitheight">
+					<article id="content">
+						<h3>
+	<a href="http://graphstream-project.org/doc/">Documentation</a>
+
+	
+	
+		
+	 / <a href="http://graphstream-project.org/doc/Advanced-Concepts/">Advanced Concepts</a>
+	
+
+</h3>
+
+
+
+<h1>The DGS File Format Specification</h1>
+
+<p>DGS is the default file format for GraphStream. This documentation documents the
+version 4 of the format, which is compatible with version 1.0 of GraphStream.
+GraphStream supports all of the previous versions of DGS.</p>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>DGS is a file format allowing to store graphs and dynamic graphs in a textual
+human readable way, yet with a small size allowing to store large graphs. Graph
+dynamics is defined using events like adding, deleting or changing a node or
+edge or adding, changing and removing attributes on the graph, nodes or edges.
+With DGS, graphs will therefore be seen as stream of such events.</p>
+
+<h2 id="compression">Compression</h2>
+
+<p>Files following the DGS format are textual files (ASCII, UTF-8, etc.) that may
+be compressed using gzip. Indeed it is often useful and advantageous to
+compress dynamic graph streams because of their large redundancy and often very
+large size. The gzip format has been chosen since it is easily streamable and
+easy to use in Java. For example to open a gzip-ed file in Java and read its
+contents as any other textual file, one can use the following code snippet:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">BufferedReader</span> <span class="n">buffer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedReader</span><span class="o">(</span><span class="k">new</span> <span class="n">InputStreamReader</span><span class="o">(</span><span class="k">new</span> <span class="n">GZIPInputStream</span><span class="o">((</span><span class="n">InputStream</span><span class="o">)</span><span class="k">new</span> <span class="n">FileInputStream</span><span class="o">(</span><span class="s">"filename"</span><span class="o">))));</span>
+</code></pre></div></div>
+
+<p>Naturally, GraphStream automatically supports gzip-ed files.</p>
+
+<h2 id="syntax">Syntax</h2>
+
+<p>DGS sees graphs as composed of nodes and edges. These elements can however be
+equipped with attributes. Attributes can be arbitrary strings, numbers, or
+vectors of strings or numbers. There can be any number of attributes per node
+and edge or per graph.</p>
+
+<p>The format is composed of a header and a body. The header contains two lines
+defining the format version and the graph name and optional lengths. The body
+contains the events descriptions that will make up the graph stream.</p>
+
+<p>The body is made of a sequence of steps containing zero or more events. Steps
+allow to introduce a notion of time inside the graph stream. One tick of the
+clock will pass at each step, and all the events in one step can be considered
+occurring at the same time (although, their order is preserved). It is however
+possible to omit step events or to add a step event between each event, as
+needed.</p>
+
+<p>Each event stands on one line terminated by a line separator. Each field on
+each line of the header and body is separated by one or more spacing characters
+(spaces and tabulations).</p>
+
+<p>Comments are allowed everywhere in the file excepted in the header. The two
+first lines of the file must therefore be free of any comment and must not be
+preceded by any blank lines.</p>
+
+<h3 id="the-header">The Header</h3>
+
+<p>The first line contains a magic cookie defining the file format. This line is
+invariant for each file in the DGS file format for a given version. It changes
+from version to version. Actually 004 is the latest:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>DGS004
+</code></pre></div></div>
+
+<p>The second line contains three fields, the graph name followed by the number of
+steps and hen the total number of events in the graph. Theses numbers are only
+indicative and may be both set to zero. However, if known, they can describe
+the stream duration in number of steps (clock ticks) and number of events. In
+the example under, the graph name is myDynGraph, the number of steps is 2000
+and there are 100000 events total:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>myDynGraph 2000 100000
+</code></pre></div></div>
+
+<p>This line is deprecated in GraphStream 1.0 and is now maintained only for
+compatibility reasons. Indeed DGS is a streamable format, and it is often very
+difficult to know by advance the number of events and steps that will be
+produced in the rest of the file. It is however still mandatory actually, but
+it will disappear in version 5 of the format. You can use:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>null 0 0
+</code></pre></div></div>
+
+<h3 id="the-body">The Body</h3>
+
+<p>Hereafter are listed the events one can encounter inside a graph stream. Some
+of these events can take parameters (also known as attributes). Parameters
+allows to define what values will be stored in a node or edge. A parameter is
+made of a name and a value. They are separated by a : (colon) or = (equal)
+sign.</p>
+
+<p>The accepted values are strings (any sequence of character enclosed by “
+(double quote) characters), numbers, single words (like strings but without
+quotes since they do not contain spaces), vectors and colors. A vector is a
+sequence of strings, words or numbers separated by the , (comma) character.
+Vectors can contain heterogeneous elements (mix of strings, words, numbers and
+colors). A color is signaled by a dash # symbol followed by six hexadecimal
+numbers, two for the red, two for green and two for blue components of the
+color (#FF00FF is cyan for example). It can optionally contain height
+hexadecimal numbers, adding two numbers for the alpha component (transparency, #FF00FF88
+is half transparent cyan).</p>
+
+<p>Here is the list of possible events:</p>
+
+<p><code class="highlighter-rouge">st</code>
+    Allows to define a new step (clock tick). The number that follows allows to
+    identify the step. The number is only indicative and is arbitrary, but is a
+    real number, stored as a double (this may change in next versions). The DGS
+    graph reader does not reorder events according to this number.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>For the first step for example:
+
+st 0
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">an</code>
+    Allows to add a node. The command is followed by the unique node identifier
+    allowing to identify this node compared to others. This name can be a
+    single word or a string delimited by the double quote character. Other
+    fields allow to define parameters.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>The following example adds a node with identifier ``n1`` and values
+``x=3.14159265`` and ``y=1.61803399`` as attributes:
+
+an n1 x=3.14159265 y=1.61803399
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">cn</code>
+    Allows to modify attributes values for a node.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>In this example we modify the ``n1`` node attributes (notice that we use ":" as
+separator for parameters, both "=" and ":" are allowed):
+
+cn n1 x:3 y:1
+
+You can also remove an existing attribute by prefixing its identifier with
+a minus sign:
+
+cn n1 -x -y
+
+In this example we remove the ``x`` and ``y`` attributes.
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">dn</code>
+    Allows to delete a node.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>In the example we delete the ``n1`` node:
+
+dn n1
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">ae</code>
+    Allows to add an edge. This command must be followed by the unique
+    identifier of the edge, and then the identifiers of two other nodes. As for
+    nodes, you can specify a parameter list. It is possible to create directed
+    edges by adding a “&gt;” (greater-than) or “&lt;” (smaller-than) character
+    between the nodes identifiers. This indicates the direction of the edge.
+    When no “&lt;” or “&gt;” is present, the edge is not directed.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>The following examples creates an edge with identifier ``e1`` between nodes
+``n0`` and ``n1`` with a parameter weight and another edge ``e2`` between
+nodes ``n1`` and ``n2`` that is directed from ``n1`` to ``n2``:
+
+ae e1 n0 n1 weight=23
+ae e2 n1 &gt; n2 weight:40
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">ce</code>
+    As for nodes, allows to modify the parameters of the edge.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>The following example change the weight parameter of the ``e1`` edge:
+
+ce e1 weight=10
+
+As for nodes, you can also remove attributes by prefixing the attribute
+identifier by a minus sign.
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">de</code>
+    Allows to delete an edge.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Example:
+
+de e1
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">cg</code>
+     Changes the attributes of a graph.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>As for nodes (``cn``) an edges (``ce``), this allows to add or remove attributes
+directly on the graph. As usual, you can remove an attribute by prefixing
+its identifier by a minus sign.
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">cl</code>
+    Clear the whole graph.</p>
+
+<h2 id="miscellany">Miscellany</h2>
+
+<p>The format accepts empty lines, even if they contain spaces. It is possible to
+use the # character to introduce comments that will last until the end of the
+line where they appear. A line containing a single comment will be ignored, but
+it is possible to add comments at the end of a line.</p>
+
+<h2 id="compatibility-with-previous-versions">Compatibility With Previous Versions</h2>
+
+<p>This version of the DGS file format, 004, is compatible with version 003, but
+is not compatible with the first and second versions of the format. The
+GraphStream library proposes graph readers for the old formats as well as for
+the new. It only provides a writer for the 004 version.</p>
+
+<h2 id="examples">Examples</h2>
+
+<p>One of the simplest examples is the graph that forms a triangle:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>DGS004
+triangle 0 6
+an A
+an B
+an C
+ae AB A B
+ae BC B C
+ae CA C A
+</code></pre></div></div>
+
+<p>The same with directed edges:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>DGS004
+triangled 0 6
+an A
+an B
+an C
+ae AB A &gt; B
+ae BC B &lt; C
+ae CA C &gt; A
+</code></pre></div></div>
+
+<p>The same with position attributes:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>DGS004
+triangledp 0 6
+
+an A x:0   y:0
+an B x:1   y=0
+an C x=0.5 y=1
+
+ae AB A &gt; B
+ae BC B &lt; C
+ae CA C &gt; A
+</code></pre></div></div>
+
+<p>The same with more attributes (examples of vector attributes):</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>DGS004
+triangledpm 0 6
+
+an A x:0   y:0
+an B x:1   y=0
+an C x=0.5 y=1
+
+ae AB A &gt; B weight:1 values=1,3,5,none
+ae BC B &lt; C weight:5 values=none,2,4,6
+ae CA C &gt; A weight:2 values=none,1
+</code></pre></div></div>
+
+<h2 id="the-dgs-formal-specification">The DGS formal specification</h2>
+
+<p>The grammar for the DGS format is given below in BNF notation::</p>
+
+<pre><code class="language-ebnf">    &lt;DGS&gt;        ::= &lt;header&gt; ( &lt;event&gt; | &lt;comment&gt; | &lt;EOL&gt; )*
+    &lt;header&gt;     ::= &lt;magic&gt; &lt;EOL&gt; &lt;id&gt; &lt;int&gt; &lt;int&gt; &lt;EOL&gt;
+    &lt;magic&gt;      ::= "DGS004" | "DGS003"
+    &lt;event&gt;      ::= ( &lt;an&gt; | &lt;cn&gt; | &lt;dn&gt; | &lt;ae&gt; | &lt;ce&gt; | &lt;de&gt; | &lt;cg&gt; | &lt;st&gt; | &lt;cl&gt; ) ( &lt;comment&gt; | &lt;EOL&gt; )
+    &lt;an&gt;         ::= "an" &lt;id&gt; &lt;attributes&gt;
+    &lt;cn&gt;         ::= "cn" &lt;id&gt; &lt;attributes&gt;
+    &lt;dn&gt;         ::= "dn" &lt;id&gt;
+    &lt;ae&gt;         ::= "ae" &lt;id&gt; &lt;id&gt; ( &lt;direction&gt; )? &lt;id&gt; &lt;attributes&gt;
+    &lt;ce&gt;         ::= "ce" &lt;id&gt; &lt;attributes&gt;
+    &lt;de&gt;         ::= "de" &lt;id&gt;
+    &lt;cg&gt;         ::= "cg" &lt;attributes&gt;
+    &lt;st&gt;         ::= "st" &lt;real&gt;
+    &lt;cl&gt;         ::= "cl"
+    &lt;attributes&gt; ::= ( &lt;attribute&gt; )*
+    &lt;attribute&gt;  ::= ( "+" | "-" )? &lt;id&gt; ( &lt;assign&gt; &lt;value&gt; ( "," &lt;value&gt; )* )?
+    &lt;value&gt;      ::= &lt;string&gt; | &lt;real&gt; | "" | &lt;array&gt; | &lt;map&gt;
+    &lt;array&gt;      ::= "{" ( &lt;value&gt; ( "," &lt;value&gt; )* )? "}"
+    &lt;map&gt;        ::= "[" ( &lt;mapping&gt; ( "," &lt;mapping&gt; )* )? "]"
+    &lt;mapping&gt;    ::= &lt;id&gt; &lt;assign&gt; &lt;value&gt;
+    &lt;direction&gt;  ::= '&lt;' | '&gt;' | ''
+    &lt;assign&gt;     ::= '=' | ':'
+    &lt;id&gt;         ::= &lt;string&gt; | &lt;int&gt; | &lt;word&gt; ( '.' &lt;word&gt; )*
+
+    &lt;comment&gt;    ::= "#" ( . )* &lt;EOL&gt;
+    &lt;int&gt;        ::= '0' | ( '1' .. '9' ) ( '0' .. '9' )*
+    &lt;real&gt;       ::= &lt;int&gt; ( "." ( "0" )* &lt;int&gt; )?
+    &lt;word&gt;       ::= ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '-' | '_' )*
+    &lt;string&gt;     ::= '"' ( [^'"'] | '\"' )* '"'
+</code></pre>
+
+
+
+					</article>
+					
+					<footer>Copyright  © 2010-2018, <a href="http://graphstream-project.org/doc/About-Us/">GraphStream Team.</a> All rights reserved.</footer>
+
+				</div>
+			</div>
+		</div>
+
+        <script src="GraphStream%20-%20The%20DGS%20File%20Format%20Specification-Dateien/ga.js"></script><script src="GraphStream%20-%20The%20DGS%20File%20Format%20Specification-Dateien/jquery.js"></script>
+<script src="GraphStream%20-%20The%20DGS%20File%20Format%20Specification-Dateien/bootstrap.js"></script>
+
+
+<script src="GraphStream%20-%20The%20DGS%20File%20Format%20Specification-Dateien/main.js"></script>
+
+
+
+
+
+<script>
+var _gaq=[['_setAccount','UA-19598785-1'],['_setDomainName', '.graphstream-project.org'],['_trackPageview']];
+(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+
+    
+
+</body></html>

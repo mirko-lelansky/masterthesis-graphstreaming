@@ -1,0 +1,3696 @@
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<!DOCTYPE html>
+<html data-ember-extension="1" lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Apache Flink 1.7 Documentation: Dataflow Programming Model</title>
+    <link rel="shortcut icon" href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/page/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/page/favicon.ico" type="image/x-icon">
+    <link rel="canonical" href="https://ci.apache.org/projects/flink/flink-docs-stable/concepts/programming-model.html">
+
+    <!-- Bootstrap -->
+    <style class="anchorjs"></style><link rel="stylesheet" href="Apache%20Flink%201.7%20Documentation:%20Dataflow%20Programming%20Model-Dateien/bootstrap.css">
+    <link rel="stylesheet" href="Apache%20Flink%201.7%20Documentation:%20Dataflow%20Programming%20Model-Dateien/flink.css">
+    <link rel="stylesheet" href="Apache%20Flink%201.7%20Documentation:%20Dataflow%20Programming%20Model-Dateien/syntax.css">
+    <link rel="stylesheet" href="Apache%20Flink%201.7%20Documentation:%20Dataflow%20Programming%20Model-Dateien/codetabs.css">
+    <link rel="stylesheet" href="Apache%20Flink%201.7%20Documentation:%20Dataflow%20Programming%20Model-Dateien/font-awesome.css">
+    
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    
+
+    <!-- Main content. -->
+    <div class="container">
+      
+      <div class="row">
+        <div class="col-lg-3" id="sidenavcol">
+          
+
+
+
+
+
+
+
+  
+    
+    
+    
+      
+    
+  
+
+  
+    
+    
+    
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="sidenav-logo">
+  <p><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7"><img class="bottom" alt="Apache Flink" src="Apache%20Flink%201.7%20Documentation:%20Dataflow%20Programming%20Model-Dateien/navbar-brand-logo.jpg"></a> v1.7</p>
+</div>
+<ul id="sidenav">
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/"><i class="fa fa-home title" aria-hidden="true"></i> Home</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    <hr class="section-break">
+
+    
+    
+      
+      
+        
+        
+<li><a href="#collapse-2" data-toggle="collapse" class="active"><i class="fa fa-map-o title appetizer" aria-hidden="true"></i> Concepts</a><div class="collapse in" id="collapse-2"><ul>
+  
+        
+        
+        
+
+        
+        
+      
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+      
+      
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/concepts/programming-model.html" class="active">Programming Model</a></li>
+      
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/concepts/runtime.html">Distributed Runtime</a></li>
+    
+  
+
+  
+    
+      
+      
+</ul></div>
+      
+      
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+      
+      
+        
+        
+</li><li><a href="#collapse-6" data-toggle="collapse"><i class="fa fa-power-off title appetizer" aria-hidden="true"></i> Tutorials <i class="fa fa-caret-down pull-right" aria-hidden="true" style="padding-top: 4px"></i></a><div class="collapse" id="collapse-6"><ul>
+  
+        
+        
+        
+
+        
+        
+      
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+      
+      
+        
+        
+<li><a href="#collapse-7" data-toggle="collapse">API Tutorials <i class="fa fa-caret-down pull-right" aria-hidden="true" style="padding-top: 4px"></i></a><div class="collapse" id="collapse-7"><ul>
+  
+        
+        
+        
+
+        
+        
+      
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/tutorials/datastream_api.html">DataStream API</a></li>
+    
+  
+
+  
+    
+      
+      
+</ul></div>
+      
+      
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+      
+      
+        
+        
+</li><li><a href="#collapse-10" data-toggle="collapse">Setup Tutorials <i class="fa fa-caret-down pull-right" aria-hidden="true" style="padding-top: 4px"></i></a><div class="collapse" id="collapse-10"><ul>
+  
+        
+        
+        
+
+        
+        
+      
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/tutorials/local_setup.html">Local Setup</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/tutorials/flink_on_windows.html">Running Flink on Windows</a></li>
+    
+  
+
+  
+    
+      
+      
+</ul></div>
+      
+      
+    
+  
+
+  
+    
+      
+      
+</li></ul></div>
+      
+      
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+      
+      
+        
+        
+</li><li><a href="#collapse-15" data-toggle="collapse"><i class="fa fa-file-code-o title appetizer" aria-hidden="true"></i> Examples <i class="fa fa-caret-down pull-right" aria-hidden="true" style="padding-top: 4px"></i></a><div class="collapse" id="collapse-15"><ul>
+  <li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/examples/">Overview</a></li>
+        
+        
+        
+
+        
+        
+      
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/batch/examples.html">Batch Examples</a></li>
+    
+  
+
+  
+    
+      
+      
+</ul></div>
+      
+      
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    <hr class="section-break">
+
+    
+    
+      
+      
+        
+        
+</li><li><a href="#collapse-18" data-toggle="collapse"><i class="fa fa-code title maindish" aria-hidden="true"></i> Application Development <i class="fa fa-caret-down pull-right" aria-hidden="true" style="padding-top: 4px"></i></a><div class="collapse" id="collapse-18"><ul>
+  
+        
+        
+        
+
+        
+        
+      
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+      
+      
+        
+        
+<li><a href="#collapse-19" data-toggle="collapse">Project Build Setup <i class="fa fa-caret-down pull-right" aria-hidden="true" style="padding-top: 4px"></i></a><div class="collapse" id="collapse-19"><ul>
+  
+        
+        
+        
+
+        
+        
+      
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/projectsetup/java_api_quickstart.html">Project Template for Java</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/projectsetup/scala_api_quickstart.html">Project Template for Scala</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/projectsetup/dependencies.html">Configuring Dependencies, Connectors, Libraries</a></li>
+    
+  
+
+  
+    
+      
+      
+</ul></div>
+      
+      
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+      
+      
+        
+        
+</li><li><a href="#collapse-24" data-toggle="collapse">Basic API Concepts <i class="fa fa-caret-down pull-right" aria-hidden="true" style="padding-top: 4px"></i></a><div class="collapse" id="collapse-24"><ul>
+  <li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/api_concepts.html">Overview</a></li>
+        
+        
+        
+
+        
+        
+      
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/scala_api_extensions.html">Scala API Extensions</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/java_lambdas.html">Java Lambda Expressions</a></li>
+    
+  
+
+  
+    
+      
+      
+</ul></div>
+      
+      
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+      
+      
+        
+        
+</li><li><a href="#collapse-28" data-toggle="collapse">Streaming (DataStream API) <i class="fa fa-caret-down pull-right" aria-hidden="true" style="padding-top: 4px"></i></a><div class="collapse" id="collapse-28"><ul>
+  <li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/datastream_api.html">Overview</a></li>
+        
+        
+        
+
+        
+        
+      
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+      
+      
+        
+        
+<li><a href="#collapse-29" data-toggle="collapse">Event Time <i class="fa fa-caret-down pull-right" aria-hidden="true" style="padding-top: 4px"></i></a><div class="collapse" id="collapse-29"><ul>
+  <li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/event_time.html">Overview</a></li>
+        
+        
+        
+
+        
+        
+      
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/event_timestamps_watermarks.html">Generating Timestamps / Watermarks</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/event_timestamp_extractors.html">Pre-defined Timestamp Extractors / Watermark Emitters</a></li>
+    
+  
+
+  
+    
+      
+      
+</ul></div>
+      
+      
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+      
+      
+        
+        
+</li><li><a href="#collapse-33" data-toggle="collapse">State &amp; Fault Tolerance <i class="fa fa-caret-down pull-right" aria-hidden="true" style="padding-top: 4px"></i></a><div class="collapse" id="collapse-33"><ul>
+  <li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/stream/state/">Overview</a></li>
+        
+        
+        
+
+        
+        
+      
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/stream/state/state.html">Working with State</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/stream/state/broadcast_state.html">The Broadcast State Pattern</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/stream/state/checkpointing.html">Checkpointing</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/stream/state/queryable_state.html">Queryable State</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/stream/state/state_backends.html">State Backends</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/stream/state/schema_evolution.html">State Schema Evolution</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/stream/state/custom_serialization.html">Custom State Serialization</a></li>
+    
+  
+
+  
+    
+      
+      
+</ul></div>
+      
+      
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+      
+      
+        
+        
+</li><li><a href="#collapse-42" data-toggle="collapse">Operators <i class="fa fa-caret-down pull-right" aria-hidden="true" style="padding-top: 4px"></i></a><div class="collapse" id="collapse-42"><ul>
+  <li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/stream/operators/">Overview</a></li>
+        
+        
+        
+
+        
+        
+      
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+      
+      
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/stream/operators/windows.html">Windows</a></li>
+      
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+      
+      
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/stream/operators/joining.html">Joining</a></li>
+      
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/stream/operators/process_function.html">Process Function</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/stream/operators/asyncio.html">Async I/O</a></li>
+    
+  
+
+  
+    
+      
+      
+</ul></div>
+      
+      
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+      
+      
+        
+        
+</li><li><a href="#collapse-48" data-toggle="collapse">Connectors <i class="fa fa-caret-down pull-right" aria-hidden="true" style="padding-top: 4px"></i></a><div class="collapse" id="collapse-48"><ul>
+  <li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/connectors/">Overview</a></li>
+        
+        
+        
+
+        
+        
+      
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/connectors/guarantees.html">Fault Tolerance Guarantees</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/connectors/kafka.html">Kafka</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/connectors/cassandra.html">Cassandra</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/connectors/kinesis.html">Kinesis</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/connectors/elasticsearch.html">Elasticsearch</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/connectors/filesystem_sink.html">Rolling File Sink</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/connectors/streamfile_sink.html">Streaming File Sink</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/connectors/rabbitmq.html">RabbitMQ</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/connectors/nifi.html">NiFi</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/connectors/twitter.html">Twitter</a></li>
+    
+  
+
+  
+    
+      
+      
+</ul></div>
+      
+      
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+</li><li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/stream/side_output.html">Side Outputs</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/stream/python.html">Python API</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+      
+      
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/stream/testing.html">Testing</a></li>
+      
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+      
+      
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/stream/experimental.html">Experimental Features</a></li>
+      
+    
+  
+
+  
+    
+      
+      
+</ul></div>
+      
+      
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+      
+      
+        
+        
+</li><li><a href="#collapse-65" data-toggle="collapse">Batch (DataSet API) <i class="fa fa-caret-down pull-right" aria-hidden="true" style="padding-top: 4px"></i></a><div class="collapse" id="collapse-65"><ul>
+  <li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/batch/">Overview</a></li>
+        
+        
+        
+
+        
+        
+      
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/batch/dataset_transformations.html">Transformations</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/batch/fault_tolerance.html">Fault Tolerance</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/batch/iterations.html">Iterations</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/batch/zip_elements_guide.html">Zipping Elements</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/batch/connectors.html">Connectors</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/batch/python.html">Python API</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/batch/hadoop_compatibility.html">Hadoop Compatibility</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/local_execution.html">Local Execution</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/cluster_execution.html">Cluster Execution</a></li>
+    
+  
+
+  
+    
+      
+      
+</ul></div>
+      
+      
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+      
+      
+        
+        
+</li><li><a href="#collapse-76" data-toggle="collapse">Table API &amp; SQL <i class="fa fa-caret-down pull-right" aria-hidden="true" style="padding-top: 4px"></i></a><div class="collapse" id="collapse-76"><ul>
+  <li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/table/">Overview</a></li>
+        
+        
+        
+
+        
+        
+      
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/table/common.html">Concepts &amp; Common API</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+      
+      
+        
+        
+<li><a href="#collapse-78" data-toggle="collapse">Streaming Concepts <i class="fa fa-caret-down pull-right" aria-hidden="true" style="padding-top: 4px"></i></a><div class="collapse" id="collapse-78"><ul>
+  <li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/table/streaming/">Overview</a></li>
+        
+        
+        
+
+        
+        
+      
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/table/streaming/dynamic_tables.html">Dynamic Tables</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/table/streaming/time_attributes.html">Time Attributes</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/table/streaming/joins.html">Joins in Continuous Queries</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/table/streaming/temporal_tables.html">Temporal Tables</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/table/streaming/match_recognize.html">Detecting Patterns</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/table/streaming/query_configuration.html">Query Configuration</a></li>
+    
+  
+
+  
+    
+      
+      
+</ul></div>
+      
+      
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+</li><li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/table/connect.html">Connect to External Systems</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/table/tableApi.html">Table API</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/table/sql.html">SQL</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/table/functions.html">Built-In Functions</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/table/sourceSinks.html">User-defined Sources &amp; Sinks</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/table/udfs.html">User-defined Functions</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/table/sqlClient.html">SQL Client</a></li>
+    
+  
+
+  
+    
+      
+      
+</ul></div>
+      
+      
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+      
+      
+        
+        
+</li><li><a href="#collapse-94" data-toggle="collapse">Data Types &amp; Serialization <i class="fa fa-caret-down pull-right" aria-hidden="true" style="padding-top: 4px"></i></a><div class="collapse" id="collapse-94"><ul>
+  <li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/types_serialization.html">Overview</a></li>
+        
+        
+        
+
+        
+        
+      
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/custom_serializers.html">Custom Serializers</a></li>
+    
+  
+
+  
+    
+      
+      
+</ul></div>
+      
+      
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+      
+      
+        
+        
+</li><li><a href="#collapse-97" data-toggle="collapse">Managing Execution <i class="fa fa-caret-down pull-right" aria-hidden="true" style="padding-top: 4px"></i></a><div class="collapse" id="collapse-97"><ul>
+  
+        
+        
+        
+
+        
+        
+      
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/execution_configuration.html">Execution Configuration</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/packaging.html">Program Packaging</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/parallel.html">Parallel Execution</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/execution_plans.html">Execution Plans</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/restart_strategies.html">Restart Strategies</a></li>
+    
+  
+
+  
+    
+      
+      
+</ul></div>
+      
+      
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+      
+      
+        
+        
+</li><li><a href="#collapse-104" data-toggle="collapse">Libraries <i class="fa fa-caret-down pull-right" aria-hidden="true" style="padding-top: 4px"></i></a><div class="collapse" id="collapse-104"><ul>
+  
+        
+        
+        
+
+        
+        
+      
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/libs/cep.html">Event Processing (CEP)</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/libs/storm_compatibility.html">Storm Compatibility</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+      
+      
+        
+        
+<li><a href="#collapse-107" data-toggle="collapse">Graphs: Gelly <i class="fa fa-caret-down pull-right" aria-hidden="true" style="padding-top: 4px"></i></a><div class="collapse" id="collapse-107"><ul>
+  <li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/libs/gelly/">Overview</a></li>
+        
+        
+        
+
+        
+        
+      
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/libs/gelly/graph_api.html">Graph API</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/libs/gelly/iterative_graph_processing.html">Iterative Graph Processing</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/libs/gelly/library_methods.html">Library Methods</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/libs/gelly/graph_algorithms.html">Graph Algorithms</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/libs/gelly/graph_generators.html">Graph Generators</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/libs/gelly/bipartite_graph.html">Bipartite Graph</a></li>
+    
+  
+
+  
+    
+      
+      
+</ul></div>
+      
+      
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+      
+      
+        
+        
+</li><li><a href="#collapse-115" data-toggle="collapse">Machine Learning <i class="fa fa-caret-down pull-right" aria-hidden="true" style="padding-top: 4px"></i></a><div class="collapse" id="collapse-115"><ul>
+  <li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/libs/ml/">Overview</a></li>
+        
+        
+        
+
+        
+        
+      
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/libs/ml/quickstart.html">Quickstart</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/libs/ml/als.html">ALS</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/libs/ml/contribution_guide.html">How to Contribute</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/libs/ml/cross_validation.html">Cross Validation</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/libs/ml/distance_metrics.html">Distance Metrics</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/libs/ml/knn.html">k-Nearest Neighbors Join</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/libs/ml/min_max_scaler.html">MinMax Scaler</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/libs/ml/multiple_linear_regression.html">Multiple Linear Regression</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/libs/ml/pipelines.html">Pipelines</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/libs/ml/polynomial_features.html">Polynomial Features</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/libs/ml/sos.html">Stochastic Outlier Selection</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/libs/ml/standard_scaler.html">Standard Scaler</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/libs/ml/svm.html">SVM using CoCoA</a></li>
+    
+  
+
+  
+    
+      
+      
+</ul></div>
+      
+      
+    
+  
+
+  
+    
+      
+      
+</li></ul></div>
+      
+      
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+</li><li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/best_practices.html">Best Practices</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/migration.html">API Migration Guides</a></li>
+    
+  
+
+  
+    
+      
+      
+</ul></div>
+      
+      
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+      
+      
+        
+        
+</li><li><a href="#collapse-134" data-toggle="collapse"><i class="fa fa-sliders title maindish" aria-hidden="true"></i> Deployment &amp; Operations <i class="fa fa-caret-down pull-right" aria-hidden="true" style="padding-top: 4px"></i></a><div class="collapse" id="collapse-134"><ul>
+  
+        
+        
+        
+
+        
+        
+      
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+      
+      
+        
+        
+<li><a href="#collapse-135" data-toggle="collapse">Clusters &amp; Deployment <i class="fa fa-caret-down pull-right" aria-hidden="true" style="padding-top: 4px"></i></a><div class="collapse" id="collapse-135"><ul>
+  
+        
+        
+        
+
+        
+        
+      
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/ops/deployment/cluster_setup.html">Standalone Cluster</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/ops/deployment/yarn_setup.html">YARN</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/ops/deployment/mesos.html">Mesos</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/ops/deployment/docker.html">Docker</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/ops/deployment/kubernetes.html">Kubernetes</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/ops/deployment/aws.html">AWS</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/ops/deployment/gce_setup.html">Google Compute Engine</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/ops/deployment/mapr_setup.html">MapR</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/ops/deployment/hadoop.html">Hadoop Integration</a></li>
+    
+  
+
+  
+    
+      
+      
+</ul></div>
+      
+      
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+</li><li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/ops/jobmanager_high_availability.html">High Availability (HA)</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+      
+      
+        
+        
+<li><a href="#collapse-147" data-toggle="collapse">State &amp; Fault Tolerance <i class="fa fa-caret-down pull-right" aria-hidden="true" style="padding-top: 4px"></i></a><div class="collapse" id="collapse-147"><ul>
+  
+        
+        
+        
+
+        
+        
+      
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/ops/state/checkpoints.html">Checkpoints</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/ops/state/savepoints.html">Savepoints</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/ops/state/state_backends.html">State Backends</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/ops/state/large_state_tuning.html">Tuning Checkpoints and Large State</a></li>
+    
+  
+
+  
+    
+      
+      
+</ul></div>
+      
+      
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+      
+      
+</li><li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/ops/config.html">Configuration</a></li>
+      
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/ops/production_ready.html">Production Readiness Checklist</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/ops/cli.html">CLI</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/ops/scala_shell.html">Scala REPL</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/ops/security-kerberos.html">Kerberos</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/ops/security-ssl.html">SSL Setup</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/ops/filesystems.html">File Systems</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/ops/upgrading.html">Upgrading Applications and Flink Versions</a></li>
+    
+  
+
+  
+    
+      
+      
+</ul></div>
+      
+      
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+      
+      
+        
+        
+</li><li><a href="#collapse-162" data-toggle="collapse"><i class="fa fa-bug title maindish" aria-hidden="true"></i> Debugging &amp; Monitoring <i class="fa fa-caret-down pull-right" aria-hidden="true" style="padding-top: 4px"></i></a><div class="collapse" id="collapse-162"><ul>
+  
+        
+        
+        
+
+        
+        
+      
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/monitoring/metrics.html">Metrics</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/monitoring/logging.html">Logging</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/monitoring/historyserver.html">History Server</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/monitoring/checkpoint_monitoring.html">Monitoring Checkpointing</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/monitoring/back_pressure.html">Monitoring Back Pressure</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/monitoring/rest_api.html">Monitoring REST API</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/monitoring/debugging_event_time.html">Debugging Windows &amp; Event Time</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/monitoring/debugging_classloading.html">Debugging Classloading</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/monitoring/application_profiling.html">Application Profiling</a></li>
+    
+  
+
+  
+    
+      
+      
+</ul></div>
+      
+      
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    <hr class="section-break">
+
+    
+    
+      
+      
+        
+        
+</li><li><a href="#collapse-173" data-toggle="collapse"><i class="fa fa-cogs title dessert" aria-hidden="true"></i> Flink Development <i class="fa fa-caret-down pull-right" aria-hidden="true" style="padding-top: 4px"></i></a><div class="collapse" id="collapse-173"><ul>
+  
+        
+        
+        
+
+        
+        
+      
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/flinkDev/ide_setup.html">Importing Flink into an IDE</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/flinkDev/building.html">Building Flink from Source</a></li>
+    
+  
+
+  
+    
+      
+      
+</ul></div>
+      
+      
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+      
+      
+        
+        
+</li><li><a href="#collapse-177" data-toggle="collapse"><i class="fa fa-book title dessert" aria-hidden="true"></i> Internals <i class="fa fa-caret-down pull-right" aria-hidden="true" style="padding-top: 4px"></i></a><div class="collapse" id="collapse-177"><ul>
+  
+        
+        
+        
+
+        
+        
+      
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/internals/components.html">Component Stack</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/internals/stream_checkpointing.html">Fault Tolerance for Data Streaming</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/internals/job_scheduling.html">Jobs and Scheduling</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/internals/task_lifecycle.html">Task Lifecycle</a></li>
+    
+  
+
+  
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+    
+<li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/internals/filesystems.html">File Systems</a></li>
+    
+  
+
+  
+    
+      
+      
+</ul></div>
+      
+      
+    
+  
+
+  
+    
+      
+  </li><li class="divider"></li>
+  <li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/api/java"><i class="fa fa-external-link title" aria-hidden="true"></i> Javadocs</a></li>
+  <li><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/api/scala/index.html#org.apache.flink.api.scala.package"><i class="fa fa-external-link title" aria-hidden="true"></i> Scaladocs</a></li>
+  <li><a href="http://flink.apache.org/"><i class="fa fa-external-link title" aria-hidden="true"></i> Project Page</a></li>
+</ul>
+
+<div class="sidenav-search-box">
+  <form class="navbar-form" role="search" action="//ci.apache.org/projects/flink/flink-docs-release-1.7/search-results.html">
+    <div class="form-group">
+      <input type="text" class="form-control" size="16px" name="q" placeholder="Search">
+    </div>
+    <button type="submit" class="btn btn-default">Go</button>
+  </form>
+</div>
+
+<div class="sidenav-versions">
+  <div class="dropdown">
+    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Pick Docs Version
+    <span class="caret"></span></button>
+    <ul class="dropdown-menu">
+      
+      <li><a href="http://ci.apache.org/projects/flink/flink-docs-release-1.6">v1.6</a></li>
+      
+      <li><a href="http://ci.apache.org/projects/flink/flink-docs-release-1.5">v1.5</a></li>
+      
+      <li><a href="http://ci.apache.org/projects/flink/flink-docs-release-1.4">v1.4</a></li>
+      
+      <li><a href="http://ci.apache.org/projects/flink/flink-docs-release-1.3">v1.3</a></li>
+      
+      <li><a href="http://ci.apache.org/projects/flink/flink-docs-release-1.2">v1.2</a></li>
+      
+      <li><a href="http://ci.apache.org/projects/flink/flink-docs-release-1.1">v1.1</a></li>
+      
+      <li><a href="http://ci.apache.org/projects/flink/flink-docs-release-1.0">v1.0</a></li>
+      
+    </ul>
+  </div>
+</div>
+
+        </div>
+        <div class="col-lg-9 content" id="contentcol">
+          
+
+          
+
+
+
+
+
+  
+  
+    
+    
+      
+    
+  
+
+  
+  
+    
+    
+      
+
+
+
+<ol class="breadcrumb">
+
+  
+  
+    <li><i class="fa fa-map-o title appetizer" aria-hidden="true"></i> Concepts</li>
+  
+
+  
+  
+    <li class="active">Programming Model</li>
+  
+
+</ol>
+
+<h1 id="dataflow-programming-model">Dataflow Programming Model<a class="anchorjs-link " href="#dataflow-programming-model" aria-label="Anchor link for: dataflow programming model" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a></h1>
+
+
+
+
+<ul id="markdown-toc">
+  <li><a href="#levels-of-abstraction" id="markdown-toc-levels-of-abstraction">Levels of Abstraction</a></li>
+  <li><a href="#programs-and-dataflows" id="markdown-toc-programs-and-dataflows">Programs and Dataflows</a></li>
+  <li><a href="#parallel-dataflows" id="markdown-toc-parallel-dataflows">Parallel Dataflows</a></li>
+  <li><a href="#windows" id="markdown-toc-windows">Windows</a></li>
+  <li><a href="#time" id="markdown-toc-time">Time</a></li>
+  <li><a href="#stateful-operations" id="markdown-toc-stateful-operations">Stateful Operations</a></li>
+  <li><a href="#checkpoints-for-fault-tolerance" id="markdown-toc-checkpoints-for-fault-tolerance">Checkpoints for Fault Tolerance</a></li>
+  <li><a href="#batch-on-streaming" id="markdown-toc-batch-on-streaming">Batch on Streaming</a></li>
+  <li><a href="#next-steps" id="markdown-toc-next-steps">Next Steps</a></li>
+</ul>
+
+<h2 id="levels-of-abstraction">Levels of Abstraction<a class="anchorjs-link " href="#levels-of-abstraction" aria-label="Anchor link for: levels of abstraction" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a></h2>
+
+<p>Flink offers different levels of abstraction to develop streaming/batch applications.</p>
+
+<p><img src="Apache%20Flink%201.7%20Documentation:%20Dataflow%20Programming%20Model-Dateien/levels_of_abstraction.svg" alt="Programming levels of abstraction" class="offset" width="80%"></p>
+
+<ul>
+  <li>
+    <p>The lowest level abstraction simply offers <strong>stateful streaming</strong>. It is embedded into the <a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/datastream_api.html">DataStream API</a>
+via the <a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/stream/operators/process_function.html">Process Function</a>. It allows users freely process events from one or more streams,
+and use consistent fault tolerant <em>state</em>. In addition, users can register event time and processing time callbacks,
+allowing programs to realize sophisticated computations.</p>
+  </li>
+  <li>
+    <p>In practice, most applications would not need the above described low level abstraction, but would instead program against the
+<strong>Core APIs</strong> like the <a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/datastream_api.html">DataStream API</a> (bounded/unbounded streams) and the <a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/batch/index.html">DataSet API</a>
+(bounded data sets). These fluent APIs offer the common building blocks 
+for data processing, like various forms of user-specified
+transformations, joins, aggregations, windows, state, etc. Data types 
+processed in these APIs are represented as classes
+in the respective programming languages.</p>
+
+    <p>The low level <em>Process Function</em> integrates with the <em>DataStream API</em>, making it possible to go the lower level abstraction 
+for certain operations only. The <em>DataSet API</em> offers additional primitives on bounded data sets, like loops/iterations.</p>
+  </li>
+  <li>
+    <p>The <strong>Table API</strong> is a declarative DSL centered around <em>tables</em>, which may be dynamically changing tables (when representing streams).
+The <a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/table_api.html">Table API</a> follows the (extended) relational model: Tables have a schema attached (similar to tables in relational databases)
+and the API offers comparable operations, such as select, project, join, group-by, aggregate, etc.
+Table API programs declaratively define <em>what logical operation should be done</em> rather than specifying exactly
+   <em>how the code for the operation looks</em>. Though the Table API is extensible by various types of user-defined
+functions, it is less expressive than the <em>Core APIs</em>, but more concise to use (less code to write).
+In addition, Table API programs also go through an optimizer that applies optimization rules before execution.</p>
+
+    <p>One can seamlessly convert between tables and <em>DataStream</em>/<em>DataSet</em>, allowing programs to mix <em>Table API</em> and with the <em>DataStream</em>
+and <em>DataSet</em> APIs.</p>
+  </li>
+  <li>
+    <p>The highest level abstraction offered by Flink is <strong>SQL</strong>. This abstraction is similar to the <em>Table API</em> both in semantics and
+expressiveness, but represents programs as SQL query expressions.
+The <a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/table_api.html#sql">SQL</a> abstraction closely interacts with the Table API, and SQL queries can be executed over tables defined in the <em>Table API</em>.</p>
+  </li>
+</ul>
+
+<h2 id="programs-and-dataflows">Programs and Dataflows<a class="anchorjs-link " href="#programs-and-dataflows" aria-label="Anchor link for: programs and dataflows" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a></h2>
+
+<p>The basic building blocks of Flink programs are <strong>streams</strong> and <strong>transformations</strong>. (Note that the
+DataSets used in Flink’s DataSet API are also streams internally – more about that
+later.) Conceptually a <em>stream</em> is a (potentially never-ending) flow of data records, and a <em>transformation</em> is an
+operation that takes one or more streams as input, and produces one or more output streams as a
+result.</p>
+
+<p>When executed, Flink programs are mapped to <strong>streaming dataflows</strong>, consisting of <strong>streams</strong> and transformation <strong>operators</strong>.
+Each dataflow starts with one or more <strong>sources</strong> and ends in one or more <strong>sinks</strong>. The dataflows resemble
+arbitrary <strong>directed acyclic graphs</strong> <em>(DAGs)</em>. Although special forms of cycles are permitted via
+<em>iteration</em> constructs, for the most part we will gloss over this for simplicity.</p>
+
+<p><img src="Apache%20Flink%201.7%20Documentation:%20Dataflow%20Programming%20Model-Dateien/program_dataflow.svg" alt="A DataStream program, and its dataflow." class="offset" width="80%"></p>
+
+<p>Often there is a one-to-one correspondence between the transformations in the programs and the operators
+in the dataflow. Sometimes, however, one transformation may consist of multiple transformation operators.</p>
+
+<p>Sources and sinks are documented in the <a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/connectors/index.html">streaming connectors</a> and <a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/batch/connectors.html">batch connectors</a> docs.
+Transformations are documented in <a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/stream/operators/index.html">DataStream operators</a> and <a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/batch/dataset_transformations.html">DataSet transformations</a>.</p>
+
+<p><a href="#top" class="top pull-right"><span class="glyphicon glyphicon-chevron-up"></span> Back to top</a></p>
+
+<h2 id="parallel-dataflows">Parallel Dataflows<a class="anchorjs-link " href="#parallel-dataflows" aria-label="Anchor link for: parallel dataflows" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a></h2>
+
+<p>Programs in Flink are inherently parallel and distributed. During execution, a <em>stream</em> has one or more <strong>stream partitions</strong>,
+and each <em>operator</em> has one or more <strong>operator subtasks</strong>. The operator subtasks are independent of one another, and execute in different threads
+and possibly on different machines or containers.</p>
+
+<p>The number of operator subtasks is the <strong>parallelism</strong> of that particular operator. The parallelism of a stream
+is always that of its producing operator. Different operators of the same program may have different
+levels of parallelism.</p>
+
+<p><img src="Apache%20Flink%201.7%20Documentation:%20Dataflow%20Programming%20Model-Dateien/parallel_dataflow.svg" alt="A parallel dataflow" class="offset" width="80%"></p>
+
+<p>Streams can transport data between two operators in a <em>one-to-one</em> (or <em>forwarding</em>) pattern, or in a <em>redistributing</em> pattern:</p>
+
+<ul>
+  <li>
+    <p><strong>One-to-one</strong> streams (for example between the <em>Source</em> and the <em>map()</em> operators in the figure
+above) preserve the partitioning and ordering of the
+elements. That means that subtask[1] of the <em>map()</em> operator will see the same elements in the same order as they
+were produced by subtask[1] of the <em>Source</em> operator.</p>
+  </li>
+  <li>
+    <p><strong>Redistributing</strong> streams (as between <em>map()</em> and <em>keyBy/window</em> above, as well as between
+<em>keyBy/window</em> and <em>Sink</em>) change the partitioning of streams. Each <em>operator subtask</em> sends
+data to different target subtasks, depending on the selected transformation. Examples are
+<em>keyBy()</em> (which re-partitions by hashing the key), <em>broadcast()</em>, or <em>rebalance()</em> (which
+re-partitions randomly). In a <em>redistributing</em> exchange the ordering among the elements is
+only preserved within each pair of sending and receiving subtasks (for example, subtask[1]
+of <em>map()</em> and subtask[2] of <em>keyBy/window</em>). So in this example, the ordering within each key
+is preserved, but the parallelism does introduce non-determinism regarding the order in
+which the aggregated results for different keys arrive at the sink.</p>
+  </li>
+</ul>
+
+<p>Details about configuring and controlling parallelism can be found in the docs on <a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/parallel.html">parallel execution</a>.</p>
+
+<p><a href="#top" class="top pull-right"><span class="glyphicon glyphicon-chevron-up"></span> Back to top</a></p>
+
+<h2 id="windows">Windows<a class="anchorjs-link " href="#windows" aria-label="Anchor link for: windows" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a></h2>
+
+<p>Aggregating events (e.g., counts, sums) works differently on streams than in batch processing.
+For example, it is impossible to count all elements in a stream,
+because streams are in general infinite (unbounded). Instead, aggregates on streams (counts, sums, etc),
+are scoped by <strong>windows</strong>, such as <em>“count over the last 5 minutes”</em>, or <em>“sum of the last 100 elements”</em>.</p>
+
+<p>Windows can be <em>time driven</em> (example: every 30 seconds) or <em>data driven</em> (example: every 100 elements).
+One typically distinguishes different types of windows, such as <em>tumbling windows</em> (no overlap),
+<em>sliding windows</em> (with overlap), and <em>session windows</em> (punctuated by a gap of inactivity).</p>
+
+<p><img src="Apache%20Flink%201.7%20Documentation:%20Dataflow%20Programming%20Model-Dateien/windows.svg" alt="Time- and Count Windows" class="offset" width="80%"></p>
+
+<p>More window examples can be found in this <a href="https://flink.apache.org/news/2015/12/04/Introducing-windows.html">blog post</a>.
+More details are in the <a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/stream/operators/windows.html">window docs</a>.</p>
+
+<p><a href="#top" class="top pull-right"><span class="glyphicon glyphicon-chevron-up"></span> Back to top</a></p>
+
+<h2 id="time">Time<a class="anchorjs-link " href="#time" aria-label="Anchor link for: time" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a></h2>
+
+<p>When referring to time in a streaming program (for example to define windows), one can refer to different notions
+of time:</p>
+
+<ul>
+  <li>
+    <p><strong>Event Time</strong> is the time when an event was created. It is usually described by a timestamp in the events,
+for example attached by the producing sensor, or the producing service. Flink accesses event timestamps
+via <a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/event_timestamps_watermarks.html">timestamp assigners</a>.</p>
+  </li>
+  <li>
+    <p><strong>Ingestion time</strong> is the time when an event enters the Flink dataflow at the source operator.</p>
+  </li>
+  <li>
+    <p><strong>Processing Time</strong> is the local time at each operator that performs a time-based operation.</p>
+  </li>
+</ul>
+
+<p><img src="Apache%20Flink%201.7%20Documentation:%20Dataflow%20Programming%20Model-Dateien/event_ingestion_processing_time.svg" alt="Event Time, Ingestion Time, and Processing Time" class="offset" width="80%"></p>
+
+<p>More details on how to handle time are in the <a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/event_time.html">event time docs</a>.</p>
+
+<p><a href="#top" class="top pull-right"><span class="glyphicon glyphicon-chevron-up"></span> Back to top</a></p>
+
+<h2 id="stateful-operations">Stateful Operations<a class="anchorjs-link " href="#stateful-operations" aria-label="Anchor link for: stateful operations" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a></h2>
+
+<p>While many operations in a dataflow simply look at one individual <em>event at a time</em> (for example an event parser),
+some operations remember information across multiple events (for example window operators).
+These operations are called <strong>stateful</strong>.</p>
+
+<p>The state of stateful operations is maintained in what can be thought of as an embedded key/value store.
+The state is partitioned and distributed strictly together with the streams that are read by the
+stateful operators. Hence, access to the key/value state is only possible on <em>keyed streams</em>, after a <em>keyBy()</em> function,
+and is restricted to the values associated with the current event’s key. Aligning the keys of streams and state
+makes sure that all state updates are local operations, guaranteeing consistency without transaction overhead.
+This alignment also allows Flink to redistribute the state and adjust the stream partitioning transparently.</p>
+
+<p><img src="Apache%20Flink%201.7%20Documentation:%20Dataflow%20Programming%20Model-Dateien/state_partitioning.svg" alt="State and Partitioning" class="offset" width="50%"></p>
+
+<p>For more information, see the documentation on <a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/stream/state/index.html">state</a>.</p>
+
+<p><a href="#top" class="top pull-right"><span class="glyphicon glyphicon-chevron-up"></span> Back to top</a></p>
+
+<h2 id="checkpoints-for-fault-tolerance">Checkpoints for Fault Tolerance<a class="anchorjs-link " href="#checkpoints-for-fault-tolerance" aria-label="Anchor link for: checkpoints for fault tolerance" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a></h2>
+
+<p>Flink implements fault tolerance using a combination of <strong>stream replay</strong> and <strong>checkpointing</strong>. A
+checkpoint is related to a specific point in each of the input streams along with the corresponding state for each
+of the operators. A streaming dataflow can be resumed from a checkpoint while maintaining consistency <em>(exactly-once
+processing semantics)</em> by restoring the state of the operators and replaying the events from the
+point of the checkpoint.</p>
+
+<p>The checkpoint interval is a means of trading off the overhead of 
+fault tolerance during execution with the recovery time (the number
+of events that need to be replayed).</p>
+
+<p>The description of the <a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/internals/stream_checkpointing.html">fault tolerance internals</a> provides
+more information about how Flink manages checkpoints and related topics.
+Details about enabling and configuring checkpointing are in the <a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/stream/state/checkpointing.html">checkpointing API docs</a>.</p>
+
+<p><a href="#top" class="top pull-right"><span class="glyphicon glyphicon-chevron-up"></span> Back to top</a></p>
+
+<h2 id="batch-on-streaming">Batch on Streaming<a class="anchorjs-link " href="#batch-on-streaming" aria-label="Anchor link for: batch on streaming" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a></h2>
+
+<p>Flink executes <a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/batch/index.html">batch programs</a> as a special case of streaming programs, where the streams are bounded (finite number of elements).
+A <em>DataSet</em> is treated internally as a stream of data. The concepts above thus apply to batch programs in the
+same way as well as they apply to streaming programs, with minor exceptions:</p>
+
+<ul>
+  <li>
+    <p><a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/batch/fault_tolerance.html">Fault tolerance for batch programs</a> does not use checkpointing.
+Recovery happens by fully replaying the streams.
+That is possible, because inputs are bounded. This pushes the cost more towards the recovery,
+but makes the regular processing cheaper, because it avoids checkpoints.</p>
+  </li>
+  <li>
+    <p>Stateful operations in the DataSet API use simplified in-memory/out-of-core data structures, rather than
+key/value indexes.</p>
+  </li>
+  <li>
+    <p>The DataSet API introduces special synchronized (superstep-based) iterations, which are only possible on
+bounded streams. For details, check out the <a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/dev/batch/iterations.html">iteration docs</a>.</p>
+  </li>
+</ul>
+
+<p><a href="#top" class="top pull-right"><span class="glyphicon glyphicon-chevron-up"></span> Back to top</a></p>
+
+<h2 id="next-steps">Next Steps<a class="anchorjs-link " href="#next-steps" aria-label="Anchor link for: next steps" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a></h2>
+
+<p>Continue with the basic concepts in Flink’s <a href="https://ci.apache.org/projects/flink/flink-docs-release-1.7/concepts/runtime.html">Distributed Runtime</a>.</p>
+
+
+        </div>
+      </div>
+    </div><!-- /.container -->
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script async="" src="Apache%20Flink%201.7%20Documentation:%20Dataflow%20Programming%20Model-Dateien/analytics.js"></script><script src="Apache%20Flink%201.7%20Documentation:%20Dataflow%20Programming%20Model-Dateien/jquery.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="Apache%20Flink%201.7%20Documentation:%20Dataflow%20Programming%20Model-Dateien/bootstrap.js"></script>
+    <script src="Apache%20Flink%201.7%20Documentation:%20Dataflow%20Programming%20Model-Dateien/anchor.js"></script>
+    <script src="Apache%20Flink%201.7%20Documentation:%20Dataflow%20Programming%20Model-Dateien/flink.js"></script>
+
+    <!-- Google Analytics -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-52545728-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+
+    <!-- Disqus -->
+    
+  
+
+</body></html>
