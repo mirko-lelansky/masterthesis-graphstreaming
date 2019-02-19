@@ -19,66 +19,140 @@
 \setlength{\parskip}{\medskipamount}
 \begin{document}
 \begin{frame}
-\author{Mirko Lelansky}
-\title{Kolloquium: Evaluation aktueller Bibliotheken für Stream Graph Processing}
-\date{28.02.2019}
-\maketitle
+    \author{Mirko Lelansky}
+    \title{Kolloquium: Evaluation aktueller Bibliotheken für Stream Graph Processing}
+    \date{28.02.2019}
+    \maketitle
 \end{frame}
 
 \begin{frame}
-\tableofcontents
+    \tableofcontents
 \end{frame}
 
 \section{Einführung}
 \begin{frame}{Hintergründe}
-\begin{itemize}
-\item stetige Datenerzeugung
-\item Verarbeitung der Daten um Mehrwert zu generieren
-\item zum Beispiel welche Produkte liegen aktuell im Trend
-\item schnelle Ergebnisse gefordert
-\item durch Fortschritt und Entwicklung riesiger Datensprung
-\item unterschiedlich strukturierte Daten
-\end{itemize}
+    \begin{itemize}
+        \item stetige Datenerzeugung
+        \item Verarbeitung der Daten um Mehrwert zu generieren
+        \item zum Beispiel welche Produkte liegen aktuell im Trend
+        \item schnelle Ergebnisse gefordert
+        \item durch Fortschritt und Entwicklung riesiger Datensprung
+        \item unterschiedlich strukturierte Daten
+    \end{itemize}
 \end{frame}
 
 \begin{frame}{Graphen}
-\begin{itemize}
-\item komplexe Datenstruktur $ G = (V,E)$
-\item Liste von Knoten und Liste von Kanten
-\item Kante ist ein un- bzw. geordnetes Paar von Kanten
-\item Weg ist eine Menge von zusammenhängen Kanten
-\item mehrere Spezialfälle
-\end{itemize}
+    \begin{itemize}
+        \item komplexe Datenstruktur $ G = (V,E)$
+        \item Liste von Knoten und Liste von Kanten
+        \item Kante ist ein un- bzw. geordnetes Paar von Kanten
+        \item Weg ist eine Menge von zusammenhängen Kanten
+        \item spezielle Klassen von Wegen stellen Spezialfälle dar
+    \end{itemize}
 \end{frame}
 
 \begin{frame}{Problemstellung}
-\begin{itemize}
-\item unterschiedliche Anforderungen
-\item große Datenmengen
-\item schnelle Antwortzeiten
-\item komplexe Datenstrukturen
-\item Darstellung von Graphen für Verarbeitung
-\end{itemize}
+    \begin{itemize}
+        \item unterschiedliche Anforderungen
+        \item große Datenmengen
+        \item schnelle Antwortzeiten
+        \item komplexe Datenstrukturen
+        \item Darstellung von Graphen für Verarbeitung
+    \end{itemize}
 \end{frame}
 
 \begin{frame}{Aufgabenstellung}
-\begin{itemize}
-\item Bibliotheken suchen und wählen
-\item Bibliotheken anhand ihrere Eigenschaften vergleichen
-\item Funktionen demonstrieren
-\item mögliche Einstiegspunkte bzw. Erweiterungspunkte herausarbeiten
-\end{itemize}
+    \begin{itemize}
+        \item Bibliotheken suchen und wählen
+        \item Bibliotheken anhand ihrere Eigenschaften vergleichen
+        \item Funktionen demonstrieren
+        \item mögliche Einstiegspunkte bzw. Erweiterungspunkte herausarbeiten
+    \end{itemize}
 \end{frame}
 
 \begin{frame}{Motivation}
-\begin{itemize}
-\item tiefer in die Streaming-Materie einsteigen
-\item Verständnis von Graphen erweitern
-\item alternative BigData-Anwendung kennenlernen
-\end{itemize}
+    \begin{itemize}
+        \item tiefer in die Streaming-Materie einsteigen
+        \item Verständnis von Graphen erweitern
+        \item alternative BigData-Anwendung kennenlernen
+    \end{itemize}
+\end{frame}
+
+\section{Theorie}
+\begin{frame}{BigData-Methoden}
+    \begin{itemize}
+        \item zwei große BigData-Methoden
+        \item Batch-Processing und Stream-Processing
+        \item Batch-Processing arbeitet auf einem großen Datenblock
+        \item Stream-Processing arbeitet auf einem kontinuierlichen Datenstrom
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Entwicklung von Streaming}
+    \begin{itemize}
+        \item Streaming ist keine neue Idee, sondern wurde bereits als Modell
+            1980 entwickelt
+        \item RAM-Maschine verarbeitet einen Stream, eine Folge von Zeichen aus
+            einem Alphabet
+        \item Parameter der RAM-Maschine sind die Speichergröße und die Anzahl
+            der Durchläufe
+        \item spätere Modelle machen Einschränkungen auf der Speichergröße
+            oder den Durchläufen, bzw. erlauben zusätzliche Methoden auf dem
+            Stream
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Vorstellung der Bibliotheken}
+    \begin{itemize}
+        \item gelly-streaming(KTH Schweden), graphstream-project(LITIS),
+            Gephi(Universität of Technologie of Compiègne)
+        \item gelly-streaming ist eine Bibliothek für Apache Flink, die anderen
+            Bibiliotheken sind eigenständig
+        \item verschiedene Ansätze, welche alle noch teilweise im experimentellen
+            Stadium sind
+        \item gelly-streaming(Apache Flink), graphstream-project(Anwendung),
+            Gephi(Client-Server)
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Vergleich der Bibliotheken}
+    \begin{table}
+        \begin{tabular}{l|c|c|c}
+            Kriterium & gelly-streaming & graphstream-project & Gephi \\
+            \hline
+            Generatoren & (o) & + & + \\
+            Algorithmen & o & o & - \\
+            Verteilung & + & - & - \\
+            Connectoren & + & o & o \\
+        \end{tabular}
+    \end{table}
 \end{frame}
 
 \section{Analyse}
+\begin{frame}{Beschreibung des Beispieles}
+    \begin{itemize}
+        \item Ziel: Bipartiteheit eines Graphen
+        \item Alternative: Zwei-Farbenproblem eines Graphen 
+    \end{itemize}
+\end{frame}
+
 \section{Umsetzung}
+
 \section{Zusammenfassung}
+\begin{frame}{Fazit}
+    \begin{itemize}
+        \item Bibliotheken wurden allgemein verglichen
+        \item verschieden Designs wurden für die jeweiligen Bibliotheken ereugt
+        \item nicht alle Designs konnten umgesetzt werden
+        \item die Bibliotheken haben verschiedene Ansätze
+        \item alle habe noch experimentellen Status -> nicht für produktiven
+            Einsatz geeignet
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Quellen}
+    \begin{itemize}
+        \item Masterarbeit
+    \end{itemize}
+\end{frame}
 \end{document}
