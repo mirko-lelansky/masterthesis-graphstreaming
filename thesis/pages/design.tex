@@ -31,19 +31,18 @@ ungeraden Länge und lässt sich damit nie mit zwei Farben färben egal welcher
 Startknoten gewählt wurde. 
 
 \begin{figure}
-\centering
-\includegraphics[scale=0.5]{../material/images/bipartite-graph-six-nodes.jpg}
-\caption{bipartiter Graph mit Kreis der Länge sechs \parencite{GeeksforGeeks2018}}
-\label{fig:bipartite-six-nodes}
+    \centering
+    \includegraphics[scale=0.5]{../material/images/bipartite-graph-six-nodes.jpg}
+    \caption{bipartiter Graph mit Kreis der Länge sechs \parencite{GeeksforGeeks2018}}
+    \label{fig:bipartite-six-nodes}
 \end{figure}
 
 \begin{figure}
-\centering
-\includegraphics[scale=0.5]{../material/images/bipartite-graph-five-nodes.jpg}
-\caption{nicht bipartiter Graph mit Kreis der Länge fünf \parencite{GeeksforGeeks2018}}
-\label{fig:bipartite-five-nodes}
+    \centering
+    \includegraphics[scale=0.5]{../material/images/bipartite-graph-five-nodes.jpg}
+    \caption{nicht bipartiter Graph mit Kreis der Länge fünf \parencite{GeeksforGeeks2018}}
+    \label{fig:bipartite-five-nodes}
 \end{figure}
-
 
 Wie läuft das Beispiel nun konkret ab. Zunächst werden die Daten eingelesen. Dies
 erfolgt zur Vereinfachung über eine Datei. Dies kann jedoch jederzeit auf eine
@@ -173,9 +172,9 @@ StreamingController erlaubt es jedoch nur Event-Handler zu registrieren, welche
 auf Ereignisse reagieren können, wenn der Stream geschlossen wird.
 
 \begin{listing}
-\inputminted[breaklines=true]{java}{../material/code/GephiGraphHandler.java}
-\caption{prototypischer Einsatz für einen GraphHandler}
-\label{code:GephiGraphHandler}
+    \inputminted[breaklines=true]{java}{../material/code/GephiGraphHandler.java}
+    \caption{prototypischer Einsatz für einen GraphHandler}
+    \label{code:GephiGraphHandler}
 \end{listing}
 
 \section{Vergleich der Designs und Beschreibung der Probleme}
@@ -243,9 +242,9 @@ kann über einen speziellen GraphEventHandler auf die Events zugegriffen werden.
 Allerdings ist auch dort kein Zeitfenster vorgesehen.
 
 \begin{listing}
-\inputminted[breaklines=true]{java}{../material/code/GraphStreamInput.java}
-\caption{prototypischer Ablauf zum Einlesen von Daten bei \enquote{graphstream-project}}
-\label{code:GraphStreamInput}
+    \inputminted[breaklines=true]{java}{../material/code/GraphStreamInput.java}
+    \caption{prototypischer Ablauf zum Einlesen von Daten bei \enquote{graphstream-project}}
+    \label{code:GraphStreamInput}
 \end{listing}
 
 Beim Vergleich der Unterstützung von Algorithmen haben alle Bibliotheken noch

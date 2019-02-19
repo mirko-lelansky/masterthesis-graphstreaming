@@ -22,16 +22,16 @@ Bibliothek umgesetzt ist. Bei der Analyse des Beispieles fällt auf, dass die
 Anwendung vier Informationen benötigt:
 
 \begin{itemize}
-\item dem Pfad für die Kanten
-\item dem Pfad für die Ausgabe
-\item dem Zeitinterwall für das Fenster
-\item dem Trennzeichen für die Kanten
+    \item dem Pfad für die Kanten
+    \item dem Pfad für die Ausgabe
+    \item dem Zeitinterwall für das Fenster
+    \item dem Trennzeichen für die Kanten
 \end{itemize} 
 
 \begin{listing}
-\inputminted[breaklines=true]{java}{../material/code/BipartitenessCheckExample.java}
-\caption{Umsetzung von Bipartitness von \enquote{gelly-streaming} \cite{Kalavri2018}}
-\label{code:BipartiteGellyStreaming}
+    \inputminted[breaklines=true]{java}{../material/code/BipartitenessCheckExample.java}
+    \caption{Umsetzung von Bipartitness von \enquote{gelly-streaming} \cite{Kalavri2018}}
+    \label{code:BipartiteGellyStreaming}
 \end{listing}
 
 Die ersten beiden Parameter sind dabei die wichtigsten. Die beiden anderen
@@ -85,9 +85,9 @@ Daten trotzdem erfolgen muss, egal welche Eingabequelle vorhanden ist und ein
 Entwickler dann nicht mehr die \enquote{readTextFile}-Methode aufrufen kann.
 
 \begin{listing}
-\inputminted[breaklines=true]{java}{../material/code/GellyStreamingResult.java}
-\caption{Umsetzung von Bipartitness für \enquote{gelly-streaming}}
-\label{code:BipartiteReferenz}
+    \inputminted[breaklines=true]{java}{../material/code/GellyStreamingResult.java}
+    \caption{Umsetzung von Bipartitness für \enquote{gelly-streaming}}
+    \label{code:BipartiteReferenz}
 \end{listing}
 
 Die Ausgabe für verschiedene Eingaben hat Ähnlichkeiten zu einem
@@ -96,18 +96,18 @@ Struktur des Formates nicht. Das Listing \ref{code:BipartiteGellyResult} zeigt
 exemplarisch die Ausgabe von einem bipartiten Graphen.
 
 \begin{listing}
-\begin{minted}{text}
-(true, {1= {
-        1=(1,true),
-        2=(2,false),
-        3=(3,true),
-        4=(4,false),
-        5=(5,true),
-        6=(6,false)}
-})
-\end{minted}
-\caption{Ausgabe \enquote{gelly-streaming} für bipartiten Graph}
-\label{code:BipartiteGellyResult}
+    \begin{minted}{text}
+        (true, {1= {
+                1=(1,true),
+                2=(2,false),
+                3=(3,true),
+                4=(4,false),
+                5=(5,true),
+                6=(6,false)}
+        })
+    \end{minted}
+    \caption{Ausgabe \enquote{gelly-streaming} für bipartiten Graph}
+    \label{code:BipartiteGellyResult}
 \end{listing}
 
 Des Weiteren ergeben sich Probleme bei der Verwendung der Streaming-Umgebung.
@@ -142,9 +142,9 @@ erforderlich, da \enquote{graphstream-project} ein Protokoll bereitstellt und
 die Transformation automatisch beim Einlesen der Daten übernimmt.
 
 \begin{listing}
-\inputminted[breaklines=true]{java}{../material/code/GraphStreamProjectResult.java}
-\caption{Umsetzung von Bipartitness für \enquote{graphstream-project}}
-\label{code:GraphStreamProjectResult}
+    \inputminted[breaklines=true]{java}{../material/code/GraphStreamProjectResult.java}
+    \caption{Umsetzung von Bipartitness für \enquote{graphstream-project}}
+    \label{code:GraphStreamProjectResult}
 \end{listing}
 
 Wie schon im Entwurf beschrieben ist es nicht möglich die Events abzufragen,
@@ -176,22 +176,22 @@ Knoten. Da die Knoten nicht automatisch mit erzeugt werden, jedoch Voraussetzung
 für die Erstellung der Kanten sind.
 
 \begin{listing}
-\begin{minted}{text}
-The graph is bipartite: true
-The graph is bipartite: true
-The graph is bipartite: true
-The graph is bipartite: true
-The graph is bipartite: true
-The graph is bipartite: true
-The graph is bipartite: true
-The graph is bipartite: true
-The graph is bipartite: true
-The graph is bipartite: true
-The graph is bipartite: true
-The graph is bipartite: true
-The graph is bipartite: true
-The graph is bipartite: true
-The graph is bipartite: true
+    \begin{minted}{text}
+        The graph is bipartite: true
+        The graph is bipartite: true
+        The graph is bipartite: true
+        The graph is bipartite: true
+        The graph is bipartite: true
+        The graph is bipartite: true
+        The graph is bipartite: true
+        The graph is bipartite: true
+        The graph is bipartite: true
+        The graph is bipartite: true
+        The graph is bipartite: true
+        The graph is bipartite: true
+        The graph is bipartite: true
+        The graph is bipartite: true
+        The graph is bipartite: true
 \end{minted}
 \caption{Ausgabe \enquote{graphstream-project} für bipartiten Graphen}
 \label{code:BipartiteGraphStreamResult}

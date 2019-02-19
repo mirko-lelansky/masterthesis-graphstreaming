@@ -256,10 +256,10 @@ und Klassen für Datenfelder bzw. Listen. Diese werden dabei von der Engine in
 endliche Streams umgewandelt.
 
 \begin{figure}
-\centering
-\includegraphics[height=10cm, width=15cm]{../material/images/flink-stack-graphic.png}
-\caption{Architektur von Apache Flink \parencite{Foundation2018}}
-\label{fig:flink-architecture}
+    \centering
+    \includegraphics[height=10cm, width=15cm]{../material/images/flink-stack-graphic.png}
+    \caption{Architektur von Apache Flink \parencite{Foundation2018}}
+    \label{fig:flink-architecture}
 \end{figure}
 
 \foreigntextquote{english}[\cite{Foundation2018}]{
@@ -323,10 +323,10 @@ the way data attributes may appear, disappear and evolve.
 }
 
 \begin{figure}
-\centering
-\includegraphics[width=15cm]{../material/images/graphpipeline-graphstream.png}
-\caption{Architektur von graphstream-project \parencite{Team2018}}
-\label{fig:graphstream-project-architecture}
+    \centering
+    \includegraphics[width=15cm]{../material/images/graphpipeline-graphstream.png}
+    \caption{Architektur von graphstream-project \parencite{Team2018}}
+    \label{fig:graphstream-project-architecture}
 \end{figure}
 
 \subsection{Gephi}
@@ -356,10 +356,10 @@ Nachdem die Bibliotheken vorgestellt wurden, soll nun ein Vergleich erfolgen.
 Dabei soll das Augenmerk auf folgenden Punkten liegen:
 
 \begin{itemize}
-\item Generatoren
-\item Algorithmen
-\item Verteilung
-\item Connectoren
+    \item Generatoren
+    \item Algorithmen
+    \item Verteilung
+    \item Connectoren
 \end{itemize}
 
 \subsection{Generatoren}
@@ -382,9 +382,9 @@ Generatoren.
 Gelly provides a collection of scalable graph generators. Each generator is
 
 \begin{itemize}
-\item parallelizable, in order to create large datasets
-\item scale-free, generating the same graph regardless of parallelism
-\item thrifty, using as few operators as possible
+    \item parallelizable, in order to create large datasets
+    \item scale-free, generating the same graph regardless of parallelism
+    \item thrifty, using as few operators as possible
 \end{itemize}
 
 Graph generators are configured using the builder pattern. The parallelism of
@@ -400,11 +400,11 @@ generates the graph.
 \enquote{graphstream-project} hat die folgenden Generatoren:
 
 \begin{itemize}
-\item Flower Snark generator
-\item Full connected graph generator
-\item (Incomplete) grid generator
-\item Lobster generator
-\item etc.
+    \item Flower Snark generator
+    \item Full connected graph generator
+    \item (Incomplete) grid generator
+    \item Lobster generator
+    \item etc.
 \end{itemize}
 
 Bei \enquote{Gephi} können die Generatoren je nach Anforderung selbst
@@ -423,10 +423,10 @@ Dabei wird unterschieden zwischen Basisfunktionen und Komplexfunktionen.
 Zu den Basisfunktionen gehören:
 
 \begin{itemize}
-\item Abfragen von Eigenschaften
-\item Transformation eines Streams
-\item Berechnung von statistischen Werten
-\item etc.
+    \item Abfragen von Eigenschaften
+    \item Transformation eines Streams
+    \item Berechnung von statistischen Werten
+    \item etc.
 \end{itemize}
 
 Komplexfunktionen kombinieren mehrere Basisfunktionen, um eine komplexe Funktion
@@ -437,13 +437,13 @@ des Graphen Streams, des Streaming-Modells, der Umgebung,~\dots .
 folgenden Algorithmen bereit: \cite{Kalavri2018}
 
 \begin{itemize}
-\item Connected Components
-\item k-Spanner
-\item Bipartiteness Check
-\item Window Triangle Count
-\item Triangle Count Estimation
-\item Weighted Matching
-\item Continuous Degree Aggregate
+    \item Connected Components
+    \item k-Spanner
+    \item Bipartiteness Check
+    \item Window Triangle Count
+    \item Triangle Count Estimation
+    \item Weighted Matching
+    \item Continuous Degree Aggregate
 \end{itemize}
 
 Weitere Algorithmen lassen sich je nach Anwendungsfall umsetzen, zum Beispiel um
@@ -456,12 +456,12 @@ im Gegensatz zum theoretischen Modell keine mehrfachen Durchläufe gestattet sin
 \enquote{graphstream-project} stellt ebenfalls mehrere Algorithmen bereit wie:
 
 \begin{itemize}
-\item Betweenness Centrality
-\item Closeness
-\item Diameter
-\item Clustering Coefficient
-\item PageRank
-\item Community detection (Modularity)
+    \item Betweenness Centrality
+    \item Closeness
+    \item Diameter
+    \item Clustering Coefficient
+    \item PageRank
+    \item Community detection (Modularity)
 \end{itemize}
 
 Weitere Algorithmen lassen sich durch Implementierungen eines Interfaces umsetzen.
@@ -485,10 +485,10 @@ Knoten läuft, weil die Laufzeitumgebung Apache Flink dies unterstützt.
 Der Cluster kann dabei in den verschiedensten Umgebungen laufen wie: \parencite{Foundation2018}
 
 \begin{itemize}
-\item AWS
-\item Docker
-\item Kubernetes
-\item etc.
+    \item AWS
+    \item Docker
+    \item Kubernetes
+    \item etc.
 \end{itemize}
 
 Anwendungen von \enquote{graphstream-project} können nicht verteilt werden,
