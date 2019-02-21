@@ -7,11 +7,12 @@
 \usepackage{polyglossia}
 \setdefaultlanguage[spelling=new]{german}
 \setotherlanguage[variant=british]{english}
-\usepackage{csquotes}
-\usepackage[backend=biber, style=iso-authoryear]{biblatex}
+\usepackage[backend=biber, alldates=iso, style=iso-authoryear]{biblatex}
 \usepackage[section]{placeins}
-\usepackage{minted}
-\renewcommand{\listoflistingscaption}{Quellcodeverzeichnis}
+\usepackage[newfloat=true]{minted}
+\SetupFloatingEnvironment{listing}{name=Quellcode}
+\SetupFloatingEnvironment{listing}{listname=Quellcodeverzeichnis}
+\usepackage{csquotes}
 \usepackage{longtable, booktabs}
 \usepackage{graphicx, grffile}
 \usepackage{hyperref}
@@ -132,7 +133,9 @@
 \begin{frame}{Beschreibung des Beispieles}
     \begin{itemize}
         \item Ziel: Bipartiteheit eines Graphen
-        \item Alternative: Zwei-Farbenproblem eines Graphen 
+        \item Alternative: Zwei-Farbenproblem eines Graphen
+        \item mehrere mögliche Algorithmen
+        \item nur für kleine Graphen per Hand lösbar
     \end{itemize}
 \end{frame}
 
@@ -147,6 +150,16 @@
         \item die Bibliotheken haben verschiedene Ansätze
         \item alle habe noch experimentellen Status -> nicht für produktiven
             Einsatz geeignet
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{offene Punkte}
+    \begin{itemize}
+        \item wie verhalten sich die Bibliotheken bei großen Datenmengen
+        \item lässt sich Gephi anpassen
+        \item Speicherung des Graphen
+        \item Unterbau gelly-streaming(Apache Flink) vs graphstream-project
+        \item Bibliotheken $\Leftrightarrow$ Neo4J
     \end{itemize}
 \end{frame}
 
