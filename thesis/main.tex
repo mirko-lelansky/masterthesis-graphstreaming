@@ -13,9 +13,10 @@
 \usepackage[backend=biber, alldates=iso, style=iso-authoryear]{biblatex}
 \addbibresource{bib/main.bib}
 \usepackage[section]{placeins}
-\usepackage{minted}
+\usepackage[newfloat=true]{minted}
+\SetupFloatingEnvironment{listing}{name=Quellcode}
+\SetupFloatingEnvironment{listing}{listname=Quellcodeverzeichnis}
 \usepackage{csquotes}
-\renewcommand{\listoflistingscaption}{Quellcodeverzeichnis}
 \usepackage{longtable, booktabs}
 \usepackage{graphicx, grffile}
 \usepackage[pdfencoding=unicode, pdftitle={Evaluation aktueller Bibliotheken für Stream Graph Processing},
