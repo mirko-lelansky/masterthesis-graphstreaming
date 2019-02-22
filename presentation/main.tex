@@ -129,7 +129,7 @@
     \end{table}
 \end{frame}
 
-\section{Analyse}
+\section{Analyse und Umsetzung}
 \begin{frame}{Beschreibung des Beispieles}
     \begin{itemize}
         \item Ziel: Bipartiteheit eines Graphen
@@ -139,27 +139,69 @@
     \end{itemize}
 \end{frame}
 
-\section{Umsetzung}
+\begin{frame}{Beispiel Graph}
+    \centering
+    \includegraphics[scale=0.5]{../material/images/bipartite-graph-six-nodes.jpg}
+\end{frame}
 
-\section{Zusammenfassung}
-\begin{frame}{Fazit}
+\begin{frame}{Ablauf des Beispiel (EVA)}
     \begin{itemize}
-        \item Bibliotheken wurden allgemein verglichen
-        \item verschieden Designs wurden für die jeweiligen Bibliotheken ereugt
-        \item nicht alle Designs konnten umgesetzt werden
-        \item die Bibliotheken haben verschiedene Ansätze
-        \item alle habe noch experimentellen Status -> nicht für produktiven
-            Einsatz geeignet
+        \item Einlesen der Daten
+            \begin{itemize}
+                \item gelly-streaming hat Freiheitsgrade
+                \item die anderen Bibliotheken haben Protokoll
+            \end{itemize}
+        \item Verarbeitung der Daten
+            \begin{itemize}
+                \item gelly-streaming nutzt Infrastruktur von Apache Flink
+                \item graphstream-project nutzt normale Java-Techniken
+                \item Gephi nutzt Event-Listener
+            \end{itemize}
+        \item Ausgabe der Daten
+            \begin{itemize}
+                \item gelly-streaming Ausgabe erfolgt über Apache Flink
+                \item graphstream-project Ausgabe individuell
+                \item Gephi Ausgabe über UI
+            \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Umsetzung}
+    \begin{itemize}
+        \item verschiedene Design für die Bibliotheken erstellt
+        \item Umsetzung in gelly-streaming erfolgreich (\textbf{Apache Flink 1.2.0!})
+        \item Umsetzung in graphstream-project erfolgreich
+        \item Umsetzung in Gephi nicht erfolgreich
     \end{itemize}
 \end{frame}
 
 \begin{frame}{offene Punkte}
     \begin{itemize}
-        \item wie verhalten sich die Bibliotheken bei großen Datenmengen
-        \item lässt sich Gephi anpassen
-        \item Speicherung des Graphen
-        \item Unterbau gelly-streaming(Apache Flink) vs graphstream-project
-        \item Bibliotheken $\Leftrightarrow$ Neo4J
+        \item allgemein
+            \begin{itemize}
+                \item unterschiedliche Darstellungen
+                \item verhalten bei großen Datenmengen
+                \item Integration der Bibliotheken mit Neo4J
+            \end{itemize}
+        \item speziell
+            \begin{description}
+                \item[gelly-streaming] Speicherung des Graphen
+                \item[graphstream-project] Unterbau im Verhältnis zu Apache Flink
+                    speziell für Verteilung
+                \item[Gephi] apassen der Infrastruktur
+            \end{description}
+    \end{itemize}
+\end{frame}
+
+\section{Zusammenfassung}
+\begin{frame}{Fazit}
+    \begin{itemize}
+        \item Bibliotheken wurden allgemein verglichen
+        \item verschieden Designs wurden für die jeweiligen Bibliotheken erzeugt
+        \item nicht alle Designs konnten umgesetzt werden
+        \item die Bibliotheken haben verschiedene Ansätze
+        \item alle habe noch experimentellen Status -> nicht für produktiven
+            Einsatz geeignet
     \end{itemize}
 \end{frame}
 
